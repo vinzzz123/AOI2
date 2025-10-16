@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to AOI</title>
+  <style>
+    /* ----------------------- */
+    /* RESET STYLES */
+    /* ----------------------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: black;
+      background-color: white;
+      line-height: 1.6;
+      padding-top: clamp(60px, 10vw, 80px);
+    }
+
+    /* ----------------------- */
+    /* RESPONSIVE TYPOGRAPHY */
+    /* ----------------------- */
+    h1 {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      line-height: 1.3;
+    }
+
+    h3 {
+      font-size: clamp(1rem, 2.5vw, 1.8rem);
+      line-height: 1.4;
+    }
+
+    p, li {
+      font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+    }
+
+    /* ----------------------- */
+    /* NAVBAR STYLES - FULLY RESPONSIVE */
+    /* ----------------------- */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: clamp(10px, 2vw, 15px) clamp(15px, 5vw, 50px);
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      min-height: 70px;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: clamp(10px, 3vw, 20px);
+      flex-shrink: 0;
+    }
+
+    nav a.logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    nav img {
+      height: clamp(50px, 8vw, 75px);
+      width: auto;
+      object-fit: contain;
+    }
+
+    .desktop-menu {
+      list-style: none;
+      display: flex;
+      gap: clamp(15px, 3vw, 35px);
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .desktop-menu li {
+      list-style: none;
+    }
+
+    .desktop-menu li a {
+      text-decoration: none;
+      color: #000435;
+      font-weight: 600;
+      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+      transition: color 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .desktop-menu li a:hover {
+      color: #1a3d7c;
+    }
+
+    /* Dropdown */
+    .desktop-menu li.dropdown {
+      position: relative;
+    }
+
+    .desktop-menu li .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      padding: 10px 0;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      min-width: 220px;
+      margin-top: 5px;
+      list-style: none;
+      padding-left: 0;
+      z-index: 1000;
+    }
+
+    .desktop-menu li.dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    .desktop-menu li .dropdown-menu li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .desktop-menu li .dropdown-menu li::before {
+      content: none;
+      display: none;
+    }
+
+    .desktop-menu li .dropdown-menu li a {
+      display: block;
+      padding: 10px 20px;
+      color: #000435;
+      font-size: clamp(0.8rem, 1.2vw, 1rem);
+      font-weight: 500;
+    }
+
+    .desktop-menu li .dropdown-menu li a:hover {
+      background: #f0f4ff;
+      color: #1a3d7c;
+    }
+
+    .hamburger-menu {
+      display: none;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      color: #000435;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      z-index: 1001;
+      padding: 5px;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      height: 100vh;
+      background-color: white;
+      transition: right 0.3s ease-in-out;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: clamp(80px, 15vw, 100px);
+      overflow-y: auto;
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-menu ul {
+      list-style: none;
+      width: 100%;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .mobile-menu li {
+      margin-bottom: clamp(15px, 3vw, 20px);
+      list-style: none;
+    }
+
+    .mobile-menu li a {
+      color: #000435;
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
+      font-weight: 600;
+      text-decoration: none;
+      display: block;
+      padding: clamp(8px, 2vw, 10px) 0;
+    }
+
+    .mobile-menu li a:hover {
+      background-color: #f0f4ff;
+    }
+
+    .mobile-menu .dropdown-menu {
+      display: block;
+      position: static;
+      background: transparent;
+      box-shadow: none;
+      padding: 0;
+      margin-top: 10px;
+      list-style: none;
+    }
+
+    .mobile-menu .dropdown-menu li {
+      list-style: none;
+    }
+
+    .mobile-menu .dropdown-menu li a {
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      padding-left: 20px;
+      color: #666;
+    }
+
+    /* ----------------------- */
+    /* VIDEO SECTION - FULLY RESPONSIVE */
+    /* ----------------------- */
+    .film-section {
+      padding: clamp(60px, 10vw, 80px) clamp(15px, 3vw, 20px);
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .film-header h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin-bottom: clamp(25px, 4vw, 30px);
+      color: #000053;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      width: 100%;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0; 
+      left: 0;
+      width: 100%; 
+      height: 100%;
+      border: none;
+    }
+
+    /* ----------------------- */
+    /* SUMMARY SECTION - FULLY RESPONSIVE */
+    /* ----------------------- */
+    .summary {
+      max-width: min(1300px, 95vw);
+      margin: clamp(30px, 5vw, 40px) auto;
+      padding: clamp(15px, 3vw, 20px);
+      line-height: 1.8;
+      font-weight: 600;
+    }
+
+    .summary h3 {
+      font-size: clamp(1.4rem, 3vw, 1.8rem);
+      color: #000053;
+      margin-bottom: clamp(15px, 3vw, 20px);
+      text-align: center;
+    }
+
+    .summary p {
+      margin-bottom: clamp(15px, 3vw, 20px);
+      text-align: justify;
+      font-size: clamp(1rem, 2vw, 1.4rem);
+    }
+
+    /* ----------------------- */
+    /* PROFESSOR PROFILE SECTION - FULLY RESPONSIVE */
+    /* ----------------------- */
+    .profile {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(20px, 4vw, 30px);
+      max-width: min(1300px, 95vw);
+      margin: clamp(50px, 8vw, 60px) auto;
+      padding: clamp(20px, 4vw, 30px) clamp(15px, 3vw, 20px);
+      background-color: #f0f7ff;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+
+    .profile img {
+      max-width: min(250px, 80vw);
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      margin: 0 auto;
+    }
+
+    .profile-content {
+      text-align: center;
+    }
+
+    .profile-content h3 {
+      font-size: clamp(1.4rem, 3vw, 1.8rem);
+      margin-bottom: clamp(15px, 3vw, 20px);
+      color: #000053;
+    }
+
+    .profile-content ul {
+      list-style: none;
+      padding-left: 0;
+      text-align: left;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .profile-content ul li {
+      margin-bottom: clamp(10px, 2vw, 12px);
+      padding-left: clamp(18px, 4vw, 20px);
+      position: relative;
+      font-weight: 600;
+      font-size: clamp(0.9rem, 1.8vw, 1rem);
+      list-style: none;
+    }
+
+    .profile-content ul li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #000053;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+    }
+
+    /* ----------------------- */
+    /* FOOTER - FULLY RESPONSIVE */
+    /* ----------------------- */
+    .footer {
+      background-color: #000435;
+      color: #fff;
+      width: 100%;
+      padding: clamp(30px, 5vw, 40px) clamp(15px, 3vw, 20px);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(20px, 4vw, 25px);
+      text-align: center;
+      margin-top: clamp(40px, 6vw, 50px);
+    }
+
+    .footer-left {
+      max-width: 100%;
+      line-height: 1.8;
+    }
+
+    .footer-left h2 {
+      margin-bottom: 15px;
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+    }
+
+    .footer-left p {
+      font-size: clamp(0.9rem, 1.8vw, 1rem);
+    }
+
+    .footer-right {
+      display: flex;
+      gap: clamp(15px, 4vw, 20px);
+      font-size: clamp(24px, 5vw, 28px);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .footer-right a {
+      color: #fff;
+      transition: color 0.3s ease;
+      padding: 10px;
+    }
+
+    /* Hover colors by brand */
+    .footer-right a:hover .fa-instagram { color: #E4405F; }
+    .footer-right a:hover .fa-facebook { color: #1877F2; }
+    .footer-right a:hover .fa-tiktok { color: #000; }
+    .footer-right a:hover .fa-whatsapp { color: #25D366; }
+
+    /* ----------------------- */
+    /* MEDIA QUERIES FOR SPECIFIC BREAKPOINTS */
+    /* ----------------------- */
+
+    /* Tablet and larger */
+    @media (min-width: 768px) {
+      .desktop-menu {
+        display: flex !important;
+      }
+      
+      .hamburger-menu {
+        display: none !important;
+      }
+      
+      .profile {
+        grid-template-columns: auto 1fr;
+        text-align: left;
+        align-items: flex-start;
+      }
+      
+      .profile-content {
+        text-align: left;
+      }
+      
+      .footer {
+        grid-template-columns: 1fr auto;
+        text-align: left;
+      }
+      
+      .footer-right {
+        justify-content: flex-end;
+      }
+    }
+
+    /* Mobile only */
+    @media (max-width: 767px) {
+      .desktop-menu {
+        display: none !important;
+      }
+
+      .hamburger-menu {
+        display: block !important;
+      }
+      
+      body {
+        padding-top: 70px;
+      }
+    }
+
+    /* Small mobile */
+    @media (max-width: 480px) {
+      nav {
+        padding: 8px 15px;
+        min-height: 60px;
+      }
+      
+      body {
+        padding-top: 60px;
+      }
+      
+      .film-section {
+        padding: clamp(40px, 8vw, 60px) clamp(10px, 2vw, 15px);
+      }
+      
+      .summary {
+        margin: clamp(20px, 4vw, 30px) auto;
+        padding: clamp(10px, 2vw, 15px);
+      }
+      
+      .profile {
+        margin: clamp(30px, 6vw, 40px) auto;
+        padding: clamp(15px, 3vw, 25px) clamp(10px, 2vw, 15px);
+      }
+    }
+
+    /* Very small screens */
+    @media (max-width: 320px) {
+      .film-header h2 {
+        font-size: clamp(1.2rem, 5vw, 1.5rem);
+      }
+      
+      .summary h3 {
+        font-size: clamp(1.2rem, 5vw, 1.4rem);
+      }
+      
+      .profile-content h3 {
+        font-size: clamp(1.2rem, 5vw, 1.4rem);
+      }
+    }
+
+    /* Print styles */
+    @media print {
+      nav, .hamburger-menu, .mobile-menu {
+        display: none !important;
+      }
+      
+      body {
+        padding-top: 0 !important;
+      }
+      
+      .video-wrapper {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="logo-container">
+      <a href="Home.html" class="logo">
+        <img src="./Assets/AOI.png" alt="AOI Logo">
+      </a>
+      <div class="hamburger-menu" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+    
+    <ul class="desktop-menu">
+      <li><a href="Home.html">BERANDA</a></li>
+      <li><a href="AOI.html">TENTANG AOI</a></li>
+      <li class="dropdown">
+        <a href="#">FILM AOI ▾</a>
+        <ul class="dropdown-menu">
+          <li><a href="./Introduction.html">Introduction</a></li>
+          <li><a href="./Sports.html">Sports Performance</a></li>
+          <li><a href="./Diet and Beauty.html">Diet and Beauty</a></li>
+        </ul>
+      </li>
+      <li><a href="Home.html#products">PRODUK KAMI</a></li>
+      <li><a href="Home.html#stores">BELI DI MANA</a></li>
+      <li><a href="#footer">HUBUNGI KAMI</a></li>
+    </ul>
+  </nav>
+
+  <div class="mobile-menu">
+    <ul>
+      <li><a href="Home.html" onclick="toggleMobileMenu()">BERANDA</a></li>
+      <li><a href="AOI.html" onclick="toggleMobileMenu()">TENTANG AOI</a></li>
+      <li class="dropdown">
+        <a href="#">FILM AOI ▾</a>
+        <ul class="dropdown-menu">
+          <li><a href="./Introduction.html" onclick="toggleMobileMenu()">Introduction</a></li>
+          <li><a href="./Sports.html" onclick="toggleMobileMenu()">Sports Performance</a></li>
+          <li><a href="./Diet and Beauty.html" onclick="toggleMobileMenu()">Diet and Beauty</a></li>
+        </ul>
+      </li>
+      <li><a href="Home.html#products" onclick="toggleMobileMenu()">PRODUK KAMI</a></li>
+      <li><a href="Home.html#stores" onclick="toggleMobileMenu()">BELI DI MANA</a></li>
+      <li><a href="#footer" onclick="toggleMobileMenu()">HUBUNGI KAMI</a></li>
+    </ul>
+  </div>
+
+  <!-- Introduction Section -->
+  <section id="film-intro" class="film-section">
+    <div class="film-header">
+      <h2>Introduction to AOI: Nano Cluster Water</h2>
+    </div>
+    <div class="video-wrapper">
+      <iframe 
+        src="https://www.youtube.com/embed/3r7KZnPNiLc" 
+        title="Introduction to AOI: Nano Cluster Water"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+
+  <!-- Summary Section -->
+  <section class="summary">
+    <h3>Cara Kerja Nano Cluster Water</h3>
+    <p>
+      Sains dibalik setiap air yang kita minum sehari-hari  
+      Untuk memahami lebih jauh tentang salah satu sumber kehidupan yang kita konsumsi sehari-hari yaitu air dan bagaimana air bekerja dalam tubuh kita, kita harus memahami sifat kimia dan cara kerjanya di dalam tubuh kita.
+    </p>
+    <p>
+      Molekul air tidak bersifat independen sebagai satu-satunya molekul di lingkungan alaminya. Beberapa molekul selalu membentuk kelompok molekul yang disebut dengan "Kelompok atau kluster air". Kita bisa meningkatkan permeabilitas dan kemampuan tubuh menyerap air dengan cara memotong hubungan antara molekul air, kemudian molekul gugus air besar dipisahkan menjadi kluster air yang lebih kecil.
+    </p>
+    <p>
+      Kluster molekul air yang lebih kecil ini mampu menembus dengan lancar ke dalam pembuluh darah kapiler kita. Dengan meminum air yang mengandung lebih sedikit molekul, kita pun dapat menghidrasi tubuh lebih cepat dan efektif dan meningkatkan metabolisme tubuh sehari-hari untuk bekerja lebih baik.
+    </p>
+  </section>
+
+  <!-- Professor Profile -->
+  <section class="profile">
+    <img src="./Assets/Professor.jpg" alt="Prof. Uzawa Masakazu">
+    <div class="profile-content">
+      <h3>Prof. Uzawa Masakazu's Profile</h3>
+      <ul>
+        <li>1980 — Graduated from Tokyo Denki University</li>
+        <li>1990 — Researching Water and Health with Ph.D. of Medical Doctor</li>
+        <li>1995 — Researching with National Institute of Health Science</li>
+        <li>1996 — Researching with President of World Brain Metabolism, Mr. Kogure Hisaya</li>
+        <li>1997 — USA Patent: Water Processing Method</li>
+        <li>2001 — Supplied water for athletes at Fukuoka World Swimming Championships</li>
+        <li>2004 — Japan Patent: Water Processing Method</li>
+        <li>2005 — Research for The Foundation of Ocean Policy Research</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="footer" id="footer">
+    <div class="footer-left">
+      <h2>HUBUNGI KAMI</h2>
+      <p>
+        PT Santini Logmax Indonesia<br>
+        Jl. Komp. Kawasan, RT.10/RW.3, Semper Timur,<br>
+        Kec. Cilincing,<br>
+        Jakarta Utara,<br>
+        Daerah Khusus Ibukota Jakarta 14130
+      </p>
+      <p><strong>Tel:</strong> +62214400528</p>
+      <p><strong>Jam Operasional:</strong> 08.00 - 16.30</p>
+    </div>
+
+    <div class="footer-right">
+      <a href="https://www.instagram.com/aoi.nanowater/" target="_blank" aria-label="Instagram">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+      <a href="https://www.facebook.com/aoinanowater" target="_blank" aria-label="Facebook">
+        <i class="fa-brands fa-facebook"></i>
+      </a>
+      <a href="https://www.tiktok.com/@aoi.nanowater?_t=ZS-8znAJ31PL0O&_r=1" target="_blank" aria-label="TikTok">
+        <i class="fa-brands fa-tiktok"></i>
+      </a>
+      <a href="https://wa.me/6282210108811" target="_blank" aria-label="WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      const mobileMenu = document.querySelector('.mobile-menu');
+      const hamburger = document.querySelector('.hamburger-menu');
+      
+      if (mobileMenu && hamburger) {
+        mobileMenu.classList.toggle('active');
+        
+        const icon = hamburger.querySelector('i');
+        if (mobileMenu.classList.contains('active')) {
+          icon.className = 'fas fa-times';
+        } else {
+          icon.className = 'fas fa-bars';
+        }
+      }
+    }
+
+    document.addEventListener('click', function(event) {
+      const mobileMenu = document.querySelector('.mobile-menu');
+      const hamburger = document.querySelector('.hamburger-menu');
+      
+      if (mobileMenu && hamburger && 
+          !mobileMenu.contains(event.target) && 
+          !hamburger.contains(event.target)) {
+        if (mobileMenu.classList.contains('active')) {
+          toggleMobileMenu();
+        }
+      }
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          const navHeight = document.querySelector('nav').offsetHeight;
+          const targetPosition = target.offsetTop - navHeight - 20;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+          
+          const mobileMenu = document.querySelector('.mobile-menu');
+          if (mobileMenu && mobileMenu.classList.contains('active')) {
+            toggleMobileMenu();
+          }
+        }
+      });
+    });
+
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.film-section, .summary, .profile').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const mobileMenu = document.querySelector('.mobile-menu');
+        if (mobileMenu && mobileMenu.classList.contains('active')) {
+          toggleMobileMenu();
+        }
+      }
+    });
+  </script>
+</body>
+</html>

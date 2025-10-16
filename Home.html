@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>AOI Nano Cluster Water</title>
+  <style>
+  /* ======================= */
+  /* RESET & BASE STYLES */
+  /* ======================= */
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --color-primary: #000435;
+    --color-primary-light: #1a3d7c;
+    --color-accent: #6d87b9;
+    --color-white: #ffffff;
+    --color-gray-light: #f8f9fa;
+    --color-gray: #666666;
+    --color-text: #000000;
+    
+    --spacing-xs: clamp(0.5rem, 1vw, 0.75rem);
+    --spacing-sm: clamp(0.75rem, 1.5vw, 1rem);
+    --spacing-md: clamp(1rem, 2vw, 1.5rem);
+    --spacing-lg: clamp(1.5rem, 3vw, 2.5rem);
+    --spacing-xl: clamp(2rem, 4vw, 4rem);
+    --spacing-2xl: clamp(3rem, 6vw, 6rem);
+    
+    --font-size-sm: clamp(0.875rem, 1.5vw, 1rem);
+    --font-size-base: clamp(1rem, 2vw, 1.125rem);
+    --font-size-lg: clamp(1.125rem, 2.5vw, 1.5rem);
+    --font-size-xl: clamp(1.5rem, 3.5vw, 2.25rem);
+    --font-size-2xl: clamp(2rem, 5vw, 3rem);
+    
+    --container-max: 1400px;
+    --container-padding: clamp(1rem, 5vw, 3rem);
+    
+    --transition-base: all 0.3s ease;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.15);
+    --shadow-lg: 0 8px 20px rgba(0,0,0,0.2);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: var(--color-text);
+    background-color: var(--color-white);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ======================= */
+  /* CONTAINER UTILITY */
+  /* ======================= */
+  .container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+
+  /* ======================= */
+  /* NAVIGATION */
+  /* ======================= */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: transparent;
+    z-index: 1000;
+    transition: var(--transition-base);
+    padding: var(--spacing-md) var(--container-padding);
+  }
+
+  nav.scrolled {
+    background: var(--color-white);
+    box-shadow: var(--shadow-sm);
+    
+  }
+
+  .nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    gap: var(--spacing-md);
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    flex-shrink: 0;
+    z-index: 1001;
+  }
+
+  nav .logo img {
+    height: clamp(45px, 7vw, 70px);
+    width: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .desktop-menu {
+    list-style: none;
+    display: none;
+    gap: clamp(1rem, 2.5vw, 2.5rem);
+    align-items: center;
+    margin: 0;
+  }
+
+  .desktop-menu li a {
+    text-decoration: none;
+    color: var(--color-white);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    transition: var(--transition-base);
+    white-space: nowrap;
+    display: block;
+    padding: var(--spacing-xs);
+  }
+
+  nav.scrolled .desktop-menu li a {
+    color: var(--color-primary);
+  }
+
+  .desktop-menu li a:hover {
+    color: var(--color-accent);
+  }
+
+  /* Dropdown */
+  .desktop-menu li.dropdown {
+  position: relative;
+}
+
+.desktop-menu li .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--color-white);
+  padding: var(--spacing-sm) 0;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  min-width: 220px;
+  margin-top: var(--spacing-xs);
+  list-style-type: none; /* Add this */
+  padding-left: 0; /* Add this - removes default padding */
+}
+
+.desktop-menu li.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.desktop-menu li .dropdown-menu li {
+  list-style-type: none; /* Add this */
+  list-style: none; /* Add this */
+  margin: 0; /* Add this */
+  padding: 0; /* Add this */
+}
+
+.desktop-menu li .dropdown-menu li::before {
+  content: none; /* Add this - removes any pseudo-element bullets */
+  display: none; /* Add this */
+}
+
+.desktop-menu li .dropdown-menu li a {
+  display: block;
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--color-primary);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+}
+
+.desktop-menu li .dropdown-menu li a:hover {
+  background: var(--color-gray-light);
+}
+  /* Mobile Menu */
+  .hamburger-menu {
+    display: block;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    color: var(--color-white);
+    cursor: pointer;
+    transition: var(--transition-base);
+    z-index: 1001;
+    padding: var(--spacing-xs);
+    background: none;
+    border: none;
+  }
+
+  nav.scrolled .hamburger-menu {
+    color: var(--color-primary);
+  }
+
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: min(100%, 400px);
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for mobile browsers */
+    background-color: var(--color-white);
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    padding-top: clamp(80px, 15vh, 120px);
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .mobile-menu.active {
+    right: 0;
+  }
+
+  .mobile-menu ul {
+    list-style: none;
+    width: 100%;
+    text-align: center;
+    padding: 0 var(--spacing-lg);
+  }
+
+  .mobile-menu li {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .mobile-menu li a {
+    color: var(--color-primary);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    text-decoration: none;
+    display: block;
+    padding: var(--spacing-sm) 0;
+    transition: var(--transition-base);
+  }
+
+  .mobile-menu li a:hover {
+    background-color: var(--color-gray-light);
+    color: var(--color-primary-light);
+  }
+
+  .mobile-menu .dropdown-menu {
+    display: block;
+    position: static;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    margin-top: var(--spacing-sm);
+  }
+
+  .mobile-menu .dropdown-menu li a {
+    font-size: var(--font-size-base);
+    padding-left: var(--spacing-lg);
+    color: var(--color-gray);
+  }
+
+  /* ======================= */
+  /* HERO SECTION */
+  /* ======================= */
+  .hero {
+    position: relative;
+    min-height: max(500px, 100vh);
+    min-height: max(500px, 100dvh);
+    width: 100%;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.3)), 
+                url("https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-2xl) var(--container-padding);
+  }
+
+  .hero-content {
+    text-align: center;
+    max-width: 800px;
+    color: var(--color-white);
+    animation: fadeInUp 1s ease-out;
+  }
+
+  .hero-content h1 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-lg);
+    font-weight: 700;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.5rem);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 8px;
+    font-size: var(--font-size-base);
+    transition: var(--transition-base);
+    margin-top: var(--spacing-md);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-primary:hover,
+  .btn-primary:focus {
+    background-color: var(--color-primary-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* ======================= */
+  /* ABOUT SECTION */
+  /* ======================= */
+  .about {
+    padding: var(--spacing-2xl) 0;
+    background: var(--color-white);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+    align-items: center;
+  }
+
+  .about-image {
+    text-align: center;
+    order: 1;
+  }
+
+  .about-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    max-height: min(500px, 60vh);
+    object-fit: contain;
+  }
+
+  .about-text {
+    order: 2;
+  }
+
+  .about-header h2 {
+    font-size: var(--font-size-xl);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+    font-weight: 700;
+  }
+
+  .about-header h3 {
+    font-size: var(--font-size-lg);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-md);
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  .divider {
+    display: inline-block;
+    width: clamp(50px, 10vw, 80px);
+    height: 3px;
+    background: var(--color-primary);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .about-content p {
+    color: var(--color-text);
+    line-height: 1.8;
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-base);
+  }
+
+  /* ======================= */
+  /* PRODUCTS SECTION */
+  /* ======================= */
+  .products {
+    padding: var(--spacing-2xl) 0;
+    background: var(--color-gray-light);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .section-header h2 {
+    font-size: var(--font-size-xl);
+    color: var(--color-primary);
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: var(--spacing-xl);
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .product-card {
+    background: var(--color-white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-lg);
+    text-align: center;
+    transition: var(--transition-base);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .product-card img {
+    height: clamp(200px, 35vw, 320px);
+    width: auto;
+    object-fit: contain;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .product-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  /* ======================= */
+  /* STORES SECTION */
+  /* ======================= */
+  .stores {
+    padding: var(--spacing-2xl) 0;
+    background: var(--color-white);
+  }
+
+  .slider-wrapper {
+    position: relative;
+    max-width: 100%;
+    margin: var(--spacing-xl) auto 0;
+    overflow: hidden;
+    padding: var(--spacing-md) 0;
+  }
+
+  .slider-track {
+    display: flex;
+    gap: var(--spacing-md);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0 var(--spacing-sm);
+  }
+
+  .store-card {
+    min-width: clamp(100px, 20vw, 180px);
+    height: clamp(80px, 15vw, 140px);
+    background: var(--color-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-base);
+    flex-shrink: 0;
+    padding: var(--spacing-sm);
+  }
+
+  .store-card:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+  }
+
+  .store-card img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+  }
+
+  .slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    cursor: pointer;
+    border-radius: 50%;
+    width: clamp(40px, 7vw, 50px);
+    height: clamp(40px, 7vw, 50px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    transition: var(--transition-base);
+    border: none;
+  }
+
+  .slider-arrow:hover:not(:disabled) {
+    background: var(--color-primary);
+    color: var(--color-white);
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .slider-arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .slider-arrow.left {
+    left: var(--spacing-sm);
+  }
+
+  .slider-arrow.right {
+    right: var(--spacing-sm);
+  }
+
+  /* ======================= */
+  /* FOOTER */
+  /* ======================= */
+  .footer {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: var(--spacing-xl) 0;
+    margin-top: var(--spacing-2xl);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    text-align: center;
+  }
+
+  .footer-left h2 {
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-lg);
+  }
+
+  .footer-left p {
+    font-size: var(--font-size-sm);
+    line-height: 1.8;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .footer-social {
+    display: flex;
+    gap: var(--spacing-md);
+    font-size: clamp(24px, 5vw, 32px);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .footer-social a {
+    color: var(--color-white);
+    transition: var(--transition-base);
+    padding: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer-social a:hover .fa-instagram { color: #E4405F; }
+  .footer-social a:hover .fa-facebook { color: #1877F2; }
+  .footer-social a:hover .fa-tiktok { color: #69C9D0; }
+  .footer-social a:hover .fa-whatsapp { color: #25D366; }
+
+  /* ======================= */
+  /* ANIMATIONS */
+  /* ======================= */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ======================= */
+  /* MEDIA QUERIES */
+  /* ======================= */
+  
+  /* Small devices (landscape phones) */
+  @media (min-width: 576px) {
+    .mobile-menu {
+      width: 400px;
+    }
+  }
+
+  /* Medium devices (tablets) */
+  @media (min-width: 768px) {
+    .desktop-menu {
+      display: flex;
+    }
+    
+    .hamburger-menu {
+      display: none;
+    }
+    
+    .about-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .about-text {
+      text-align: left;
+      order: 1;
+    }
+    
+    .about-image {
+      order: 2;
+    }
+    
+    .footer-grid {
+      grid-template-columns: 2fr 1fr;
+      text-align: left;
+    }
+    
+    .footer-social {
+      justify-content: flex-end;
+    }
+    
+    .slider-arrow {
+      display: flex;
+    }
+  }
+
+  /* Large devices (desktops) */
+  @media (min-width: 992px) {
+    .hero {
+      align-items: center;
+      justify-content: flex-start;
+    }
+    
+    .hero-content {
+      text-align: left;
+      margin-left: 5%;
+    }
+    
+    .products-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Extra large devices */
+  @media (min-width: 1400px) {
+    :root {
+      --container-max: 1600px;
+    }
+  }
+
+  /* High resolution displays */
+  @media (min-resolution: 192dpi) {
+    body {
+      -webkit-font-smoothing: subpixel-antialiased;
+    }
+  }
+
+  /* Reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Touch device optimizations */
+  @media (hover: none) and (pointer: coarse) {
+    .slider-arrow {
+      width: 50px;
+      height: 50px;
+    }
+    
+    .btn-primary {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+
+  /* Print styles */
+  @media print {
+    nav,
+    .hamburger-menu,
+    .mobile-menu,
+    .footer-social {
+      display: none !important;
+    }
+    
+    body {
+      padding-top: 0 !important;
+    }
+    
+    .hero {
+      min-height: 400px;
+    }
+  }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <div class="logo-container">
+        <a href="#home" class="logo">
+          <img src="Assets/AOI(1).png" alt="AOI Logo" id="logo-img">
+        </a>
+      </div>
+      
+      <ul class="desktop-menu">
+        <li><a href="#home">BERANDA</a></li>
+        <li><a href="#about">TENTANG AOI</a></li>
+        <li class="dropdown">
+          <a href="Introduction.html">FILM AOI ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="Introduction.html">Introduction</a></li>
+            <li><a href="Sports.html">Sports Performance</a></li>
+            <li><a href="Diet and Beauty.html">Diet and Beauty</a></li>
+          </ul>
+        </li>
+        <li><a href="#products">PRODUK KAMI</a></li>
+        <li><a href="#stores">TEMUKAN KAMI</a></li>
+        <li><a href="#footer">HUBUNGI KAMI</a></li>
+      </ul>
+      
+      <button class="hamburger-menu" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <ul>
+      <li><a href="Home.html" onclick="toggleMobileMenu()">BERANDA</a></li>
+      <li><a href="AOI.html" onclick="toggleMobileMenu()">TENTANG AOI</a></li>
+      <li class="dropdown">
+        <a href="#">FILM AOI ▾</a>
+        <ul class="dropdown-menu">
+          <li><a href="Introduction.html" onclick="toggleMobileMenu()">Introduction</a></li>
+          <li><a href="Sports.html" onclick="toggleMobileMenu()">Sports Performance</a></li>
+          <li><a href="Diet and Beauty.html" onclick="toggleMobileMenu()">Diet and Beauty</a></li>
+        </ul>
+      </li>
+      <li><a href="#products" onclick="toggleMobileMenu()">PRODUK KAMI</a></li>
+      <li><a href="#stores" onclick="toggleMobileMenu()">TEMUKAN KAMI</a></li>
+      <li><a href="#footer" onclick="toggleMobileMenu()">HUBUNGI KAMI</a></li>
+    </ul>
+  </div>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>SEHAT DAN BUGAR BERSAMA AOI</h1>
+      <a href="#stores" class="btn-primary">Beli Sekarang</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text fade-in">
+          <div class="about-header">
+            <h2>NANO CLUSTER WATER</h2>
+            <h3>PERTAMA DI INDONESIA</h3>
+            <span class="divider"></span>
+          </div>
+          <div class="about-content">
+            <p>
+              <strong>AOI NANO CLUSTER WATER</strong> adalah air dengan inovasi teknologi dari Jepang, 
+              diformulasi ulang untuk meningkatkan kemampuan air diserap oleh tubuh 
+              dan mendistribusikan oksigen ke setiap sudut di tubuh kita dengan lebih baik.
+            </p>
+            <p>
+              Hasilnya, <strong>AOI NANO CLUSTER WATER</strong> pun mampu meningkatkan metabolisme tubuh 
+              untuk bekerja lebih baik sehingga bermanfaat untuk kesehatan dan kecantikan.
+            </p>
+            <a href="#about" class="btn-primary">Pelajari Lebih Lanjut</a>
+          </div>
+        </div>
+        
+        <div class="about-image fade-in">
+          <img src="Assets/AOI Bottles.png" alt="AOI Bottles">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section id="products" class="products">
+    <div class="container">
+      <div class="section-header">
+        <h2>PRODUK KAMI</h2>
+        <span class="divider"></span>
+      </div>
+
+      <div class="products-grid">
+        <div class="product-card fade-in">
+          <img src="Assets/AOI 500 ML.png" alt="AOI 500 ml">
+          <h3>AOI 500 ml</h3>
+          <a href="https://linktr.ee/aoinanowater" target="_blank" class="btn-primary">Beli</a>
+        </div>
+
+        <div class="product-card fade-in">
+          <img src="Assets/AOI 330 ML.png" alt="AOI 330 ml">
+          <h3>AOI 330 ml</h3>
+          <a href="https://linktr.ee/aoinanowater" target="_blank" class="btn-primary">Beli</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stores Section -->
+  <section id="stores" class="stores">
+    <div class="container">
+      <div class="section-header">
+        <h2>TEMUKAN KAMI</h2>
+        <span class="divider"></span>
+      </div>
+
+      <div class="slider-wrapper">
+        <button class="slider-arrow left" id="prevBtn" aria-label="Previous stores">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="slider-track" id="slider-track">
+          <div class="store-card"><img src="Assets/Diamond.jpg" alt="Diamond"></div>
+          <div class="store-card"><img src="Assets/Foodhall.png" alt="Foodhall"></div>
+          <div class="store-card"><img src="Assets/Frestive.png" alt="Frestive"></div>
+          <div class="store-card"><img src="Assets/Fulimart2.png" alt="Fulimart"></div>
+          <div class="store-card"><img src="Assets/Gelael1.png" alt="Gelael"></div>
+          <div class="store-card"><img src="Assets/Grandlucky1.png" alt="Grand Lucky"></div>
+          <div class="store-card"><img src="Assets/Marketcity.jpg" alt="Market City"></div>
+          <div class="store-card"><img src="Assets/Papaya.jpg" alt="Papaya"></div>
+          <div class="store-card"><img src="Assets/Azko.png" alt="Azko"></div>
+          <div class="store-card"><img src="Assets/CircleK.png" alt="Circle K"></div>
+        </div>
+        
+        <button class="slider-arrow right" id="nextBtn" aria-label="Next stores">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-left">
+          <h2>HUBUNGI KAMI</h2>
+          <p>
+            PT Santini Logmax Indonesia<br>
+            Jl. Komp. Kawasan, RT.10/RW.3, Semper Timur,<br>
+            Kec. Cilincing, Jakarta Utara<br>
+            DKI Jakarta 14130
+          </p>
+          <p><strong>Tel:</strong> +62214400528</p>
+          <p><strong>Jam Operasional:</strong> 08.00 - 16.30</p>
+        </div>
+
+        <div class="footer-social">
+          <a href="https://www.instagram.com/aoi.nanowater/" target="_blank" rel="noopener" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://www.facebook.com/aoinanowater" target="_blank" rel="noopener" aria-label="Facebook">
+            <i class="fa-brands fa-facebook"></i>
+          </a>
+          <a href="https://www.tiktok.com/@aoi.nanowater" target="_blank" rel="noopener" aria-label="TikTok">
+            <i class="fa-brands fa-tiktok"></i>
+          </a>
+          <a href="https://wa.me/6282210108811" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // =====================
+    // NAVBAR SCROLL
+    // =====================
+    const navbar = document.getElementById('navbar');
+const logoImg = document.getElementById('logo-img'); // Fixed: removed the "1"
+
+function handleScroll() {
+  const currentScroll = window.pageYOffset;
+  
+  if (currentScroll > 100) {
+    navbar.classList.add('scrolled');
+    logoImg.src = "Assets/AOI.png"; // Dark logo for white navbar
+  } else {
+    navbar.classList.remove('scrolled');
+    logoImg.src = "Assets/AOI(1).png"; // White logo for transparent navbar
+  }
+  
+  lastScroll = currentScroll;
+}
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // =====================
+    // MOBILE MENU
+    // =====================
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburger = document.querySelector('.hamburger-menu');
+
+    function toggleMobileMenu() {
+      mobileMenu.classList.toggle('active');
+      const icon = hamburger.querySelector('i');
+      
+      if (mobileMenu.classList.contains('active')) {
+        icon.className = 'fas fa-times';
+        document.body.style.overflow = 'hidden';
+      } else {
+        icon.className = 'fas fa-bars';
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (mobileMenu.classList.contains('active') && 
+          !mobileMenu.contains(e.target) && 
+          !hamburger.contains(e.target)) {
+        toggleMobileMenu();
+      }
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+        toggleMobileMenu();
+      }
+    });
+
+    // =====================
+    // SMOOTH SCROLLING
+    // =====================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        
+        e.preventDefault();
+        const target = document.querySelector(href);
+        
+        if (target) {
+          const navHeight = navbar.offsetHeight;
+          const targetPosition = target.offsetTop - navHeight - 20;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+          
+          if (mobileMenu.classList.contains('active')) {
+            toggleMobileMenu();
+          }
+        }
+      });
+    });
+
+    // =====================
+    // STORE SLIDER
+    // =====================
+    const sliderTrack = document.getElementById('slider-track');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const cards = document.querySelectorAll('.store-card');
+
+    let currentIndex = 0;
+    let startX = 0;
+    let isDragging = false;
+
+    function getCardsPerView() {
+      const width = window.innerWidth;
+      if (width < 480) return 2;
+      if (width < 768) return 3;
+      if (width < 1024) return 4;
+      return 5;
+    }
+
+    function updateSlider() {
+      const cardsPerView = getCardsPerView();
+      const cardWidth = cards[0].offsetWidth;
+      const gap = 16; // Matches CSS gap
+      const offset = -(currentIndex * (cardWidth + gap));
+      
+      sliderTrack.style.transform = `translateX(${offset}px)`;
+
+      const maxIndex = Math.max(0, cards.length - cardsPerView);
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex >= maxIndex;
+    }
+
+    nextBtn.addEventListener('click', () => {
+      const cardsPerView = getCardsPerView();
+      const maxIndex = Math.max(0, cards.length - cardsPerView);
+      if (currentIndex < maxIndex) {
+        currentIndex++;
+        updateSlider();
+      }
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateSlider();
+      }
+    });
+
+    // Touch support
+    sliderTrack.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    }, { passive: true });
+
+    sliderTrack.addEventListener('touchend', (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      
+      const endX = e.changedTouches[0].clientX;
+      const diffX = startX - endX;
+      
+      if (Math.abs(diffX) > 50) {
+        if (diffX > 0) {
+          nextBtn.click();
+        } else {
+          prevBtn.click();
+        }
+      }
+    });
+
+    // Window resize handler
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        currentIndex = 0;
+        updateSlider();
+      }, 150);
+    });
+
+    // Initialize slider
+    updateSlider();
+
+    // =====================
+    // INTERSECTION OBSERVER
+    // =====================
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // =====================
+    // PERFORMANCE
+    // =====================
+    
+    // Lazy load images
+    if ('loading' in HTMLImageElement.prototype) {
+      const images = document.querySelectorAll('img');
+      images.forEach(img => {
+        img.loading = 'lazy';
+      });
+    }
+
+    // Preload critical assets
+    const preloadLinks = [
+      'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
+    ];
+
+    preloadLinks.forEach(href => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'style';
+      link.href = href;
+      document.head.appendChild(link);
+    });
+  </script>
+</body>
+</html>
