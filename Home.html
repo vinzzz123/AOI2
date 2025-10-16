@@ -568,12 +568,19 @@
   }
 
   .footer-social a {
-    color: var(--color-white);
-    transition: var(--transition-base);
-    padding: var(--spacing-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  color: var(--color-white);
+  transition: var(--transition-base);
+  padding: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+  .footer-social a:hover {
+    background: var(--color-white);
   }
 
   .footer-social a:hover .fa-instagram { color: #E4405F; }
