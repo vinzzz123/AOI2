@@ -4,11 +4,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>AOI Nano Cluster Water</title>
+  <meta name="description" content="Tentang AOI Nano Cluster Water - Manfaat dan teknologi air kesehatan dari Jepang">
+  <title>Tentang AOI - Nano Cluster Water Indonesia</title>
   <style>
-  /* ======================= */
-  /* RESET & BASE STYLES */
-  /* ======================= */
   *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -18,11 +16,17 @@
   :root {
     --color-primary: #000435;
     --color-primary-light: #1a3d7c;
+    --color-primary-dark: #000220;
     --color-accent: #6d87b9;
+    --color-accent-light: #8fa3c9;
     --color-white: #ffffff;
     --color-gray-light: #f8f9fa;
     --color-gray: #666666;
     --color-text: #000000;
+    
+    --gradient-primary: linear-gradient(135deg, #000435 0%, #1a3d7c 100%);
+    --gradient-accent: linear-gradient(135deg, #6d87b9 0%, #8fa3c9 100%);
+    --gradient-overlay: linear-gradient(135deg, rgba(0,4,53,0.9) 0%, rgba(26,61,124,0.8) 100%);
     
     --spacing-xs: clamp(0.5rem, 1vw, 0.75rem);
     --spacing-sm: clamp(0.75rem, 1.5vw, 1rem);
@@ -41,15 +45,21 @@
     --container-padding: clamp(1rem, 5vw, 3rem);
     
     --transition-base: all 0.3s ease;
+    --transition-slow: all 0.5s ease;
     --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
     --shadow-md: 0 4px 12px rgba(0,0,0,0.15);
     --shadow-lg: 0 8px 20px rgba(0,0,0,0.2);
+    --shadow-xl: 0 12px 28px rgba(0,0,0,0.25);
+    
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
   }
 
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
@@ -58,39 +68,93 @@
     background-color: var(--color-white);
     line-height: 1.6;
     overflow-x: hidden;
+    padding-top: clamp(70px, 12vw, 90px);
   }
 
-  /* ======================= */
-  /* CONTAINER UTILITY */
-  /* ======================= */
   .container {
     width: 100%;
     max-width: var(--container-max);
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: var(--container-padding);
-    padding-right: var(--container-padding);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
   }
 
-  /* ======================= */
-  /* NAVIGATION */
-  /* ======================= */
+  .loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+
+  .loading-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .loader {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255,255,255,0.3);
+    border-top-color: var(--color-white);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--gradient-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(100px);
+    transition: var(--transition-base);
+    z-index: 999;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .scroll-to-top:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+  }
+
   nav {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     width: 100%;
-    background: transparent;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     z-index: 1000;
-    transition: var(--transition-base);
-    padding: var(--spacing-md) var(--container-padding);
-  }
-
-  nav.scrolled {
-    background: var(--color-white);
-    box-shadow: var(--shadow-sm);
-    
+    padding: clamp(10px, 2vw, 15px) clamp(15px, 5vw, 50px);
+    min-height: 70px;
   }
 
   .nav-container {
@@ -100,6 +164,7 @@
     max-width: var(--container-max);
     margin: 0 auto;
     gap: var(--spacing-md);
+    position: relative;
   }
 
   .logo-container {
@@ -111,91 +176,90 @@
   }
 
   nav .logo img {
-    height: clamp(45px, 7vw, 70px);
+    height: clamp(50px, 8vw, 75px);
     width: auto;
-    object-fit: contain;
-    display: block;
+    transition: var(--transition-base);
+  }
+
+  nav .logo img:hover {
+    transform: scale(1.05);
   }
 
   .desktop-menu {
     list-style: none;
     display: none;
-    gap: clamp(1rem, 2.5vw, 2.5rem);
+    gap: clamp(15px, 3vw, 35px);
     align-items: center;
     margin: 0;
   }
 
   .desktop-menu li a {
     text-decoration: none;
-    color: var(--color-white);
-    font-weight: 600;
-    font-size: var(--font-size-sm);
-    transition: var(--transition-base);
-    white-space: nowrap;
-    display: block;
-    padding: var(--spacing-xs);
-  }
-
-  nav.scrolled .desktop-menu li a {
     color: var(--color-primary);
+    font-weight: 600;
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    transition: color 0.3s ease;
+    white-space: nowrap;
+    padding: var(--spacing-xs);
+    position: relative;
   }
 
   .desktop-menu li a:hover {
-    color: var(--color-accent);
+    color: var(--color-primary-light);
   }
 
-  /* Dropdown */
   .desktop-menu li.dropdown {
-  position: relative;
-}
+    position: relative;
+  }
 
-.desktop-menu li .dropdown-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: var(--color-white);
-  padding: var(--spacing-sm) 0;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lg);
-  min-width: 220px;
-  margin-top: var(--spacing-xs);
-  list-style-type: none; /* Add this */
-  padding-left: 0; /* Add this - removes default padding */
-}
+  .desktop-menu li .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--color-white);
+    padding: var(--spacing-sm) 0;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    min-width: 220px;
+    margin-top: var(--spacing-xs);
+    list-style-type: none;
+    padding-left: 0;
+    z-index: 1001;
+  }
 
-.desktop-menu li.dropdown:hover .dropdown-menu {
-  display: block;
-}
+  .desktop-menu li.dropdown:hover .dropdown-menu {
+    display: block;
+  }
 
-.desktop-menu li .dropdown-menu li {
-  list-style-type: none; /* Add this */
-  list-style: none; /* Add this */
-  margin: 0; /* Add this */
-  padding: 0; /* Add this */
-}
+  .desktop-menu li .dropdown-menu li {
+    list-style-type: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
 
-.desktop-menu li .dropdown-menu li::before {
-  content: none; /* Add this - removes any pseudo-element bullets */
-  display: none; /* Add this */
-}
+  .desktop-menu li .dropdown-menu li::before {
+    content: none;
+    display: none;
+  }
 
-.desktop-menu li .dropdown-menu li a {
-  display: block;
-  padding: var(--spacing-sm) var(--spacing-md);
-  color: var(--color-primary);
-  font-size: var(--font-size-sm);
-  text-decoration: none;
-}
+  .desktop-menu li .dropdown-menu li a {
+    display: block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--color-primary);
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+  }
 
-.desktop-menu li .dropdown-menu li a:hover {
-  background: var(--color-gray-light);
-}
-  /* Mobile Menu */
+  .desktop-menu li .dropdown-menu li a:hover {
+    background: var(--color-gray-light);
+  }
+
   .hamburger-menu {
     display: block;
     font-size: clamp(1.5rem, 4vw, 2rem);
-    color: var(--color-white);
+    color: var(--color-primary);
     cursor: pointer;
     transition: var(--transition-base);
     z-index: 1001;
@@ -204,17 +268,12 @@
     border: none;
   }
 
-  nav.scrolled .hamburger-menu {
-    color: var(--color-primary);
-  }
-
   .mobile-menu {
     position: fixed;
     top: 0;
     right: -100%;
     width: min(100%, 400px);
     height: 100vh;
-    height: 100dvh; /* Dynamic viewport height for mobile browsers */
     background-color: var(--color-white);
     transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 999;
@@ -270,125 +329,51 @@
     color: var(--color-gray);
   }
 
-  /* ======================= */
-  /* HERO SECTION */
-  /* ======================= */
   .hero {
     position: relative;
-    min-height: max(500px, 100vh);
-    min-height: max(500px, 100dvh);
-    width: 100%;
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.3)), 
-                url("https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920") center/cover no-repeat;
+    min-height: clamp(400px, 60vh, 700px);
+    background: linear-gradient(rgba(0,4,53,0.5), rgba(0,4,53,0.4)), 
+                url("Assets/About-AOI.png") center/cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: var(--spacing-2xl) var(--container-padding);
   }
 
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-overlay);
+    opacity: 0.3;
+  }
+
   .hero-content {
+    position: relative;
+    z-index: 1;
     text-align: center;
-    max-width: 800px;
+    max-width: 900px;
     color: var(--color-white);
     animation: fadeInUp 1s ease-out;
   }
 
   .hero-content h1 {
     font-size: var(--font-size-2xl);
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
     font-weight: 700;
-    line-height: 1.2;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
   }
 
-  .btn-primary {
-    display: inline-block;
-    padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.5rem);
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    text-decoration: none;
-    font-weight: 700;
-    border-radius: 8px;
+  .hero-content h2 {
     font-size: var(--font-size-base);
-    transition: var(--transition-base);
-    margin-top: var(--spacing-md);
-    box-shadow: var(--shadow-md);
-  }
-
-  .btn-primary:hover,
-  .btn-primary:focus {
-    background-color: var(--color-primary-light);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-  }
-
-  /* ======================= */
-  /* ABOUT SECTION */
-  /* ======================= */
-  .about {
-    padding: var(--spacing-2xl) 0;
-    background: var(--color-white);
-  }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--spacing-xl);
-    align-items: center;
-  }
-
-  .about-image {
-    text-align: center;
-    order: 1;
-  }
-
-  .about-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: var(--shadow-md);
-    max-height: min(500px, 60vh);
-    object-fit: contain;
-  }
-
-  .about-text {
-    order: 2;
-  }
-
-  .about-header h2 {
-    font-size: var(--font-size-xl);
-    color: var(--color-primary);
+    font-weight: 400;
+    font-style: italic;
+    opacity: 0.95;
+    line-height: 1.6;
     margin-bottom: var(--spacing-sm);
-    font-weight: 700;
   }
 
-  .about-header h3 {
-    font-size: var(--font-size-lg);
-    color: var(--color-primary);
-    margin-bottom: var(--spacing-md);
-    font-weight: 500;
-    letter-spacing: 1px;
-  }
-
-  .divider {
-    display: inline-block;
-    width: clamp(50px, 10vw, 80px);
-    height: 3px;
-    background: var(--color-primary);
-    margin-bottom: var(--spacing-lg);
-  }
-
-  .about-content p {
-    color: var(--color-text);
-    line-height: 1.8;
-    margin-bottom: var(--spacing-md);
-    font-size: var(--font-size-base);
-  }
-
-  /* ======================= */
-  /* PRODUCTS SECTION */
-  /* ======================= */
-  .products {
+  .cards-section {
     padding: var(--spacing-2xl) 0;
     background: var(--color-gray-light);
   }
@@ -398,147 +383,206 @@
     margin-bottom: var(--spacing-xl);
   }
 
-  .section-header h2 {
-    font-size: var(--font-size-xl);
-    color: var(--color-primary);
+  .section-header h1 {
+    font-size: var(--font-size-2xl);
     font-weight: 700;
+    color: var(--color-primary);
     margin-bottom: var(--spacing-sm);
   }
 
-  .products-grid {
+  .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
     gap: var(--spacing-xl);
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
   }
 
-  .product-card {
-    background: var(--color-white);
-    border-radius: 16px;
-    box-shadow: var(--shadow-sm);
-    padding: var(--spacing-lg);
+  .card {
     text-align: center;
+    padding: var(--spacing-xl);
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
     transition: var(--transition-base);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
   }
 
-  .product-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-lg);
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: var(--gradient-accent);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
   }
 
-  .product-card img {
-    height: clamp(200px, 35vw, 320px);
+  .card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--color-accent-light);
+  }
+
+  .card img {
     width: auto;
-    object-fit: contain;
-    margin-bottom: var(--spacing-md);
+    height: clamp(100px, 20vw, 140px);
+    margin-bottom: var(--spacing-lg);
+    transition: var(--transition-slow);
   }
 
-  .product-card h3 {
-    font-size: var(--font-size-lg);
-    margin-bottom: var(--spacing-md);
-    font-weight: 600;
+  .card:hover img {
+    transform: scale(1.1);
+  }
+
+  .card p {
+    font-size: var(--font-size-base);
     color: var(--color-primary);
+    font-weight: 600;
   }
 
-  /* ======================= */
-  /* STORES SECTION */
-  /* ======================= */
-  .stores {
+  .slider-section {
     padding: var(--spacing-2xl) 0;
     background: var(--color-white);
   }
 
-  .slider-wrapper {
+  .slider-section:nth-child(even) {
+    background: var(--color-gray-light);
+  }
+
+  .slider-title {
+    text-align: center;
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .content-slider {
+    max-width: 1200px;
+    margin: 0 auto;
     position: relative;
-    max-width: 100%;
-    margin: var(--spacing-xl) auto 0;
-    overflow: hidden;
-    padding: var(--spacing-md) 0;
+    padding-bottom: clamp(60px, 10vw, 80px);
   }
 
-  .slider-track {
-    display: flex;
-    gap: var(--spacing-md);
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 0 var(--spacing-sm);
+  .slide {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
   }
 
-  .store-card {
-    min-width: clamp(100px, 20vw, 180px);
-    height: clamp(80px, 15vw, 140px);
-    background: var(--color-white);
-    display: flex;
-    justify-content: center;
+  .slide.active {
+    display: block;
+    opacity: 1;
+    animation: fadeIn 0.5s ease-in;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .slide-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
     align-items: center;
-    border-radius: 12px;
-    box-shadow: var(--shadow-sm);
-    transition: var(--transition-base);
-    flex-shrink: 0;
-    padding: var(--spacing-sm);
+    padding: var(--spacing-lg) 0;
   }
 
-  .store-card:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-md);
+  .slide-image {
+    text-align: center;
+    order: 1;
   }
 
-  .store-card img {
-    max-width: 90%;
-    max-height: 90%;
-    object-fit: contain;
+  .slide-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    max-height: clamp(250px, 50vw, 450px);
+    transition: var(--transition-slow);
+  }
+
+  .slide-image img:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .slide-text {
+    padding: var(--spacing-md);
+    text-align: center;
+    order: 2;
+  }
+
+  .slide-text h2 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-lg);
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  .slide-text h3 {
+    font-size: var(--font-size-base);
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--color-gray);
+    text-align: justify;
   }
 
   .slider-arrow {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.95);
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(1.5rem, 3vw, 2rem);
     color: var(--color-primary);
-    border: 2px solid var(--color-primary);
-    font-size: clamp(1rem, 2vw, 1.5rem);
     cursor: pointer;
+    background: var(--color-white);
+    padding: clamp(12px, 3vw, 16px) clamp(16px, 4vw, 20px);
     border-radius: 50%;
-    width: clamp(40px, 7vw, 50px);
-    height: clamp(40px, 7vw, 50px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
+    border: 2px solid var(--color-primary);
     transition: var(--transition-base);
-    border: none;
+    box-shadow: var(--shadow-sm);
+    width: clamp(50px, 8vw, 60px);
+    height: clamp(50px, 8vw, 60px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .slider-arrow:hover:not(:disabled) {
-    background: var(--color-primary);
+  .slider-arrow:hover {
+    background: var(--gradient-primary);
     color: var(--color-white);
-    transform: translateY(-50%) scale(1.1);
+    transform: translateX(-50%) scale(1.1);
+    border-color: transparent;
   }
 
-  .slider-arrow:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
-
-  .slider-arrow.left {
-    left: var(--spacing-sm);
-  }
-
-  .slider-arrow.right {
-    right: var(--spacing-sm);
-  }
-
-  /* ======================= */
-  /* FOOTER */
-  /* ======================= */
   .footer {
-    background-color: var(--color-primary);
+    background: var(--gradient-primary);
     color: var(--color-white);
-    padding: var(--spacing-xl) 0;
+    padding: var(--spacing-2xl) 0 var(--spacing-xl);
     margin-top: var(--spacing-2xl);
+    position: relative;
+  }
+
+  .footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-accent);
   }
 
   .footer-grid {
@@ -551,12 +595,14 @@
   .footer-left h2 {
     margin-bottom: var(--spacing-md);
     font-size: var(--font-size-lg);
+    font-weight: 700;
   }
 
   .footer-left p {
     font-size: var(--font-size-sm);
     line-height: 1.8;
     margin-bottom: var(--spacing-sm);
+    opacity: 0.9;
   }
 
   .footer-social {
@@ -568,16 +614,16 @@
   }
 
   .footer-social a {
-  color: var(--color-white);
-  transition: var(--transition-base);
-  padding: var(--spacing-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none !important;
-  border: none !important;
-  box-shadow: none !important;
-}
+    color: var(--color-white);
+    transition: var(--transition-base);
+    padding: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
 
   .footer-social a:hover {
     background: var(--color-white);
@@ -585,12 +631,9 @@
 
   .footer-social a:hover .fa-instagram { color: #E4405F; }
   .footer-social a:hover .fa-facebook { color: #1877F2; }
-  .footer-social a:hover .fa-tiktok { color: #69C9D0; }
+  .footer-social a:hover .fa-tiktok { color: #000; }
   .footer-social a:hover .fa-whatsapp { color: #25D366; }
 
-  /* ======================= */
-  /* ANIMATIONS */
-  /* ======================= */
   @keyframes fadeInUp {
     from {
       opacity: 0;
@@ -613,18 +656,6 @@
     transform: translateY(0);
   }
 
-  /* ======================= */
-  /* MEDIA QUERIES */
-  /* ======================= */
-  
-  /* Small devices (landscape phones) */
-  @media (min-width: 576px) {
-    .mobile-menu {
-      width: 400px;
-    }
-  }
-
-  /* Medium devices (tablets) */
   @media (min-width: 768px) {
     .desktop-menu {
       display: flex;
@@ -634,17 +665,20 @@
       display: none;
     }
     
-    .about-grid {
+    .slide-content {
       grid-template-columns: 1fr 1fr;
     }
     
-    .about-text {
-      text-align: left;
-      order: 1;
+    .slide-content.reverse {
+      direction: rtl;
     }
     
-    .about-image {
-      order: 2;
+    .slide-content.reverse > * {
+      direction: ltr;
+    }
+    
+    .slide-text {
+      text-align: left;
     }
     
     .footer-grid {
@@ -655,110 +689,52 @@
     .footer-social {
       justify-content: flex-end;
     }
-    
-    .slider-arrow {
-      display: flex;
-    }
   }
 
-  /* Large devices (desktops) */
   @media (min-width: 992px) {
-    .hero {
-      align-items: center;
-      justify-content: flex-start;
-    }
-    
-    .hero-content {
-      text-align: left;
-      margin-left: 5%;
-    }
-    
-    .products-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .cards-grid {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 
-  /* Extra large devices */
-  @media (min-width: 1400px) {
-    :root {
-      --container-max: 1600px;
-    }
-  }
-
-  /* High resolution displays */
-  @media (min-resolution: 192dpi) {
-    body {
-      -webkit-font-smoothing: subpixel-antialiased;
-    }
-  }
-
-  /* Reduced motion preference */
   @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
+    * {
       animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
-
-  /* Touch device optimizations */
-  @media (hover: none) and (pointer: coarse) {
-    .slider-arrow {
-      width: 50px;
-      height: 50px;
-    }
-    
-    .btn-primary {
-      min-height: 44px;
-      min-width: 44px;
-    }
-  }
-
-  /* Print styles */
-  @media print {
-    nav,
-    .hamburger-menu,
-    .mobile-menu,
-    .footer-social {
-      display: none !important;
-    }
-    
-    body {
-      padding-top: 0 !important;
-    }
-    
-    .hero {
-      min-height: 400px;
     }
   }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav id="navbar">
+  <div class="loading-screen" id="loading-screen">
+    <div class="loader"></div>
+  </div>
+
+  <button class="scroll-to-top" id="scroll-to-top" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <nav>
     <div class="nav-container">
       <div class="logo-container">
-        <a href="#home" class="logo">
-          <img src="Assets/AOI(1).png" alt="AOI Logo" id="logo-img">
+        <a href="Home.html" class="logo">
+          <img src="Assets/AOI.png" alt="AOI Logo">
         </a>
       </div>
       
       <ul class="desktop-menu">
-        <li><a href="#home">BERANDA</a></li>
-        <li><a href="#about">TENTANG AOI</a></li>
+        <li><a href="Home.html">BERANDA</a></li>
+        <li><a href="AOI.html">TENTANG AOI</a></li>
         <li class="dropdown">
-          <a href="Introduction.html">FILM AOI ▾</a>
+          <a href="#">FILM AOI ▾</a>
           <ul class="dropdown-menu">
             <li><a href="Introduction.html">Introduction</a></li>
             <li><a href="Sports.html">Sports Performance</a></li>
             <li><a href="Diet and Beauty.html">Diet and Beauty</a></li>
           </ul>
         </li>
-        <li><a href="#products">PRODUK KAMI</a></li>
-        <li><a href="#stores">TEMUKAN KAMI</a></li>
+        <li><a href="Home.html#products">PRODUK KAMI</a></li>
+        <li><a href="Home.html#stores">BELI DI MANA</a></li>
         <li><a href="#footer">HUBUNGI KAMI</a></li>
       </ul>
       
@@ -780,109 +756,144 @@
           <li><a href="Diet and Beauty.html" onclick="toggleMobileMenu()">Diet and Beauty</a></li>
         </ul>
       </li>
-      <li><a href="#products" onclick="toggleMobileMenu()">PRODUK KAMI</a></li>
-      <li><a href="#stores" onclick="toggleMobileMenu()">TEMUKAN KAMI</a></li>
+      <li><a href="Home.html#products" onclick="toggleMobileMenu()">PRODUK KAMI</a></li>
+      <li><a href="Home.html#stores" onclick="toggleMobileMenu()">BELI DI MANA</a></li>
       <li><a href="#footer" onclick="toggleMobileMenu()">HUBUNGI KAMI</a></li>
     </ul>
   </div>
 
-  <!-- Hero Section -->
-  <section id="home" class="hero">
+  <section class="hero">
     <div class="hero-content">
-      <h1>SEHAT DAN BUGAR BERSAMA AOI</h1>
-      <a href="#stores" class="btn-primary">Beli Sekarang</a>
+      <h1>AOI Nano Cluster Water</h1>
+      <h2>adalah air dengan inovasi teknologi dari Jepang, diformulasikan agar dapat lebih mudah diserap oleh tubuh.</h2>
+      <h2>Sehingga, dapat meningkatkan distribusi oksigen ke seluruh tubuh</h2>
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about" class="about">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-text fade-in">
-          <div class="about-header">
-            <h2>NANO CLUSTER WATER</h2>
-            <h3>PERTAMA DI INDONESIA</h3>
-            <span class="divider"></span>
-          </div>
-          <div class="about-content">
-            <p>
-              <strong>AOI NANO CLUSTER WATER</strong> adalah air dengan inovasi teknologi dari Jepang, 
-              diformulasi ulang untuk meningkatkan kemampuan air diserap oleh tubuh 
-              dan mendistribusikan oksigen ke setiap sudut di tubuh kita dengan lebih baik.
-            </p>
-            <p>
-              Hasilnya, <strong>AOI NANO CLUSTER WATER</strong> pun mampu meningkatkan metabolisme tubuh 
-              untuk bekerja lebih baik sehingga bermanfaat untuk kesehatan dan kecantikan.
-            </p>
-            <a href="#about" class="btn-primary">Pelajari Lebih Lanjut</a>
-          </div>
-        </div>
-        
-        <div class="about-image fade-in">
-          <img src="Assets/AOI Bottles.png" alt="AOI Bottles">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Products Section -->
-  <section id="products" class="products">
+  <section class="cards-section" id="cards">
     <div class="container">
       <div class="section-header">
-        <h2>PRODUK KAMI</h2>
-        <span class="divider"></span>
+        <h1>Manfaat AOI</h1>
       </div>
 
-      <div class="products-grid">
-        <div class="product-card fade-in">
-          <img src="Assets/AOI 500 ML.png" alt="AOI 500 ml">
-          <h3>AOI 500 ml</h3>
-          <a href="https://linktr.ee/aoinanowater" target="_blank" class="btn-primary">Beli</a>
+      <div class="cards-grid">
+        <div class="card fade-in" onclick="scrollToSection('metabolism')">
+          <img src="Assets/Metabolism.png" alt="Metabolism">
+          <p><strong>Mempercepat Metabolisme Tubuh</strong></p>
         </div>
 
-        <div class="product-card fade-in">
-          <img src="Assets/AOI 330 ML.png" alt="AOI 330 ml">
-          <h3>AOI 330 ml</h3>
-          <a href="https://linktr.ee/aoinanowater" target="_blank" class="btn-primary">Beli</a>
+        <div class="card fade-in" onclick="scrollToSection('vo2max')">
+          <img src="Assets/VO2Max.png" alt="VO2Max">
+          <p><strong>Meningkatkan Performa VO2 Max hingga 13.26%</strong></p>
+        </div>
+
+        <div class="card fade-in" onclick="scrollToSection('health')">
+          <img src="Assets/Health.png" alt="Health">
+          <p><strong>Untuk Diet dan Kesehatan</strong></p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Stores Section -->
-  <section id="stores" class="stores">
+  <section class="slider-section" id="metabolism">
     <div class="container">
-      <div class="section-header">
-        <h2>TEMUKAN KAMI</h2>
-        <span class="divider"></span>
-      </div>
-
-      <div class="slider-wrapper">
-        <button class="slider-arrow left" id="prevBtn" aria-label="Previous stores">
-          <i class="fas fa-chevron-left"></i>
-        </button>
-        
-        <div class="slider-track" id="slider-track">
-          <div class="store-card"><img src="Assets/Diamond.jpg" alt="Diamond"></div>
-          <div class="store-card"><img src="Assets/Foodhall.png" alt="Foodhall"></div>
-          <div class="store-card"><img src="Assets/Frestive.png" alt="Frestive"></div>
-          <div class="store-card"><img src="Assets/Fulimart2.png" alt="Fulimart"></div>
-          <div class="store-card"><img src="Assets/Gelael1.png" alt="Gelael"></div>
-          <div class="store-card"><img src="Assets/Grandlucky1.png" alt="Grand Lucky"></div>
-          <div class="store-card"><img src="Assets/Marketcity.jpg" alt="Market City"></div>
-          <div class="store-card"><img src="Assets/Papaya.jpg" alt="Papaya"></div>
-          <div class="store-card"><img src="Assets/Azko.png" alt="Azko"></div>
-          <div class="store-card"><img src="Assets/CircleK.png" alt="Circle K"></div>
+      <h1 class="slider-title">Mempercepat Metabolisme</h1>
+      <div class="content-slider">
+        <div class="slide active">
+          <div class="slide-content">
+            <div class="slide-text">
+              <h2>Meningkatkan Permeabilitas dengan Cara Memotong Molekul Air</h2>
+              <h3>Molekul air tidak bersifat independen sebagai satu-satunya molekul di lingkungan alaminya. Beberapa molekul selalu membentuk kelompok molekul yang disebut dengan "Kelompok atau kluster air". Kita bisa meningkatkan permeabilitas dan kemampuan tubuh menyerap air dengan cara memotong hubungan antara molekul air, kemudian molekul gugus air besar dipisahkan menjadi kluster air yang lebih kecil.</h3>
+            </div>
+            <div class="slide-image">
+              <img src="Assets/NanoCluster.png" alt="Nano Cluster">
+            </div>
+          </div>
         </div>
-        
-        <button class="slider-arrow right" id="nextBtn" aria-label="Next stores">
-          <i class="fas fa-chevron-right"></i>
-        </button>
+
+        <div class="slide">
+          <div class="slide-content reverse">
+            <div class="slide-text">
+              <h2>Meningkatkan Kemampuan Tubuh Menyerap Air</h2>
+              <h3>Kluster molekul air yang lebih kecil ini mampu menembus dengan lancar ke dalam pembuluh darah kapiler kita. Dengan meminum air yang mengandung lebih sedikit molekul, kita pun dapat menghidrasi tubuh lebih cepat dan efektif dan meningkatkan metabolisme tubuh sehari-hari untuk bekerja lebih baik</h3>
+            </div>
+            <div class="slide-image">
+              <img src="Assets/Absorption.png" alt="Absorption">
+            </div>
+          </div>
+        </div>
+
+        <div class="slider-arrow" onclick="nextSlide('metabolism')">→</div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
+  <section class="slider-section" id="vo2max">
+    <div class="container">
+      <h1 class="slider-title">Meningkatkan VO2 Max</h1>
+      <div class="content-slider">
+        <div class="slide active">
+          <div class="slide-content">
+            <div class="slide-text">
+              <h2>Apa Itu VO2 Max dan Perannya dalam Daya Tahan Tubuh</h2>
+              <h3>VO2 max adalah tingkat maksimum konsumsi oksigen tubuh selama latihan intensitas tinggi, yang mencerminkan efisiensi tubuh dalam menggunakan oksigen untuk menghasilkan energi. Indikator ini menjadi ukuran utama daya tahan tubuh seseorang.</h3>
+            </div>
+            <div class="slide-image">
+              <img src="Assets/VO2Max_1.png" alt="VO2Max 1">
+            </div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <div class="slide-content reverse">
+            <div class="slide-text">
+              <h2>Peningkatan Performa VO2 Max dengan AOI Nano Cluster Water</h2>
+              <h3>AOI Nano Cluster Water membantu tubuh menyerap oksigen lebih optimal melalui kapiler paru-paru. Uji eksperimen menunjukkan peningkatan performa VO2 max rata-rata 13,26%, sehingga tubuh lebih efisien dalam mendukung kinerja fisik dan daya tahan.</h3>
+            </div>
+            <div class="slide-image">
+              <img src="Assets/VO2Max_2.png" alt="VO2Max 2">
+            </div>
+          </div>
+        </div>
+
+        <div class="slider-arrow" onclick="nextSlide('vo2max')">→</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slider-section" id="health">
+    <div class="container">
+      <h1 class="slider-title">Diet & Kesehatan</h1>
+      <div class="content-slider">
+        <div class="slide active">
+          <div class="slide-content">
+            <div class="slide-text">
+              <h2>Metabolisme yang Tinggi untuk Kecantikan dan Diet</h2>
+              <h3>AOI Nano Cluster Water membantu meningkatkan metabolisme tubuh melalui efek inframerah ultra-jauh yang memperbaiki kapasitas panas dan konduktivitas termal. Peningkatan metabolisme ini mendukung tubuh tetap langsing serta mempercepat regenerasi kulit.</h3>
+            </div>
+            <div class="slide-image">
+              <img src="Assets/Health_1.jpg" alt="Health 1">
+            </div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <div class="slide-content reverse">
+            <div class="slide-text">
+              <h2>Pembakaran Lemak yang lebih Optimal</h2>
+              <h3>Penelitian menunjukkan AOI Nano Cluster Water dapat menurunkan Asam Lemak Peroksida hingga 17,9% dalam 7 jam, berbeda dengan air keran. Teknologi ini membuat lemak lebih mudah diurai dan meningkatkan efisiensi pembakaran lemak.</h3>
+            </div>
+            <div class="slide-image">
+              <img src="Assets/Health_2.png" alt="Health 2">
+            </div>
+          </div>
+        </div>
+
+        <div class="slider-arrow" onclick="nextSlide('health')">→</div>
+      </div>
+    </div>
+  </section>
+
   <footer class="footer" id="footer">
     <div class="container">
       <div class="footer-grid">
@@ -917,180 +928,95 @@
   </footer>
 
   <script>
-    // =====================
-    // NAVBAR SCROLL
-    // =====================
-    const navbar = document.getElementById('navbar');
-const logoImg = document.getElementById('logo-img'); // Fixed: removed the "1"
+    const sliders = {
+      'metabolism': 0,
+      'vo2max': 0,
+      'health': 0
+    };
 
-function handleScroll() {
-  const currentScroll = window.pageYOffset;
-  
-  if (currentScroll > 100) {
-    navbar.classList.add('scrolled');
-    logoImg.src = "Assets/AOI.png"; // Dark logo for white navbar
-  } else {
-    navbar.classList.remove('scrolled');
-    logoImg.src = "Assets/AOI(1).png"; // White logo for transparent navbar
-  }
-  
-  lastScroll = currentScroll;
-}
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    // =====================
-    // MOBILE MENU
-    // =====================
-    const mobileMenu = document.getElementById('mobile-menu');
-    const hamburger = document.querySelector('.hamburger-menu');
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loading-screen').classList.add('hidden');
+      }, 500);
+    });
 
     function toggleMobileMenu() {
-      mobileMenu.classList.toggle('active');
-      const icon = hamburger.querySelector('i');
+      const menu = document.getElementById('mobile-menu');
+      const icon = document.querySelector('.hamburger-menu i');
+      menu.classList.toggle('active');
+      icon.className = menu.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+      document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+    }
+
+    document.addEventListener('click', (e) => {
+      const menu = document.getElementById('mobile-menu');
+      const hamburger = document.querySelector('.hamburger-menu');
+      if (menu.classList.contains('active') && !menu.contains(e.target) && !hamburger.contains(e.target)) {
+        toggleMobileMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && document.getElementById('mobile-menu').classList.contains('active')) {
+        toggleMobileMenu();
+      }
+    });
+
+    function nextSlide(sectionId) {
+      const section = document.getElementById(sectionId);
+      const slides = section.querySelectorAll('.slide');
+      const arrow = section.querySelector('.slider-arrow');
       
-      if (mobileMenu.classList.contains('active')) {
-        icon.className = 'fas fa-times';
-        document.body.style.overflow = 'hidden';
+      slides[sliders[sectionId]].classList.remove('active');
+      
+      if (sliders[sectionId] === slides.length - 1) {
+        sliders[sectionId] = 0;
+        arrow.textContent = '→';
       } else {
-        icon.className = 'fas fa-bars';
-        document.body.style.overflow = '';
+        sliders[sectionId]++;
+        if (sliders[sectionId] === slides.length - 1) {
+          arrow.textContent = '↻';
+        }
+      }
+      
+      slides[sliders[sectionId]].classList.add('active');
+    }
+
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        const navbar = document.querySelector('nav');
+        window.scrollTo({
+          top: section.offsetTop - navbar.offsetHeight - 20,
+          behavior: 'smooth'
+        });
       }
     }
 
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (mobileMenu.classList.contains('active') && 
-          !mobileMenu.contains(e.target) && 
-          !hamburger.contains(e.target)) {
-        toggleMobileMenu();
-      }
-    });
-
-    // Close menu on escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-        toggleMobileMenu();
-      }
-    });
-
-    // =====================
-    // SMOOTH SCROLLING
-    // =====================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
         if (href === '#') return;
-        
         e.preventDefault();
         const target = document.querySelector(href);
-        
         if (target) {
-          const navHeight = navbar.offsetHeight;
-          const targetPosition = target.offsetTop - navHeight - 20;
-          
+          const navbar = document.querySelector('nav');
           window.scrollTo({
-            top: targetPosition,
+            top: target.offsetTop - navbar.offsetHeight - 20,
             behavior: 'smooth'
           });
-          
-          if (mobileMenu.classList.contains('active')) {
-            toggleMobileMenu();
-          }
         }
       });
     });
 
-    // =====================
-    // STORE SLIDER
-    // =====================
-    const sliderTrack = document.getElementById('slider-track');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const cards = document.querySelectorAll('.store-card');
-
-    let currentIndex = 0;
-    let startX = 0;
-    let isDragging = false;
-
-    function getCardsPerView() {
-      const width = window.innerWidth;
-      if (width < 480) return 2;
-      if (width < 768) return 3;
-      if (width < 1024) return 4;
-      return 5;
-    }
-
-    function updateSlider() {
-      const cardsPerView = getCardsPerView();
-      const cardWidth = cards[0].offsetWidth;
-      const gap = 16; // Matches CSS gap
-      const offset = -(currentIndex * (cardWidth + gap));
-      
-      sliderTrack.style.transform = `translateX(${offset}px)`;
-
-      const maxIndex = Math.max(0, cards.length - cardsPerView);
-      prevBtn.disabled = currentIndex === 0;
-      nextBtn.disabled = currentIndex >= maxIndex;
-    }
-
-    nextBtn.addEventListener('click', () => {
-      const cardsPerView = getCardsPerView();
-      const maxIndex = Math.max(0, cards.length - cardsPerView);
-      if (currentIndex < maxIndex) {
-        currentIndex++;
-        updateSlider();
-      }
-    });
-
-    prevBtn.addEventListener('click', () => {
-      if (currentIndex > 0) {
-        currentIndex--;
-        updateSlider();
-      }
-    });
-
-    // Touch support
-    sliderTrack.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-      isDragging = true;
+    const scrollBtn = document.getElementById('scroll-to-top');
+    window.addEventListener('scroll', () => {
+      scrollBtn.classList.toggle('visible', window.pageYOffset > 300);
     }, { passive: true });
 
-    sliderTrack.addEventListener('touchend', (e) => {
-      if (!isDragging) return;
-      isDragging = false;
-      
-      const endX = e.changedTouches[0].clientX;
-      const diffX = startX - endX;
-      
-      if (Math.abs(diffX) > 50) {
-        if (diffX > 0) {
-          nextBtn.click();
-        } else {
-          prevBtn.click();
-        }
-      }
+    scrollBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-
-    // Window resize handler
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        currentIndex = 0;
-        updateSlider();
-      }, 150);
-    });
-
-    // Initialize slider
-    updateSlider();
-
-    // =====================
-    // INTERSECTION OBSERVER
-    // =====================
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -1098,34 +1024,9 @@ function handleScroll() {
           entry.target.classList.add('visible');
         }
       });
-    }, observerOptions);
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    // =====================
-    // PERFORMANCE
-    // =====================
-    
-    // Lazy load images
-    if ('loading' in HTMLImageElement.prototype) {
-      const images = document.querySelectorAll('img');
-      images.forEach(img => {
-        img.loading = 'lazy';
-      });
-    }
-
-    // Preload critical assets
-    const preloadLinks = [
-      'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
-    ];
-
-    preloadLinks.forEach(href => {
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'style';
-      link.href = href;
-      document.head.appendChild(link);
-    });
   </script>
 </body>
 </html>
