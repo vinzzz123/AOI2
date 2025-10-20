@@ -82,7 +82,7 @@
     left: 0;
     width: 100%;
     height: 100vh;
-    background: var(--gradient-primary);
+    background: var(--color-primary);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -482,7 +482,7 @@
   }
 
   .footer {
-    background: var(--gradient-primary);
+    background: var(--color-primary);
     color: var(--color-white);
     padding: var(--spacing-2xl) 0 var(--spacing-xl);
     margin-top: var(--spacing-2xl);
@@ -531,24 +531,18 @@
     color: var(--color-white);
     transition: var(--transition-base);
     padding: var(--spacing-sm);
-    background: rgba(255,255,255,0.1);
-    border-radius: 50%;
     width: 50px;
     height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
+    text-decoration: none !important;
   }
 
-  .footer-social a:hover {
-    background: var(--color-white);
-    transform: translateY(-5px) rotate(360deg);
-  }
-
-  .footer-social a:hover .fa-instagram { color: #E4405F; }
+  .footer-social a:hover .fa-instagram { color: #1877F2; }
   .footer-social a:hover .fa-facebook { color: #1877F2; }
-  .footer-social a:hover .fa-tiktok { color: #000; }
-  .footer-social a:hover .fa-whatsapp { color: #25D366; }
+  .footer-social a:hover .fa-tiktok { color: #1877F2; }
+  .footer-social a:hover .fa-whatsapp { color: #1877F2; }
 
   .fade-in {
     opacity: 0;
