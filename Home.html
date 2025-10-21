@@ -5,6 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>AOI Nano Cluster Water</title>
+  
+  <!-- Google Translate Script -->
+  <script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'id',
+      includedLanguages: 'en,id',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  
   <style>
   /* ======================= */
   /* RESET & BASE STYLES */
@@ -58,6 +72,16 @@
     background-color: var(--color-white);
     line-height: 1.6;
     overflow-x: hidden;
+    top: 0 !important;
+  }
+
+  /* Hide Google Translate Banner */
+  .goog-te-banner-frame.skiptranslate {
+    display: none !important;
+  }
+
+  body > .skiptranslate {
+    display: none;
   }
 
   /* ======================= */
@@ -90,7 +114,6 @@
   nav.scrolled {
     background: var(--color-white);
     box-shadow: var(--shadow-sm);
-    
   }
 
   .nav-container {
@@ -115,6 +138,12 @@
     width: auto;
     object-fit: contain;
     display: block;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
   }
 
   .desktop-menu {
@@ -156,41 +185,103 @@
     left: 0;
     background: var(--color-white);
     padding: var(--spacing-sm) 0;
-    border-radius: var(--radius-md);
+    border-radius: 12px;
     box-shadow: var(--shadow-lg);
     min-width: 220px;
     margin-top: var(--spacing-xs);
-    list-style-type: none; /* Add this */
-    padding-left: 0; /* Add this - removes default padding */
+    list-style-type: none;
+    padding-left: 0;
   }
 
-.desktop-menu li.dropdown:hover .dropdown-menu {
-  display: block;
-}
+  .desktop-menu li.dropdown:hover .dropdown-menu {
+    display: block;
+  }
 
-.desktop-menu li .dropdown-menu li {
-  list-style-type: none; /* Add this */
-  list-style: none; /* Add this */
-  margin: 0; /* Add this */
-  padding: 0; /* Add this */
-}
+  .desktop-menu li .dropdown-menu li {
+    list-style-type: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
 
-.desktop-menu li .dropdown-menu li::before {
-  content: none; /* Add this - removes any pseudo-element bullets */
-  display: none; /* Add this */
-}
+  .desktop-menu li .dropdown-menu li::before {
+    content: none;
+    display: none;
+  }
 
-.desktop-menu li .dropdown-menu li a {
-  display: block;
-  padding: var(--spacing-sm) var(--spacing-md);
-  color: var(--color-primary);
-  font-size: var(--font-size-sm);
-  text-decoration: none;
-}
+  .desktop-menu li .dropdown-menu li a {
+    display: block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--color-primary);
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+  }
 
-.desktop-menu li .dropdown-menu li a:hover {
-  background: var(--color-gray-light);
-}
+  .desktop-menu li .dropdown-menu li a:hover {
+    background: var(--color-gray-light);
+  }
+
+  /* Language Switcher */
+  .language-switcher {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: var(--transition-base);
+  }
+
+  nav.scrolled .language-switcher {
+    background: var(--color-gray-light);
+  }
+
+  .language-switcher i {
+    color: var(--color-white);
+    font-size: 16px;
+  }
+
+  nav.scrolled .language-switcher i {
+    color: var(--color-primary);
+  }
+
+  .lang-btn {
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+    transition: var(--transition-base);
+  }
+
+  nav.scrolled .lang-btn {
+    color: var(--color-primary);
+  }
+
+  .lang-btn:hover {
+    opacity: 0.7;
+  }
+
+  .lang-divider {
+    color: var(--color-white);
+    margin: 0 2px;
+  }
+
+  nav.scrolled .lang-divider {
+    color: var(--color-primary);
+  }
+
+  .lang-btn.active {
+    text-decoration: underline;
+  }
+
+  #google_translate_element {
+    display: none;
+  }
+
   /* Mobile Menu */
   .hamburger-menu {
     display: block;
@@ -214,7 +305,7 @@
     right: -100%;
     width: min(100%, 400px);
     height: 100vh;
-    height: 100dvh; /* Dynamic viewport height for mobile browsers */
+    height: 100dvh;
     background-color: var(--color-white);
     transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 999;
@@ -268,6 +359,34 @@
     font-size: var(--font-size-base);
     padding-left: var(--spacing-lg);
     color: var(--color-gray);
+  }
+
+  .mobile-lang-switcher {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    border-top: 1px solid var(--color-gray-light);
+    margin-top: 20px;
+  }
+
+  .mobile-lang-switcher button {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-base);
+  }
+
+  .mobile-lang-switcher button:hover {
+    background: var(--color-primary-light);
+  }
+
+  .mobile-lang-switcher button.active {
+    background: var(--color-primary-light);
   }
 
   /* ======================= */
@@ -486,12 +605,11 @@
   .store-card img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* ensures images scale uniformly without distortion */
-    max-width: 150px; /* Adjust this value for the desired image width */
-    max-height: 150px; /* Adjust this value for the desired image height */
-    object-position: center; /* Ensures the image is centered */
+    object-fit: contain;
+    max-width: 150px;
+    max-height: 150px;
+    object-position: center;
   }
-
 
   .slider-arrow {
     position: absolute;
@@ -612,16 +730,18 @@
   /* MEDIA QUERIES */
   /* ======================= */
   
-  /* Small devices (landscape phones) */
   @media (min-width: 576px) {
     .mobile-menu {
       width: 400px;
     }
   }
 
-  /* Medium devices (tablets) */
   @media (min-width: 768px) {
     .desktop-menu {
+      display: flex;
+    }
+
+    .language-switcher {
       display: flex;
     }
     
@@ -654,9 +774,12 @@
     .slider-arrow {
       display: flex;
     }
+
+    .mobile-lang-switcher {
+      display: none;
+    }
   }
 
-  /* Large devices (desktops) */
   @media (min-width: 992px) {
     .hero {
       align-items: center;
@@ -673,21 +796,6 @@
     }
   }
 
-  /* Extra large devices */
-  @media (min-width: 1400px) {
-    :root {
-      --container-max: 1600px;
-    }
-  }
-
-  /* High resolution displays */
-  @media (min-resolution: 192dpi) {
-    body {
-      -webkit-font-smoothing: subpixel-antialiased;
-    }
-  }
-
-  /* Reduced motion preference */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -696,37 +804,6 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
-    }
-  }
-
-  /* Touch device optimizations */
-  @media (hover: none) and (pointer: coarse) {
-    .slider-arrow {
-      width: 50px;
-      height: 50px;
-    }
-    
-    .btn-primary {
-      min-height: 44px;
-      min-width: 44px;
-    }
-  }
-
-  /* Print styles */
-  @media print {
-    nav,
-    .hamburger-menu,
-    .mobile-menu,
-    .footer-social {
-      display: none !important;
-    }
-    
-    body {
-      padding-top: 0 !important;
-    }
-    
-    .hero {
-      min-height: 400px;
     }
   }
   </style>
@@ -741,25 +818,38 @@
         </a>
       </div>
       
-      <ul class="desktop-menu">
-        <li><a href="#home">BERANDA</a></li>
-        <li><a href="AOI.html">TENTANG AOI</a></li>
-        <li class="dropdown">
-          <a href="Introduction.html">FILM AOI ▾</a>
-          <ul class="dropdown-menu">
-            <li><a href="Introduction.html">Introduction</a></li>
-            <li><a href="Sports.html">Sports Performance</a></li>
-            <li><a href="Diet and Beauty.html">Diet and Beauty</a></li>
-          </ul>
-        </li>
-        <li><a href="#products">PRODUK KAMI</a></li>
-        <li><a href="#stores">TEMUKAN KAMI</a></li>
-        <li><a href="#footer">HUBUNGI KAMI</a></li>
-      </ul>
-      
-      <button class="hamburger-menu" onclick="toggleMobileMenu()" aria-label="Toggle menu">
-        <i class="fas fa-bars"></i>
-      </button>
+      <div class="nav-right">
+        <ul class="desktop-menu">
+          <li><a href="#home">BERANDA</a></li>
+          <li><a href="AOI.html">TENTANG AOI</a></li>
+          <li class="dropdown">
+            <a href="Introduction.html">FILM AOI ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="Introduction.html">Introduction</a></li>
+              <li><a href="Sports.html">Sports Performance</a></li>
+              <li><a href="Diet and Beauty.html">Diet and Beauty</a></li>
+            </ul>
+          </li>
+          <li><a href="#products">PRODUK KAMI</a></li>
+          <li><a href="#stores">TEMUKAN KAMI</a></li>
+          <li><a href="#footer">HUBUNGI KAMI</a></li>
+        </ul>
+
+        <!-- Language Switcher -->
+        <div class="language-switcher">
+          <i class="fas fa-globe"></i>
+          <button class="lang-btn active" onclick="changeLanguage('id')">ID</button>
+          <span class="lang-divider">|</span>
+          <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+        </div>
+        
+        <button class="hamburger-menu" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+
+      <!-- Hidden Google Translate Element -->
+      <div id="google_translate_element"></div>
     </div>
   </nav>
 
@@ -779,6 +869,16 @@
       <li><a href="#stores" onclick="toggleMobileMenu()">TEMUKAN KAMI</a></li>
       <li><a href="#footer" onclick="toggleMobileMenu()">HUBUNGI KAMI</a></li>
     </ul>
+
+    <!-- Mobile Language Switcher -->
+    <div class="mobile-lang-switcher">
+      <button class="active" onclick="changeLanguage('id'); toggleMobileMenu();">
+        <i class="fas fa-flag"></i> Indonesian
+      </button>
+      <button onclick="changeLanguage('en'); toggleMobileMenu();">
+        <i class="fas fa-flag-usa"></i> English
+      </button>
+    </div>
   </div>
 
   <!-- Hero Section -->
@@ -857,29 +957,29 @@
           <i class="fas fa-chevron-left"></i>
         </button>
         
-      <div class="slider-track" id="slider-track">
-        <div class="store-card"><img src="Assets/Diamond.jpg" alt="Diamond"></div>
-        <div class="store-card"><img src="Assets/Foodhall.png" alt="Foodhall"></div>
-        <div class="store-card"><img src="Assets/Frestive.png" alt="Frestive"></div>
-        <div class="store-card"><img src="Assets/Fulimart2.png" alt="Fulimart"></div>
-        <div class="store-card"><img src="Assets/Gelael1.png" alt="Gelael"></div>
-        <div class="store-card"><img src="Assets/Grandlucky1.png" alt="Grand Lucky"></div>
-        <div class="store-card"><img src="Assets/Marketcity.jpg" alt="Market City"></div>
-        <div class="store-card"><img src="Assets/Papaya.jpg" alt="Papaya"></div>
-        <div class="store-card"><img src="Assets/Azko.png" alt="Azko"></div>
-        <div class="store-card"><img src="Assets/CircleK.png" alt="Circle K"></div>
-        <div class="store-card"><img src="Assets/Foodmax.png" alt="Foodmax"></div>
-        <div class="store-card"><img src="Assets/Freshstation.png" alt="Freshstation"></div>
-        <div class="store-card"><img src="Assets/Growell.png" alt="Growell"></div>
-        <div class="store-card"><img src="Assets/Makishi.jpeg" alt="Makishi"></div>
-        <div class="store-card"><img src="Assets/Pasarbuah.png" alt="Pasarbuah"></div>
-        <div class="store-card"><img src="Assets/Papaya.jpg" alt="Papaya"></div>
-        <div class="store-card"><img src="Assets/Pima.png" alt="Pima"></div>
-        <div class="store-card"><img src="Assets/Sesa.png" alt="Sesa"></div>
-        <div class="store-card"><img src="Assets/SMart.png" alt="SMart"></div>
-        <div class="store-card"><img src="Assets/Superhiro.png" alt="Superhiro"></div>
-        <div class="store-card"><img src="Assets/Yovamart.png" alt="Yovamart"></div>
-      </div>
+        <div class="slider-track" id="slider-track">
+          <div class="store-card"><img src="Assets/Diamond.jpg" alt="Diamond"></div>
+          <div class="store-card"><img src="Assets/Foodhall.png" alt="Foodhall"></div>
+          <div class="store-card"><img src="Assets/Frestive.png" alt="Frestive"></div>
+          <div class="store-card"><img src="Assets/Fulimart2.png" alt="Fulimart"></div>
+          <div class="store-card"><img src="Assets/Gelael1.png" alt="Gelael"></div>
+          <div class="store-card"><img src="Assets/Grandlucky1.png" alt="Grand Lucky"></div>
+          <div class="store-card"><img src="Assets/Marketcity.jpg" alt="Market City"></div>
+          <div class="store-card"><img src="Assets/Papaya.jpg" alt="Papaya"></div>
+          <div class="store-card"><img src="Assets/Azko.png" alt="Azko"></div>
+          <div class="store-card"><img src="Assets/CircleK.png" alt="Circle K"></div>
+          <div class="store-card"><img src="Assets/Foodmax.png" alt="Foodmax"></div>
+          <div class="store-card"><img src="Assets/Freshstation.png" alt="Freshstation"></div>
+          <div class="store-card"><img src="Assets/Growell.png" alt="Growell"></div>
+          <div class="store-card"><img src="Assets/Makishi.jpeg" alt="Makishi"></div>
+          <div class="store-card"><img src="Assets/Pasarbuah.png" alt="Pasarbuah"></div>
+          <div class="store-card"><img src="Assets/Papaya.jpg" alt="Papaya"></div>
+          <div class="store-card"><img src="Assets/Pima.png" alt="Pima"></div>
+          <div class="store-card"><img src="Assets/Sesa.png" alt="Sesa"></div>
+          <div class="store-card"><img src="Assets/SMart.png" alt="SMart"></div>
+          <div class="store-card"><img src="Assets/Superhiro.png" alt="Superhiro"></div>
+          <div class="store-card"><img src="Assets/Yovamart.png" alt="Yovamart"></div>
+        </div>
         
         <button class="slider-arrow right" id="nextBtn" aria-label="Next stores">
           <i class="fas fa-chevron-right"></i>
@@ -927,21 +1027,23 @@
     // NAVBAR SCROLL
     // =====================
     const navbar = document.getElementById('navbar');
-const logoImg = document.getElementById('logo-img'); // Fixed: removed the "1"
+    const logoImg = document.getElementById('logo-img');
+    let lastScroll = 0;
 
-function handleScroll() {
-  const currentScroll = window.pageYOffset;
-  
-  if (currentScroll > 100) {
-    navbar.classList.add('scrolled');
-    logoImg.src = "Assets/AOI.png"; // Dark logo for white navbar
-  } else {
-    navbar.classList.remove('scrolled');
-    logoImg.src = "Assets/AOI(1).png"; // White logo for transparent navbar
-  }
-  
-  lastScroll = currentScroll;
-}
+    function handleScroll() {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll > 100) {
+        navbar.classList.add('scrolled');
+        logoImg.src = "Assets/AOI.png";
+      } else {
+        navbar.classList.remove('scrolled');
+        logoImg.src = "Assets/AOI(1).png";
+      }
+      
+      lastScroll = currentScroll;
+    }
+
     window.addEventListener('scroll', handleScroll, { passive: true });
 
     // =====================
@@ -963,7 +1065,6 @@ function handleScroll() {
       }
     }
 
-    // Close menu when clicking outside
     document.addEventListener('click', (e) => {
       if (mobileMenu.classList.contains('active') && 
           !mobileMenu.contains(e.target) && 
@@ -972,12 +1073,38 @@ function handleScroll() {
       }
     });
 
-    // Close menu on escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
         toggleMobileMenu();
       }
     });
+
+    // =====================
+    // LANGUAGE SWITCHER
+    // =====================
+    function changeLanguage(lang) {
+      document.querySelectorAll('.lang-btn, .mobile-lang-switcher button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      if (event && event.target) {
+        event.target.classList.add('active');
+      }
+
+      const select = document.querySelector('.goog-te-combo');
+      if (select) {
+        select.value = lang;
+        select.dispatchEvent(new Event('change'));
+      } else {
+        setTimeout(() => {
+          const selectRetry = document.querySelector('.goog-te-combo');
+          if (selectRetry) {
+            selectRetry.value = lang;
+            selectRetry.dispatchEvent(new Event('change'));
+          }
+        }, 1000);
+      }
+    }
 
     // =====================
     // SMOOTH SCROLLING
@@ -1029,7 +1156,7 @@ function handleScroll() {
     function updateSlider() {
       const cardsPerView = getCardsPerView();
       const cardWidth = cards[0].offsetWidth;
-      const gap = 16; // Matches CSS gap
+      const gap = 16;
       const offset = -(currentIndex * (cardWidth + gap));
       
       sliderTrack.style.transform = `translateX(${offset}px)`;
@@ -1055,7 +1182,6 @@ function handleScroll() {
       }
     });
 
-    // Touch support
     sliderTrack.addEventListener('touchstart', (e) => {
       startX = e.touches[0].clientX;
       isDragging = true;
@@ -1077,7 +1203,6 @@ function handleScroll() {
       }
     });
 
-    // Window resize handler
     let resizeTimer;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
@@ -1087,7 +1212,6 @@ function handleScroll() {
       }, 150);
     });
 
-    // Initialize slider
     updateSlider();
 
     // =====================
@@ -1111,8 +1235,6 @@ function handleScroll() {
     // =====================
     // PERFORMANCE
     // =====================
-    
-    // Lazy load images
     if ('loading' in HTMLImageElement.prototype) {
       const images = document.querySelectorAll('img');
       images.forEach(img => {
@@ -1120,7 +1242,6 @@ function handleScroll() {
       });
     }
 
-    // Preload critical assets
     const preloadLinks = [
       'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
     ];
