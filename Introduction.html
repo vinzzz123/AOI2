@@ -5,110 +5,147 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Introduction to AOI</title>
+  
+  <!-- Google Translate Script -->
+  <script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'id',
+      includedLanguages: 'en,id',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  
   <style>
-    /* ----------------------- */
-    /* RESET STYLES */
-    /* ----------------------- */
-    * {
+    *, *::before, *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    :root {
+      --color-primary: #000435;
+      --color-primary-light: #1a3d7c;
+      --color-accent: #000435;
+      --color-white: #ffffff;
+      --color-gray-light: #f8f9fa;
+      --color-gray: #666666;
+      --color-text: #000000;
+      
+      --spacing-xs: clamp(0.5rem, 1vw, 0.75rem);
+      --spacing-sm: clamp(0.75rem, 1.5vw, 1rem);
+      --spacing-md: clamp(1rem, 2vw, 1.5rem);
+      --spacing-lg: clamp(1.5rem, 3vw, 2.5rem);
+      --spacing-xl: clamp(2rem, 4vw, 4rem);
+      --spacing-2xl: clamp(3rem, 6vw, 6rem);
+      
+      --font-size-sm: clamp(0.875rem, 1.5vw, 1rem);
+      --font-size-base: clamp(1rem, 2vw, 1.125rem);
+      --font-size-lg: clamp(1.125rem, 2.5vw, 1.5rem);
+      --font-size-xl: clamp(1.5rem, 3.5vw, 2.25rem);
+      --font-size-2xl: clamp(2rem, 5vw, 3rem);
+      
+      --container-max: 1400px;
+      --container-padding: clamp(1rem, 5vw, 3rem);
+      
+      --transition-base: all 0.3s ease;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.15);
+      --shadow-lg: 0 8px 20px rgba(0,0,0,0.2);
+      
+      --radius-md: 12px;
+    }
+
     body {
       font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      color: black;
-      background-color: white;
+      color: var(--color-text);
+      background-color: var(--color-white);
       line-height: 1.6;
-      padding-top: clamp(60px, 10vw, 80px);
+      overflow-x: hidden;
+      top: 0 !important;
+      padding-top: 80px;
     }
 
-    /* ----------------------- */
-    /* RESPONSIVE TYPOGRAPHY */
-    /* ----------------------- */
-    h1 {
-      font-size: clamp(1.5rem, 4vw, 2.5rem);
-      line-height: 1.2;
+    /* Hide Google Translate Banner */
+    .goog-te-banner-frame.skiptranslate {
+      display: none !important;
     }
 
-    h2 {
-      font-size: clamp(1.2rem, 3vw, 2rem);
-      line-height: 1.3;
+    body > .skiptranslate {
+      display: none;
     }
 
-    h3 {
-      font-size: clamp(1rem, 2.5vw, 1.8rem);
-      line-height: 1.4;
-    }
-
-    p, li {
-      font-size: clamp(0.9rem, 1.8vw, 1.2rem);
-    }
-
-    /* ----------------------- */
-    /* NAVBAR STYLES - FULLY RESPONSIVE */
-    /* ----------------------- */
+    /* ======================= */
+    /* NAVIGATION - SOLID WHITE */
+    /* ======================= */
     nav {
       position: fixed;
       top: 0;
       left: 0;
+      right: 0;
       width: 100%;
-      background: white;
+      background: var(--color-white);
+      box-shadow: var(--shadow-sm);
+      z-index: 1000;
+      padding: var(--spacing-md) var(--container-padding);
+    }
+
+    .nav-container {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: clamp(10px, 2vw, 15px) clamp(15px, 5vw, 50px);
-      z-index: 1000;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      min-height: 70px;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      gap: var(--spacing-md);
     }
 
     .logo-container {
       display: flex;
       align-items: center;
-      gap: clamp(10px, 3vw, 20px);
+      gap: var(--spacing-sm);
       flex-shrink: 0;
+      z-index: 1001;
     }
 
-    nav a.logo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-    }
-
-    nav img {
-      height: clamp(50px, 8vw, 75px);
+    nav .logo img {
+      height: clamp(45px, 7vw, 70px);
       width: auto;
       object-fit: contain;
+      display: block;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
     }
 
     .desktop-menu {
       list-style: none;
-      display: flex;
-      gap: clamp(15px, 3vw, 35px);
+      display: none;
+      gap: clamp(1rem, 2.5vw, 2.5rem);
       align-items: center;
       margin: 0;
-      padding: 0;
-    }
-
-    .desktop-menu li {
-      list-style: none;
     }
 
     .desktop-menu li a {
       text-decoration: none;
-      color: #000435;
+      color: var(--color-primary);
       font-weight: 600;
-      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-      transition: color 0.3s ease;
+      font-size: var(--font-size-sm);
+      transition: var(--transition-base);
       white-space: nowrap;
+      display: block;
+      padding: var(--spacing-xs);
     }
 
     .desktop-menu li a:hover {
-      color: #1a3d7c;
+      color: var(--color-accent);
     }
 
-    /* Dropdown */
     .desktop-menu li.dropdown {
       position: relative;
     }
@@ -118,15 +155,14 @@
       position: absolute;
       top: 100%;
       left: 0;
-      background: white;
-      padding: 10px 0;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      background: var(--color-white);
+      padding: var(--spacing-sm) 0;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
       min-width: 220px;
-      margin-top: 5px;
-      list-style: none;
+      margin-top: var(--spacing-xs);
+      list-style-type: none;
       padding-left: 0;
-      z-index: 1000;
     }
 
     .desktop-menu li.dropdown:hover .dropdown-menu {
@@ -134,6 +170,7 @@
     }
 
     .desktop-menu li .dropdown-menu li {
+      list-style-type: none;
       list-style: none;
       margin: 0;
       padding: 0;
@@ -146,41 +183,87 @@
 
     .desktop-menu li .dropdown-menu li a {
       display: block;
-      padding: 10px 20px;
-      color: #000435;
-      font-size: clamp(0.8rem, 1.2vw, 1rem);
-      font-weight: 500;
+      padding: var(--spacing-sm) var(--spacing-md);
+      color: var(--color-primary);
+      font-size: var(--font-size-sm);
+      text-decoration: none;
     }
 
     .desktop-menu li .dropdown-menu li a:hover {
-      background: #f0f4ff;
-      color: #1a3d7c;
+      background: var(--color-gray-light);
+    }
+
+    /* Language Switcher */
+    .language-switcher {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: var(--color-gray-light);
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: var(--transition-base);
+    }
+
+    .language-switcher i {
+      color: var(--color-primary);
+      font-size: 16px;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      color: var(--color-primary);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 0;
+      transition: var(--transition-base);
+    }
+
+    .lang-btn:hover {
+      opacity: 0.7;
+    }
+
+    .lang-divider {
+      color: var(--color-primary);
+      margin: 0 2px;
+    }
+
+    .lang-btn.active {
+      text-decoration: underline;
+    }
+
+    #google_translate_element {
+      display: none;
     }
 
     .hamburger-menu {
-      display: none;
+      display: block;
       font-size: clamp(1.5rem, 4vw, 2rem);
-      color: #000435;
+      color: var(--color-primary);
       cursor: pointer;
-      transition: color 0.3s ease;
+      transition: var(--transition-base);
       z-index: 1001;
-      padding: 5px;
+      padding: var(--spacing-xs);
+      background: transparent;
+      border: none;
     }
 
     .mobile-menu {
       position: fixed;
       top: 0;
       right: -100%;
-      width: 100%;
+      width: min(100%, 400px);
       height: 100vh;
-      background-color: white;
-      transition: right 0.3s ease-in-out;
+      background-color: var(--color-white);
+      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 999;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding-top: clamp(80px, 15vw, 100px);
+      padding-top: clamp(80px, 15vh, 120px);
       overflow-y: auto;
+      box-shadow: var(--shadow-lg);
     }
 
     .mobile-menu.active {
@@ -191,25 +274,26 @@
       list-style: none;
       width: 100%;
       text-align: center;
-      padding: 0 20px;
+      padding: 0 var(--spacing-lg);
     }
 
     .mobile-menu li {
-      margin-bottom: clamp(15px, 3vw, 20px);
-      list-style: none;
+      margin-bottom: var(--spacing-md);
     }
 
     .mobile-menu li a {
-      color: #000435;
-      font-size: clamp(1.2rem, 4vw, 1.5rem);
+      color: var(--color-primary);
+      font-size: var(--font-size-lg);
       font-weight: 600;
       text-decoration: none;
       display: block;
-      padding: clamp(8px, 2vw, 10px) 0;
+      padding: var(--spacing-sm) 0;
+      transition: var(--transition-base);
     }
 
     .mobile-menu li a:hover {
-      background-color: #f0f4ff;
+      background-color: var(--color-gray-light);
+      color: var(--color-primary-light);
     }
 
     .mobile-menu .dropdown-menu {
@@ -218,34 +302,54 @@
       background: transparent;
       box-shadow: none;
       padding: 0;
-      margin-top: 10px;
-      list-style: none;
-    }
-
-    .mobile-menu .dropdown-menu li {
-      list-style: none;
+      margin-top: var(--spacing-sm);
     }
 
     .mobile-menu .dropdown-menu li a {
-      font-size: clamp(1rem, 3vw, 1.2rem);
-      padding-left: 20px;
-      color: #666;
+      font-size: var(--font-size-base);
+      padding-left: var(--spacing-lg);
+      color: var(--color-gray);
     }
 
-    /* ----------------------- */
-    /* VIDEO SECTION - FULLY RESPONSIVE */
-    /* ----------------------- */
+    .mobile-lang-switcher {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      padding: 20px;
+      border-top: 1px solid var(--color-gray-light);
+      margin-top: 20px;
+    }
+
+    .mobile-lang-switcher button {
+      background: var(--color-primary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-base);
+    }
+
+    .mobile-lang-switcher button:hover {
+      background: var(--color-primary-light);
+    }
+
+    .mobile-lang-switcher button.active {
+      background: var(--color-primary-light);
+    }
+
     .film-section {
-      padding: clamp(60px, 10vw, 80px) clamp(15px, 3vw, 20px);
+      padding: var(--spacing-2xl) var(--container-padding);
       max-width: 1200px;
       margin: 0 auto;
       text-align: center;
     }
 
     .film-header h2 {
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      margin-bottom: clamp(25px, 4vw, 30px);
-      color: #000053;
+      font-size: var(--font-size-xl);
+      margin-bottom: var(--spacing-xl);
+      color: var(--color-primary);
     }
 
     .video-wrapper {
@@ -256,55 +360,49 @@
       margin: 0 auto;
       overflow: hidden;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: var(--shadow-md);
     }
 
     .video-wrapper iframe {
       position: absolute;
-      top: 0; 
+      top: 0;
       left: 0;
-      width: 100%; 
+      width: 100%;
       height: 100%;
       border: none;
     }
 
-    /* ----------------------- */
-    /* SUMMARY SECTION - FULLY RESPONSIVE */
-    /* ----------------------- */
     .summary {
-      max-width: min(1300px, 95vw);
-      margin: clamp(30px, 5vw, 40px) auto;
-      padding: clamp(15px, 3vw, 20px);
+      max-width: 1200px;
+      margin: var(--spacing-xl) auto;
+      padding: var(--spacing-lg);
       line-height: 1.8;
       font-weight: 600;
     }
 
     .summary h3 {
-      font-size: clamp(1.4rem, 3vw, 1.8rem);
-      color: #000053;
-      margin-bottom: clamp(15px, 3vw, 20px);
+      font-size: var(--font-size-xl);
+      color: var(--color-primary);
+      margin-bottom: var(--spacing-lg);
       text-align: center;
     }
 
     .summary p {
-      margin-bottom: clamp(15px, 3vw, 20px);
+      margin-bottom: var(--spacing-lg);
       text-align: justify;
-      font-size: clamp(1rem, 2vw, 1.4rem);
+      font-size: var(--font-size-base);
     }
 
-    /* ----------------------- */
-    /* PROFESSOR PROFILE SECTION - FULLY RESPONSIVE */
-    /* ----------------------- */
     .profile {
       display: grid;
       grid-template-columns: 1fr;
-      gap: clamp(20px, 4vw, 30px);
-      max-width: min(1300px, 95vw);
-      margin: clamp(50px, 8vw, 60px) auto;
-      padding: clamp(20px, 4vw, 30px) clamp(15px, 3vw, 20px);
-      background-color: #f0f7ff;
+      gap: var(--spacing-xl);
+      max-width: 1200px;
+      margin: var(--spacing-2xl) auto;
+      padding: var(--spacing-xl) var(--spacing-lg);
+      background-color: var(--color-gray-light);
       border-radius: 16px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      box-shadow: var(--shadow-sm);
       text-align: center;
     }
 
@@ -313,7 +411,7 @@
       width: 100%;
       height: auto;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: var(--shadow-md);
       margin: 0 auto;
     }
 
@@ -322,9 +420,9 @@
     }
 
     .profile-content h3 {
-      font-size: clamp(1.4rem, 3vw, 1.8rem);
-      margin-bottom: clamp(15px, 3vw, 20px);
-      color: #000053;
+      font-size: var(--font-size-xl);
+      margin-bottom: var(--spacing-lg);
+      color: var(--color-primary);
     }
 
     .profile-content ul {
@@ -336,11 +434,11 @@
     }
 
     .profile-content ul li {
-      margin-bottom: clamp(10px, 2vw, 12px);
-      padding-left: clamp(18px, 4vw, 20px);
+      margin-bottom: var(--spacing-sm);
+      padding-left: var(--spacing-lg);
       position: relative;
       font-weight: 600;
-      font-size: clamp(0.9rem, 1.8vw, 1rem);
+      font-size: var(--font-size-sm);
       list-style: none;
     }
 
@@ -348,71 +446,62 @@
       content: "•";
       position: absolute;
       left: 0;
-      color: #000053;
-      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--color-primary);
+      font-size: var(--font-size-base);
     }
 
-    /* ----------------------- */
-    /* FOOTER - FULLY RESPONSIVE */
-    /* ----------------------- */
     .footer {
-      background-color: #000435;
-      color: #fff;
+      background-color: var(--color-primary);
+      color: var(--color-white);
       width: 100%;
-      padding: clamp(30px, 5vw, 40px) clamp(15px, 3vw, 20px);
+      padding: var(--spacing-xl) var(--container-padding);
       display: grid;
       grid-template-columns: 1fr;
-      gap: clamp(20px, 4vw, 25px);
+      gap: var(--spacing-lg);
       text-align: center;
-      margin-top: clamp(40px, 6vw, 50px);
-    }
-
-    .footer-left {
-      max-width: 100%;
-      line-height: 1.8;
+      margin-top: var(--spacing-2xl);
     }
 
     .footer-left h2 {
-      margin-bottom: 15px;
-      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      margin-bottom: var(--spacing-md);
+      font-size: var(--font-size-lg);
     }
 
     .footer-left p {
-      font-size: clamp(0.9rem, 1.8vw, 1rem);
+      font-size: var(--font-size-sm);
+      line-height: 1.8;
     }
 
     .footer-right {
       display: flex;
-      gap: clamp(15px, 4vw, 20px);
+      gap: var(--spacing-md);
       font-size: clamp(24px, 5vw, 28px);
       justify-content: center;
       align-items: center;
     }
 
     .footer-right a {
-      color: #fff;
-      transition: color 0.3s ease;
-      padding: 10px;
+      color: var(--color-white);
+      transition: var(--transition-base);
+      padding: var(--spacing-xs);
     }
 
-    /* Hover colors by brand */
     .footer-right a:hover .fa-instagram { color: #E4405F; }
     .footer-right a:hover .fa-facebook { color: #1877F2; }
     .footer-right a:hover .fa-tiktok { color: #000; }
     .footer-right a:hover .fa-whatsapp { color: #25D366; }
 
-    /* ----------------------- */
-    /* MEDIA QUERIES FOR SPECIFIC BREAKPOINTS */
-    /* ----------------------- */
-
-    /* Tablet and larger */
     @media (min-width: 768px) {
       .desktop-menu {
-        display: flex !important;
+        display: flex;
+      }
+
+      .language-switcher {
+        display: flex;
       }
       
       .hamburger-menu {
-        display: none !important;
+        display: none;
       }
       
       .profile {
@@ -433,128 +522,85 @@
       .footer-right {
         justify-content: flex-end;
       }
-    }
 
-    /* Mobile only */
-    @media (max-width: 767px) {
-      .desktop-menu {
-        display: none !important;
-      }
-
-      .hamburger-menu {
-        display: block !important;
-      }
-      
-      body {
-        padding-top: 70px;
-      }
-    }
-
-    /* Small mobile */
-    @media (max-width: 480px) {
-      nav {
-        padding: 8px 15px;
-        min-height: 60px;
-      }
-      
-      body {
-        padding-top: 60px;
-      }
-      
-      .film-section {
-        padding: clamp(40px, 8vw, 60px) clamp(10px, 2vw, 15px);
-      }
-      
-      .summary {
-        margin: clamp(20px, 4vw, 30px) auto;
-        padding: clamp(10px, 2vw, 15px);
-      }
-      
-      .profile {
-        margin: clamp(30px, 6vw, 40px) auto;
-        padding: clamp(15px, 3vw, 25px) clamp(10px, 2vw, 15px);
-      }
-    }
-
-    /* Very small screens */
-    @media (max-width: 320px) {
-      .film-header h2 {
-        font-size: clamp(1.2rem, 5vw, 1.5rem);
-      }
-      
-      .summary h3 {
-        font-size: clamp(1.2rem, 5vw, 1.4rem);
-      }
-      
-      .profile-content h3 {
-        font-size: clamp(1.2rem, 5vw, 1.4rem);
-      }
-    }
-
-    /* Print styles */
-    @media print {
-      nav, .hamburger-menu, .mobile-menu {
-        display: none !important;
-      }
-      
-      body {
-        padding-top: 0 !important;
-      }
-      
-      .video-wrapper {
+      .mobile-lang-switcher {
         display: none;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav>
-    <div class="logo-container">
-      <a href="Home.html" class="logo">
-        <img src="./Assets/AOI.png" alt="AOI Logo">
-      </a>
-      <div class="hamburger-menu" onclick="toggleMobileMenu()">
-        <i class="fas fa-bars"></i>
+  <nav id="navbar">
+    <div class="nav-container">
+      <div class="logo-container">
+        <a href="Home.html" class="logo">
+          <img src="Assets/AOI.png" alt="AOI Logo" id="logo-img">
+        </a>
       </div>
-    </div>
-    
-    <ul class="desktop-menu">
-      <li><a href="Home.html">BERANDA</a></li>
-      <li><a href="AOI.html">TENTANG AOI</a></li>
-      <li class="dropdown">
-        <a href="#">FILM AOI ▾</a>
-        <ul class="dropdown-menu">
-          <li><a href="./Introduction.html">Introduction</a></li>
-          <li><a href="./Sports.html">Sports Performance</a></li>
-          <li><a href="./Diet and Beauty.html">Diet and Beauty</a></li>
+      
+      <div class="nav-right">
+        <ul class="desktop-menu">
+          <li><a href="Home.html">BERANDA</a></li>
+          <li><a href="AOI.html">TENTANG AOI</a></li>
+          <li class="dropdown">
+            <a href="Introduction.html">FILM AOI ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="Introduction.html">Introduction</a></li>
+              <li><a href="Sports.html">Sports Performance</a></li>
+              <li><a href="Diet and Beauty.html">Diet and Beauty</a></li>
+            </ul>
+          </li>
+          <li><a href="Home.html#products">PRODUK KAMI</a></li>
+          <li><a href="Home.html#stores">TEMUKAN KAMI</a></li>
+          <li><a href="#footer">HUBUNGI KAMI</a></li>
         </ul>
-      </li>
-      <li><a href="Home.html#products">PRODUK KAMI</a></li>
-      <li><a href="Home.html#stores">BELI DI MANA</a></li>
-      <li><a href="#footer">HUBUNGI KAMI</a></li>
-    </ul>
+
+        <!-- Language Switcher -->
+        <div class="language-switcher">
+          <i class="fas fa-globe"></i>
+          <button class="lang-btn active" onclick="changeLanguage('id')">ID</button>
+          <span class="lang-divider">|</span>
+          <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+        </div>
+        
+        <button class="hamburger-menu" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+
+      <!-- Hidden Google Translate Element -->
+      <div id="google_translate_element"></div>
+    </div>
   </nav>
 
-  <div class="mobile-menu">
+  <div class="mobile-menu" id="mobile-menu">
     <ul>
       <li><a href="Home.html" onclick="toggleMobileMenu()">BERANDA</a></li>
       <li><a href="AOI.html" onclick="toggleMobileMenu()">TENTANG AOI</a></li>
       <li class="dropdown">
         <a href="#">FILM AOI ▾</a>
         <ul class="dropdown-menu">
-          <li><a href="./Introduction.html" onclick="toggleMobileMenu()">Introduction</a></li>
-          <li><a href="./Sports.html" onclick="toggleMobileMenu()">Sports Performance</a></li>
-          <li><a href="./Diet and Beauty.html" onclick="toggleMobileMenu()">Diet and Beauty</a></li>
+          <li><a href="Introduction.html" onclick="toggleMobileMenu()">Introduction</a></li>
+          <li><a href="Sports.html" onclick="toggleMobileMenu()">Sports Performance</a></li>
+          <li><a href="Diet and Beauty.html" onclick="toggleMobileMenu()">Diet and Beauty</a></li>
         </ul>
       </li>
       <li><a href="Home.html#products" onclick="toggleMobileMenu()">PRODUK KAMI</a></li>
-      <li><a href="Home.html#stores" onclick="toggleMobileMenu()">BELI DI MANA</a></li>
+      <li><a href="Home.html#stores" onclick="toggleMobileMenu()">TEMUKAN KAMI</a></li>
       <li><a href="#footer" onclick="toggleMobileMenu()">HUBUNGI KAMI</a></li>
     </ul>
+
+    <!-- Mobile Language Switcher -->
+    <div class="mobile-lang-switcher">
+      <button class="active" onclick="changeLanguage('id'); toggleMobileMenu();">
+        <i class="fas fa-flag"></i> Indonesian
+      </button>
+      <button onclick="changeLanguage('en'); toggleMobileMenu();">
+        <i class="fas fa-flag-usa"></i> English
+      </button>
+    </div>
   </div>
 
-  <!-- Introduction Section -->
   <section id="film-intro" class="film-section">
     <div class="film-header">
       <h2>Introduction to AOI: Nano Cluster Water</h2>
@@ -570,7 +616,6 @@
     </div>
   </section>
 
-  <!-- Summary Section -->
   <section class="summary">
     <h3>Cara Kerja Nano Cluster Water</h3>
     <p>
@@ -585,34 +630,31 @@
     </p>
   </section>
 
-  <!-- Professor Profile -->
   <section class="profile">
-    <img src="./Assets/Professor.jpg" alt="Prof. Uzawa Masakazu">
+    <img src="Assets/Professor.jpg" alt="Prof. Uzawa Masakazu">
     <div class="profile-content">
       <h3>Prof. Uzawa Masakazu's Profile</h3>
       <ul>
-        <li>1980 — Graduated from Tokyo Denki University</li>
-        <li>1990 — Researching Water and Health with Ph.D. of Medical Doctor</li>
-        <li>1995 — Researching with National Institute of Health Science</li>
-        <li>1996 — Researching with President of World Brain Metabolism, Mr. Kogure Hisaya</li>
-        <li>1997 — USA Patent: Water Processing Method</li>
-        <li>2001 — Supplied water for athletes at Fukuoka World Swimming Championships</li>
-        <li>2004 — Japan Patent: Water Processing Method</li>
-        <li>2005 — Research for The Foundation of Ocean Policy Research</li>
+        <li>1980 – Graduated from Tokyo Denki University</li>
+        <li>1990 – Researching Water and Health with Ph.D. of Medical Doctor</li>
+        <li>1995 – Researching with National Institute of Health Science</li>
+        <li>1996 – Researching with President of World Brain Metabolism, Mr. Kogure Hisaya</li>
+        <li>1997 – USA Patent: Water Processing Method</li>
+        <li>2001 – Supplied water for athletes at Fukuoka World Swimming Championships</li>
+        <li>2004 – Japan Patent: Water Processing Method</li>
+        <li>2005 – Research for The Foundation of Ocean Policy Research</li>
       </ul>
     </div>
   </section>
 
-  <!-- Footer Section -->
   <footer class="footer" id="footer">
     <div class="footer-left">
       <h2>HUBUNGI KAMI</h2>
       <p>
         PT Santini Logmax Indonesia<br>
         Jl. Komp. Kawasan, RT.10/RW.3, Semper Timur,<br>
-        Kec. Cilincing,<br>
-        Jakarta Utara,<br>
-        Daerah Khusus Ibukota Jakarta 14130
+        Kec. Cilincing, Jakarta Utara<br>
+        DKI Jakarta 14130
       </p>
       <p><strong>Tel:</strong> +62214400528</p>
       <p><strong>Jam Operasional:</strong> 08.00 - 16.30</p>
@@ -625,7 +667,7 @@
       <a href="https://www.facebook.com/aoinanowater" target="_blank" aria-label="Facebook">
         <i class="fa-brands fa-facebook"></i>
       </a>
-      <a href="https://www.tiktok.com/@aoi.nanowater?_t=ZS-8znAJ31PL0O&_r=1" target="_blank" aria-label="TikTok">
+      <a href="https://www.tiktok.com/@aoi.nanowater" target="_blank" aria-label="TikTok">
         <i class="fa-brands fa-tiktok"></i>
       </a>
       <a href="https://wa.me/6282210108811" target="_blank" aria-label="WhatsApp">
@@ -635,41 +677,87 @@
   </footer>
 
   <script>
+    // =====================
+    // MOBILE MENU
+    // =====================
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburger = document.querySelector('.hamburger-menu');
+
     function toggleMobileMenu() {
-      const mobileMenu = document.querySelector('.mobile-menu');
-      const hamburger = document.querySelector('.hamburger-menu');
+      mobileMenu.classList.toggle('active');
+      const icon = hamburger.querySelector('i');
       
-      if (mobileMenu && hamburger) {
-        mobileMenu.classList.toggle('active');
-        
-        const icon = hamburger.querySelector('i');
-        if (mobileMenu.classList.contains('active')) {
-          icon.className = 'fas fa-times';
-        } else {
-          icon.className = 'fas fa-bars';
-        }
+      if (mobileMenu.classList.contains('active')) {
+        icon.className = 'fas fa-times';
+        document.body.style.overflow = 'hidden';
+      } else {
+        icon.className = 'fas fa-bars';
+        document.body.style.overflow = '';
       }
     }
 
-    document.addEventListener('click', function(event) {
-      const mobileMenu = document.querySelector('.mobile-menu');
-      const hamburger = document.querySelector('.hamburger-menu');
-      
-      if (mobileMenu && hamburger && 
-          !mobileMenu.contains(event.target) && 
-          !hamburger.contains(event.target)) {
-        if (mobileMenu.classList.contains('active')) {
-          toggleMobileMenu();
-        }
+    document.addEventListener('click', (e) => {
+      if (mobileMenu.classList.contains('active') && 
+          !mobileMenu.contains(e.target) && 
+          !hamburger.contains(e.target)) {
+        toggleMobileMenu();
       }
     });
 
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+        toggleMobileMenu();
+      }
+    });
+
+    // =====================
+    // LANGUAGE SWITCHER
+    // =====================
+    function changeLanguage(lang) {
+      document.querySelectorAll('.lang-btn, .mobile-lang-switcher button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      if (event && event.target) {
+        event.target.classList.add('active');
+      }
+
+      function triggerTranslation() {
+        const select = document.querySelector('.goog-te-combo');
+        if (select) {
+          select.value = lang;
+          select.dispatchEvent(new Event('change'));
+          return true;
+        }
+        return false;
+      }
+
+      if (!triggerTranslation()) {
+        let attempts = 0;
+        const maxAttempts = 5;
+        const retryInterval = setInterval(() => {
+          attempts++;
+          if (triggerTranslation() || attempts >= maxAttempts) {
+            clearInterval(retryInterval);
+          }
+        }, 500);
+      }
+    }
+
+    // =====================
+    // SMOOTH SCROLLING
+    // =====================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const target = document.querySelector(href);
+        
         if (target) {
-          const navHeight = document.querySelector('nav').offsetHeight;
+          const navbar = document.querySelector('nav');
+          const navHeight = navbar.offsetHeight;
           const targetPosition = target.offsetTop - navHeight - 20;
           
           window.scrollTo({
@@ -677,42 +765,11 @@
             behavior: 'smooth'
           });
           
-          const mobileMenu = document.querySelector('.mobile-menu');
-          if (mobileMenu && mobileMenu.classList.contains('active')) {
+          if (mobileMenu.classList.contains('active')) {
             toggleMobileMenu();
           }
         }
       });
-    });
-
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.film-section, .summary, .profile').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-      observer.observe(el);
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        const mobileMenu = document.querySelector('.mobile-menu');
-        if (mobileMenu && mobileMenu.classList.contains('active')) {
-          toggleMobileMenu();
-        }
-      }
     });
   </script>
 </body>
