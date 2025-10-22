@@ -4,25 +4,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="description" content="AOI Nano Cluster Water - Air kesehatan dengan teknologi dari Jepang">
   <title>AOI Nano Cluster Water</title>
   
-  <!-- Google Translate Script -->
-  <script type="text/javascript">
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-      pageLanguage: 'id',
-      includedLanguages: 'en,id',
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-      autoDisplay: false
-    }, 'google_translate_element');
-  }
-  </script>
-  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  
   <style>
-  /* ======================= */
-  /* RESET & BASE STYLES */
-  /* ======================= */
   *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -63,7 +48,6 @@
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
@@ -72,33 +56,21 @@
     background-color: var(--color-white);
     line-height: 1.6;
     overflow-x: hidden;
-    top: 0 !important;
   }
 
-  /* Hide Google Translate Banner */
-  .goog-te-banner-frame.skiptranslate {
-    display: none !important;
-  }
+  /* Language Switching - FIXED VERSION */
+  [data-lang="en"] { display: none; }
+  body.lang-en [data-lang="id"] { display: none; }
+  body.lang-en [data-lang="en"] { display: inline-block; }
 
-  body > .skiptranslate {
-    display: none;
-  }
-
-  /* ======================= */
-  /* CONTAINER UTILITY */
-  /* ======================= */
   .container {
     width: 100%;
     max-width: var(--container-max);
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: var(--container-padding);
-    padding-right: var(--container-padding);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
   }
 
-  /* ======================= */
   /* NAVIGATION */
-  /* ======================= */
   nav {
     position: fixed;
     top: 0;
@@ -137,7 +109,6 @@
     height: clamp(45px, 7vw, 70px);
     width: auto;
     object-fit: contain;
-    display: block;
   }
 
   .nav-right {
@@ -161,7 +132,6 @@
     font-size: var(--font-size-sm);
     transition: var(--transition-base);
     white-space: nowrap;
-    display: block;
     padding: var(--spacing-xs);
   }
 
@@ -173,7 +143,6 @@
     color: var(--color-accent);
   }
 
-  /* Dropdown */
   .desktop-menu li.dropdown {
     position: relative;
   }
@@ -183,14 +152,13 @@
     position: absolute;
     top: 100%;
     left: 0;
-    background: transparent;
+    background: var(--color-white);
     padding: var(--spacing-sm) 0;
     border-radius: 12px;
     box-shadow: var(--shadow-lg);
     min-width: 220px;
     margin-top: var(--spacing-xs);
-    list-style-type: none;
-    padding-left: 0;
+    list-style: none;
   }
 
   .desktop-menu li.dropdown:hover .dropdown-menu {
@@ -198,30 +166,19 @@
   }
 
   .desktop-menu li .dropdown-menu li {
-    list-style-type: none;
     list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .desktop-menu li .dropdown-menu li::before {
-    content: none;
-    display: none;
   }
 
   .desktop-menu li .dropdown-menu li a {
     display: block;
     padding: var(--spacing-sm) var(--spacing-md);
     color: var(--color-primary);
-    font-size: var(--font-size-sm);
-    text-decoration: none;
   }
 
   .desktop-menu li .dropdown-menu li a:hover {
     background: var(--color-gray-light);
   }
 
-  /* Language Switcher */
   .language-switcher {
     display: none;
     align-items: center;
@@ -278,26 +235,19 @@
     text-decoration: underline;
   }
 
-  #google_translate_element {
-    display: none;
-  }
-
-  /* Mobile Menu */
   .hamburger-menu {
     display: block;
     font-size: clamp(1.5rem, 4vw, 2rem);
-    color: white;
+    color: var(--color-primary);
     cursor: pointer;
-    transition: var(--transition-base);
     z-index: 1001;
     padding: var(--spacing-xs);
-    background: transparent;
+    background: white;
     border: none;
   }
 
   nav.scrolled .hamburger-menu {
     color: var(--color-primary);
-    background: var(--color-white);
   }
 
   .mobile-menu {
@@ -306,9 +256,8 @@
     right: -100%;
     width: min(100%, 400px);
     height: 100vh;
-    height: 100dvh;
-    background-color: var(--color-primary);
-    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--color-white);
+    transition: right 0.3s ease;
     z-index: 999;
     display: flex;
     flex-direction: column;
@@ -333,18 +282,16 @@
   }
 
   .mobile-menu li a {
-    color: var(--color-white);
+    color: var(--color-primary);
     font-size: var(--font-size-lg);
     font-weight: 600;
     text-decoration: none;
     display: block;
     padding: var(--spacing-sm) 0;
-    transition: var(--transition-base);
   }
 
   .mobile-menu li a:hover {
-    background-color: var(--color-primary-light);
-    color: var(--color-white);
+    background: var(--color-gray-light);
   }
 
   .mobile-menu .dropdown-menu {
@@ -359,44 +306,47 @@
   .mobile-menu .dropdown-menu li a {
     font-size: var(--font-size-base);
     padding-left: var(--spacing-lg);
-    color: var(--color-white);
+    color: var(--color-gray);
   }
 
   .mobile-lang-switcher {
     display: flex;
-    justify-content: center;
-    gap: 15px;
+    flex-direction: column;
+    gap: 10px;
     padding: 20px;
-    border-top: 1px solid var(--color-white);
     margin-top: 20px;
+    border-top: 1px solid var(--color-gray-light);
   }
 
   .mobile-lang-switcher button {
-    background: var(--color-primary);
-    color: white;
+    background: var(--color-gray-light);
     border: none;
-    padding: 10px 20px;
+    padding: 12px;
     border-radius: 8px;
     font-weight: 600;
+    color: var(--color-primary);
     cursor: pointer;
     transition: var(--transition-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
   }
 
   .mobile-lang-switcher button:hover {
-    background: var(--color-primary-light);
+    background: var(--color-primary);
+    color: var(--color-white);
   }
 
   .mobile-lang-switcher button.active {
-    background: var(--color-primary-light);
+    background: var(--color-primary);
+    color: var(--color-white);
   }
 
-  /* ======================= */
-  /* HERO SECTION */
-  /* ======================= */
+  /* HERO */
   .hero {
     position: relative;
     min-height: max(500px, 100vh);
-    min-height: max(500px, 100dvh);
     width: 100%;
     background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.3)), 
                 url(Assets/AOI\ Background.png) center/cover no-repeat;
@@ -422,7 +372,7 @@
   .btn-primary {
     display: inline-block;
     padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.5rem);
-    background-color: var(--color-primary);
+    background: var(--color-primary);
     color: var(--color-white);
     text-decoration: none;
     font-weight: 700;
@@ -433,16 +383,13 @@
     box-shadow: var(--shadow-md);
   }
 
-  .btn-primary:hover,
-  .btn-primary:focus {
-    background-color: var(--color-primary-light);
+  .btn-primary:hover {
+    background: var(--color-primary-light);
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
   }
 
-  /* ======================= */
-  /* ABOUT SECTION */
-  /* ======================= */
+  /* ABOUT */
   .about {
     padding: var(--spacing-2xl) 0;
     background: var(--color-white);
@@ -485,7 +432,6 @@
     color: var(--color-primary);
     margin-bottom: var(--spacing-md);
     font-weight: 500;
-    letter-spacing: 1px;
   }
 
   .divider {
@@ -503,9 +449,7 @@
     font-size: var(--font-size-base);
   }
 
-  /* ======================= */
-  /* PRODUCTS SECTION */
-  /* ======================= */
+  /* PRODUCTS */
   .products {
     padding: var(--spacing-2xl) 0;
     background: var(--color-gray-light);
@@ -538,9 +482,6 @@
     padding: var(--spacing-lg);
     text-align: center;
     transition: var(--transition-base);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
 
   .product-card:hover {
@@ -562,9 +503,7 @@
     color: var(--color-primary);
   }
 
-  /* ======================= */
-  /* STORES SECTION */
-  /* ======================= */
+  /* STORES */
   .stores {
     padding: var(--spacing-2xl) 0;
     background: var(--color-white);
@@ -580,7 +519,7 @@
   .slider-track {
     display: flex;
     gap: var(--spacing-md);
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.5s ease;
     padding: 0 var(--spacing-sm);
   }
 
@@ -609,7 +548,6 @@
     object-fit: contain;
     max-width: 150px;
     max-height: 150px;
-    object-position: center;
   }
 
   .slider-arrow {
@@ -629,7 +567,6 @@
     align-items: center;
     z-index: 10;
     transition: var(--transition-base);
-    border: none;
   }
 
   .slider-arrow:hover:not(:disabled) {
@@ -651,11 +588,9 @@
     right: var(--spacing-sm);
   }
 
-  /* ======================= */
   /* FOOTER */
-  /* ======================= */
   .footer {
-    background-color: var(--color-primary);
+    background: var(--color-primary);
     color: var(--color-white);
     padding: var(--spacing-xl) 0;
     margin-top: var(--spacing-2xl);
@@ -691,30 +626,13 @@
     color: var(--color-white);
     transition: var(--transition-base);
     padding: var(--spacing-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     text-decoration: none;
   }
 
-  .footer-social a:hover .fa-instagram { color: #1877F2; }
+  .footer-social a:hover .fa-instagram { color: #E4405F; }
   .footer-social a:hover .fa-facebook { color: #1877F2; }
-  .footer-social a:hover .fa-tiktok { color: #1877F2; }
-  .footer-social a:hover .fa-whatsapp { color: #1877F2; }
-
-  /* ======================= */
-  /* ANIMATIONS */
-  /* ======================= */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  .footer-social a:hover .fa-tiktok { color: #000; }
+  .footer-social a:hover .fa-whatsapp { color: #25D366; }
 
   .fade-in {
     opacity: 0;
@@ -725,16 +643,6 @@
   .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
-  }
-
-  /* ======================= */
-  /* MEDIA QUERIES */
-  /* ======================= */
-  
-  @media (min-width: 576px) {
-    .mobile-menu {
-      width: 400px;
-    }
   }
 
   @media (min-width: 768px) {
@@ -755,7 +663,6 @@
     }
     
     .about-text {
-      text-align: left;
       order: 1;
     }
     
@@ -771,10 +678,6 @@
     .footer-social {
       justify-content: flex-end;
     }
-    
-    .slider-arrow {
-      display: flex;
-    }
 
     .mobile-lang-switcher {
       display: none;
@@ -783,7 +686,6 @@
 
   @media (min-width: 992px) {
     .hero {
-      align-items: center;
       justify-content: flex-start;
     }
     
@@ -797,20 +699,14 @@
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
+  @media (max-width: 767px) {
+    .language-switcher {
+      display: none !important;
     }
   }
   </style>
 </head>
-<body>
-  <!-- Navigation -->
+<body class="lang-id">
   <nav id="navbar">
     <div class="nav-container">
       <div class="logo-container">
@@ -821,22 +717,21 @@
       
       <div class="nav-right">
         <ul class="desktop-menu">
-          <li><a href="#home">BERANDA</a></li>
-          <li><a href="AOI.html">TENTANG AOI</a></li>
+          <li><a href="#home"><span data-lang="id">BERANDA</span><span data-lang="en">HOME</span></a></li>
+          <li><a href="AOI.html"><span data-lang="id">TENTANG AOI</span><span data-lang="en">ABOUT AOI</span></a></li>
           <li class="dropdown">
-            <a href="Introduction.html">FILM AOI ▾</a>
+            <a href="Introduction.html"><span data-lang="id">FILM AOI ▾</span><span data-lang="en">AOI FILMS ▾</span></a>
             <ul class="dropdown-menu">
               <li><a href="Introduction.html">Introduction</a></li>
               <li><a href="Sports.html">Sports Performance</a></li>
               <li><a href="Diet and Beauty.html">Diet and Beauty</a></li>
             </ul>
           </li>
-          <li><a href="#products">PRODUK KAMI</a></li>
-          <li><a href="#stores">TEMUKAN KAMI</a></li>
-          <li><a href="#footer">HUBUNGI KAMI</a></li>
+          <li><a href="#products"><span data-lang="id">PRODUK KAMI</span><span data-lang="en">OUR PRODUCTS</span></a></li>
+          <li><a href="#stores"><span data-lang="id">TEMUKAN KAMI</span><span data-lang="en">FIND US</span></a></li>
+          <li><a href="#footer"><span data-lang="id">HUBUNGI KAMI</span><span data-lang="en">CONTACT US</span></a></li>
         </ul>
 
-        <!-- Language Switcher -->
         <div class="language-switcher">
           <i class="fas fa-globe"></i>
           <button class="lang-btn active" onclick="changeLanguage('id')">ID</button>
@@ -848,30 +743,26 @@
           <i class="fas fa-bars"></i>
         </button>
       </div>
-
-      <!-- Hidden Google Translate Element -->
-      <div id="google_translate_element"></div>
     </div>
   </nav>
 
   <div class="mobile-menu" id="mobile-menu">
     <ul>
-      <li><a href="Home.html" onclick="toggleMobileMenu()">BERANDA</a></li>
-      <li><a href="AOI.html" onclick="toggleMobileMenu()">TENTANG AOI</a></li>
+      <li><a href="Home.html" onclick="toggleMobileMenu()"><span data-lang="id">BERANDA</span><span data-lang="en">HOME</span></a></li>
+      <li><a href="AOI.html" onclick="toggleMobileMenu()"><span data-lang="id">TENTANG AOI</span><span data-lang="en">ABOUT AOI</span></a></li>
       <li class="dropdown">
-        <a href="#">FILM AOI ▾</a>
+        <a href="#"><span data-lang="id">FILM AOI ▾</span><span data-lang="en">AOI FILMS ▾</span></a>
         <ul class="dropdown-menu">
           <li><a href="Introduction.html" onclick="toggleMobileMenu()">Introduction</a></li>
           <li><a href="Sports.html" onclick="toggleMobileMenu()">Sports Performance</a></li>
           <li><a href="Diet and Beauty.html" onclick="toggleMobileMenu()">Diet and Beauty</a></li>
         </ul>
       </li>
-      <li><a href="#products" onclick="toggleMobileMenu()">PRODUK KAMI</a></li>
-      <li><a href="#stores" onclick="toggleMobileMenu()">TEMUKAN KAMI</a></li>
-      <li><a href="#footer" onclick="toggleMobileMenu()">HUBUNGI KAMI</a></li>
+      <li><a href="#products" onclick="toggleMobileMenu()"><span data-lang="id">PRODUK KAMI</span><span data-lang="en">OUR PRODUCTS</span></a></li>
+      <li><a href="#stores" onclick="toggleMobileMenu()"><span data-lang="id">TEMUKAN KAMI</span><span data-lang="en">FIND US</span></a></li>
+      <li><a href="#footer" onclick="toggleMobileMenu()"><span data-lang="id">HUBUNGI KAMI</span><span data-lang="en">CONTACT US</span></a></li>
     </ul>
 
-    <!-- Mobile Language Switcher -->
     <div class="mobile-lang-switcher">
       <button class="active" onclick="changeLanguage('id'); toggleMobileMenu();">
         <i class="fas fa-flag"></i> Indonesian
@@ -882,35 +773,42 @@
     </div>
   </div>
 
-  <!-- Hero Section -->
   <section id="home" class="hero">
     <div class="hero-content">
-      <h1>SEHAT DAN BUGAR BERSAMA AOI</h1>
-      <a href="#stores" class="btn-primary">Beli Sekarang</a>
+      <h1><span data-lang="id">SEHAT DAN BUGAR BERSAMA AOI</span><span data-lang="en">HEALTHY AND FIT WITH AOI</span></h1>
+      <a href="#stores" class="btn-primary"><span data-lang="id">Beli Sekarang</span><span data-lang="en">Buy Now</span></a>
     </div>
   </section>
 
-  <!-- About Section -->
   <section id="about" class="about">
     <div class="container">
       <div class="about-grid">
         <div class="about-text fade-in">
           <div class="about-header">
-            <h2>NANO CLUSTER WATER</h2>
-            <h3>PERTAMA DI INDONESIA</h3>
+            <h2><span data-lang="id">NANO CLUSTER WATER</span><span data-lang="en">NANO CLUSTER WATER</span></h2>
+            <h3><span data-lang="id">PERTAMA DI INDONESIA</span><span data-lang="en">FIRST IN INDONESIA</span></h3>
             <span class="divider"></span>
           </div>
           <div class="about-content">
-            <p>
+            <p data-lang="id">
               <strong>AOI NANO CLUSTER WATER</strong> adalah air dengan inovasi teknologi dari Jepang, 
               diformulasi ulang untuk meningkatkan kemampuan air diserap oleh tubuh 
               dan mendistribusikan oksigen ke setiap sudut di tubuh kita dengan lebih baik.
             </p>
-            <p>
+            <p data-lang="en">
+              <strong>AOI NANO CLUSTER WATER</strong> is water with innovative technology from Japan, 
+              reformulated to enhance water absorption by the body 
+              and better distribute oxygen to every part of our body.
+            </p>
+            <p data-lang="id">
               Hasilnya, <strong>AOI NANO CLUSTER WATER</strong> pun mampu meningkatkan metabolisme tubuh 
               untuk bekerja lebih baik sehingga bermanfaat untuk kesehatan dan kecantikan.
             </p>
-            <a href="#about" class="btn-primary">Pelajari Lebih Lanjut</a>
+            <p data-lang="en">
+              As a result, <strong>AOI NANO CLUSTER WATER</strong> can enhance body metabolism 
+              to work better, benefiting health and beauty.
+            </p>
+            <a href="AOI.html" class="btn-primary"><span data-lang="id">Pelajari Lebih Lanjut</span><span data-lang="en">Learn More</span></a>
           </div>
         </div>
         
@@ -921,11 +819,10 @@
     </div>
   </section>
 
-  <!-- Products Section -->
   <section id="products" class="products">
     <div class="container">
       <div class="section-header">
-        <h2>PRODUK KAMI</h2>
+        <h2><span data-lang="id">PRODUK KAMI</span><span data-lang="en">OUR PRODUCTS</span></h2>
         <span class="divider"></span>
       </div>
 
@@ -933,23 +830,22 @@
         <div class="product-card fade-in">
           <img src="Assets/AOI 500 ML.png" alt="AOI 500 ml">
           <h3>AOI 500 ml</h3>
-          <a href="https://linktr.ee/aoinanowater" target="_blank" class="btn-primary">Beli</a>
+          <a href="https://linktr.ee/aoinanowater" target="_blank" class="btn-primary"><span data-lang="id">Beli</span><span data-lang="en">Buy</span></a>
         </div>
 
         <div class="product-card fade-in">
           <img src="Assets/AOI 330 ML.png" alt="AOI 330 ml">
           <h3>AOI 330 ml</h3>
-          <a href="https://linktr.ee/aoinanowater" target="_blank" class="btn-primary">Beli</a>
+          <a href="https://linktr.ee/aoinanowater" target="_blank" class="btn-primary"><span data-lang="id">Beli</span><span data-lang="en">Buy</span></a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Stores Section -->
   <section id="stores" class="stores">
     <div class="container">
       <div class="section-header">
-        <h2>TEMUKAN KAMI</h2>
+        <h2><span data-lang="id">TEMUKAN KAMI</span><span data-lang="en">FIND US</span></h2>
         <span class="divider"></span>
       </div>
 
@@ -989,12 +885,11 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="footer" id="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-left">
-          <h2>HUBUNGI KAMI</h2>
+          <h2><span data-lang="id">HUBUNGI KAMI</span><span data-lang="en">CONTACT US</span></h2>
           <p>
             PT Santini Logmax Indonesia<br>
             Jl. Komp. Kawasan, RT.10/RW.3, Semper Timur,<br>
@@ -1002,7 +897,7 @@
             DKI Jakarta 14130
           </p>
           <p><strong>Tel:</strong> +62214400528</p>
-          <p><strong>Jam Operasional:</strong> 08.00 - 16.30</p>
+          <p><span data-lang="id"><strong>Jam Operasional:</strong> 08.00 - 16.30</span><span data-lang="en"><strong>Operating Hours:</strong> 08.00 - 16.30</span></p>
         </div>
 
         <div class="footer-social">
@@ -1024,235 +919,182 @@
   </footer>
 
   <script>
-    // =====================
-    // NAVBAR SCROLL
-    // =====================
-    const navbar = document.getElementById('navbar');
-    const logoImg = document.getElementById('logo-img');
-    let lastScroll = 0;
+    (function() {
+      'use strict';
 
-    function handleScroll() {
-      const currentScroll = window.pageYOffset;
-      
-      if (currentScroll > 100) {
-        navbar.classList.add('scrolled');
-        logoImg.src = "Assets/AOI.png";
-      } else {
-        navbar.classList.remove('scrolled');
-        logoImg.src = "Assets/AOI(1).png";
-      }
-      
-      lastScroll = currentScroll;
-    }
+      // =====================
+      // MOBILE MENU
+      // =====================
+      window.toggleMobileMenu = function() {
+        const menu = document.getElementById('mobile-menu');
+        const icon = document.querySelector('.hamburger-menu i');
+        menu.classList.toggle('active');
+        icon.className = menu.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+        document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+      };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    // =====================
-    // MOBILE MENU
-    // =====================
-    const mobileMenu = document.getElementById('mobile-menu');
-    const hamburger = document.querySelector('.hamburger-menu');
-
-    function toggleMobileMenu() {
-      mobileMenu.classList.toggle('active');
-      const icon = hamburger.querySelector('i');
-      
-      if (mobileMenu.classList.contains('active')) {
-        icon.className = 'fas fa-times';
-        document.body.style.overflow = 'hidden';
-      } else {
-        icon.className = 'fas fa-bars';
-        document.body.style.overflow = '';
-      }
-    }
-
-    document.addEventListener('click', (e) => {
-      if (mobileMenu.classList.contains('active') && 
-          !mobileMenu.contains(e.target) && 
-          !hamburger.contains(e.target)) {
-        toggleMobileMenu();
-      }
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-        toggleMobileMenu();
-      }
-    });
-
-    // =====================
-    // LANGUAGE SWITCHER
-    // =====================
-    function changeLanguage(lang) {
-      document.querySelectorAll('.lang-btn, .mobile-lang-switcher button').forEach(btn => {
-        btn.classList.remove('active');
-      });
-      
-      if (event && event.target) {
-        event.target.classList.add('active');
-      }
-
-      const select = document.querySelector('.goog-te-combo');
-      if (select) {
-        select.value = lang;
-        select.dispatchEvent(new Event('change'));
-      } else {
-        setTimeout(() => {
-          const selectRetry = document.querySelector('.goog-te-combo');
-          if (selectRetry) {
-            selectRetry.value = lang;
-            selectRetry.dispatchEvent(new Event('change'));
-          }
-        }, 1000);
-      }
-    }
-
-    // =====================
-    // SMOOTH SCROLLING
-    // =====================
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        const href = this.getAttribute('href');
-        if (href === '#') return;
-        
-        e.preventDefault();
-        const target = document.querySelector(href);
-        
-        if (target) {
-          const navHeight = navbar.offsetHeight;
-          const targetPosition = target.offsetTop - navHeight - 20;
-          
-          window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-          });
-          
-          if (mobileMenu.classList.contains('active')) {
-            toggleMobileMenu();
-          }
+      document.addEventListener('click', (e) => {
+        const menu = document.getElementById('mobile-menu');
+        const hamburger = document.querySelector('.hamburger-menu');
+        if (menu && menu.classList.contains('active') && !menu.contains(e.target) && !hamburger.contains(e.target)) {
+          toggleMobileMenu();
         }
       });
-    });
 
-    // =====================
-    // STORE SLIDER
-    // =====================
-    const sliderTrack = document.getElementById('slider-track');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const cards = document.querySelectorAll('.store-card');
+      document.addEventListener('keydown', (e) => {
+        const menu = document.getElementById('mobile-menu');
+        if (e.key === 'Escape' && menu && menu.classList.contains('active')) {
+          toggleMobileMenu();
+        }
+      });
 
-    let currentIndex = 0;
-    let startX = 0;
-    let isDragging = false;
-    function getCardsPerView() {
-      const width = window.innerWidth;
-      if (width < 480) return 2;
-      if (width < 768) return 3;
-      if (width < 1024) return 4;
-      return 5;
-    }
+      // =====================
+      // SMOOTH SCROLLING
+      // =====================
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const href = this.getAttribute('href');
+          if (href === '#') return;
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            const navbar = document.querySelector('nav');
+            window.scrollTo({
+              top: target.offsetTop - (navbar ? navbar.offsetHeight : 90) - 20,
+              behavior: 'smooth'
+            });
+            const menu = document.getElementById('mobile-menu');
+            if (menu && menu.classList.contains('active')) {
+              toggleMobileMenu();
+            }
+          }
+        });
+      });
 
-    function updateSlider() {
-      const cardsPerView = getCardsPerView();
-      const cardWidth = cards[0].offsetWidth;
-      const gap = 16;
-      const offset = -(currentIndex * (cardWidth + gap));
-      
-      sliderTrack.style.transform = `translateX(${offset}px)`;
+      // =====================
+      // INTERSECTION OBSERVER
+      // =====================
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-      const maxIndex = Math.max(0, cards.length - cardsPerView);
-      prevBtn.disabled = currentIndex === 0;
-      nextBtn.disabled = currentIndex >= maxIndex;
-    }
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    nextBtn.addEventListener('click', () => {
-      const cardsPerView = getCardsPerView();
-      const maxIndex = Math.max(0, cards.length - cardsPerView);
-      if (currentIndex < maxIndex) {
-        currentIndex = Math.min(currentIndex + cardsPerView, maxIndex);
-        updateSlider();
-      }
-    });
-    
-    prevBtn.addEventListener('click', () => {
-      const cardsPerView = getCardsPerView();
-      currentIndex = Math.max(0, currentIndex - cardsPerView);
-      updateSlider();
-    });
+      // =====================
+      // NAVBAR SCROLL
+      // =====================
+      const navbar = document.getElementById('navbar');
+      const logoImg = document.getElementById('logo-img');
 
-
-    sliderTrack.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-      isDragging = true;
-    }, { passive: true });
-
-    sliderTrack.addEventListener('touchend', (e) => {
-      if (!isDragging) return;
-      isDragging = false;
-      
-      const endX = e.changedTouches[0].clientX;
-      const diffX = startX - endX;
-      
-      if (Math.abs(diffX) > 50) {
-        if (diffX > 0) {
-          nextBtn.click();
+      function handleScroll() {
+        const currentScroll = window.pageYOffset;
+        if (currentScroll > 100) {
+          navbar.classList.add('scrolled');
+          logoImg.src = "Assets/AOI.png";
         } else {
-          prevBtn.click();
+          navbar.classList.remove('scrolled');
+          logoImg.src = "Assets/AOI(1).png";
         }
       }
-    });
 
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        currentIndex = 0;
-        updateSlider();
-      }, 150);
-    });
+      window.addEventListener('scroll', handleScroll, { passive: true });
 
-    updateSlider();
+      // =====================
+      // STORE SLIDER
+      // =====================
+      const sliderTrack = document.getElementById('slider-track');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const cards = document.querySelectorAll('.store-card');
 
-    // =====================
-    // INTERSECTION OBSERVER
-    // =====================
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
+      let currentIndex = 0;
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+      function getCardsPerView() {
+        const width = window.innerWidth;
+        if (width < 480) return 2;
+        if (width < 768) return 3;
+        if (width < 1024) return 4;
+        return 5;
+      }
+
+      function updateSlider() {
+        const cardsPerView = getCardsPerView();
+        const cardWidth = cards[0].offsetWidth;
+        const gap = 16;
+        const offset = -(currentIndex * (cardWidth + gap));
+        
+        sliderTrack.style.transform = `translateX(${offset}px)`;
+
+        const maxIndex = Math.max(0, cards.length - cardsPerView);
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex >= maxIndex;
+      }
+
+      nextBtn.addEventListener('click', () => {
+        const cardsPerView = getCardsPerView();
+        const maxIndex = Math.max(0, cards.length - cardsPerView);
+        if (currentIndex < maxIndex) {
+          currentIndex++;
+          updateSlider();
         }
       });
-    }, observerOptions);
 
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    // =====================
-    // PERFORMANCE
-    // =====================
-    if ('loading' in HTMLImageElement.prototype) {
-      const images = document.querySelectorAll('img');
-      images.forEach(img => {
-        img.loading = 'lazy';
+      prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+          currentIndex--;
+          updateSlider();
+        }
       });
-    }
 
-    const preloadLinks = [
-      'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
-    ];
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          currentIndex = 0;
+          updateSlider();
+        }, 150);
+      });
 
-    preloadLinks.forEach(href => {
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'style';
-      link.href = href;
-      document.head.appendChild(link);
-    });
+      updateSlider();
+
+      // =====================
+      // LANGUAGE SWITCHER
+      // =====================
+      window.changeLanguage = function(lang) {
+        console.log('🌐 Changing language to:', lang);
+        
+        document.body.className = document.body.className.replace(/lang-\w+/g, '');
+        document.body.classList.add('lang-' + lang);
+        
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+          btn.classList.remove('active');
+          if (btn.textContent.trim() === lang.toUpperCase()) {
+            btn.classList.add('active');
+          }
+        });
+        
+        document.querySelectorAll('.mobile-lang-switcher button').forEach(btn => {
+          btn.classList.remove('active');
+          if ((lang === 'id' && btn.textContent.includes('Indonesian')) ||
+              (lang === 'en' && btn.textContent.includes('English'))) {
+            btn.classList.add('active');
+          }
+        });
+        
+        localStorage.setItem('preferredLanguage', lang);
+        console.log('✅ Language changed successfully to:', lang);
+      };
+
+      const savedLang = localStorage.getItem('preferredLanguage');
+      if (savedLang) {
+        changeLanguage(savedLang);
+      }
+
+    })();
   </script>
 </body>
 </html>
