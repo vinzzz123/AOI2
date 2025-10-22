@@ -7,19 +7,6 @@
   <meta name="description" content="AOI untuk Diet dan Kecantikan - Metabolisme lebih baik untuk tubuh ideal">
   <title>Diet & Beauty - AOI Nano Cluster Water</title>
   
-  <!-- Google Translate Script -->
-  <script type="text/javascript">
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-      pageLanguage: 'id',
-      includedLanguages: 'en,id',
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-      autoDisplay: false
-    }, 'google_translate_element');
-  }
-  </script>
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  
   <style>
   *, *::before, *::after {
     margin: 0;
@@ -83,36 +70,15 @@
     padding-top: clamp(70px, 12vw, 90px);
   }
 
-  /* Google Translate Styles */
-  .goog-te-banner-frame.skiptranslate {
-    display: none !important;
-  }
-
-  body {
-    top: 0 !important;
-  }
-
-  body > .skiptranslate {
-    display: none;
-  }
-
-  #google_translate_element {
-    display: none;
-  }
-
   .language-switcher {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--color-gray-light);
     padding: 6px 12px;
     border-radius: 20px;
     cursor: pointer;
     transition: var(--transition-base);
-  }
-
-  nav .language-switcher {
-    background: var(--color-gray-light);
   }
 
   .language-switcher i {
@@ -177,6 +143,11 @@
     background: var(--color-primary);
     color: var(--color-white);
   }
+
+  /* Hide/Show based on language */
+  [data-lang="en"] { display: none; }
+  body.lang-en [data-lang="id"] { display: none; }
+  body.lang-en [data-lang="en"] { display: block; }
 
   .container {
     width: 100%;
@@ -255,14 +226,12 @@
     position: fixed;
     top: 0;
     left: 0;
+    right: 0;
     width: 100%;
     background: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: clamp(10px, 2vw, 15px) clamp(15px, 5vw, 50px);
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: clamp(10px, 2vw, 15px) 0;
     min-height: 70px;
   }
 
@@ -270,12 +239,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 100%;
+    max-width: var(--container-max);
     margin: 0 auto;
     gap: var(--spacing-md);
-    width: 100%;
-    padding: 0 clamp(15px, 5vw, 50px);
-    position: relative; /* CRITICAL FIX */
+    padding: 0 var(--container-padding);
+    position: relative;
   }
 
   .logo-container {
@@ -310,24 +278,24 @@
     gap: clamp(1rem, 2.5vw, 2.5rem);
     align-items: center;
     margin: 0;
-    margin-left: auto;
   }
 
   .desktop-menu li a {
     text-decoration: none;
-    color: #000435;
+    color: var(--color-primary);
     font-weight: 600;
     font-size: clamp(0.9rem, 1.5vw, 1.1rem);
     transition: color 0.3s ease;
     white-space: nowrap;
+    padding: var(--spacing-xs);
   }
 
   .desktop-menu li a:hover {
-    color: #1a3d7c;
+    color: var(--color-primary-light);
   }
 
   .desktop-menu li.dropdown {
-    position: relative; /* CRITICAL FIX */
+    position: relative;
   }
 
   .desktop-menu li .dropdown-menu {
@@ -343,7 +311,7 @@
     margin-top: 5px;
     list-style: none;
     padding-left: 0;
-    z-index: 1001; /* CRITICAL FIX */
+    z-index: 1001;
   }
 
   .desktop-menu li.dropdown:hover .dropdown-menu {
@@ -364,40 +332,42 @@
   .desktop-menu li .dropdown-menu li a {
     display: block;
     padding: 10px 20px;
-    color: #000435;
+    color: var(--color-primary);
     font-size: clamp(0.8rem, 1.2vw, 1rem);
     font-weight: 500;
   }
 
   .desktop-menu li .dropdown-menu li a:hover {
     background: #f0f4ff;
-    color: #1a3d7c;
+    color: var(--color-primary-light);
   }
 
   .hamburger-menu {
-    display: none;
+    display: block;
     font-size: clamp(1.5rem, 4vw, 2rem);
-    color: #000435;
+    color: var(--color-primary);
     cursor: pointer;
     transition: color 0.3s ease;
     z-index: 1001;
     padding: 5px;
+    background: none;
+    border: none;
   }
 
   .mobile-menu {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 100%;
+    width: min(100%, 400px);
     height: 100vh;
     background-color: white;
     transition: right 0.3s ease-in-out;
     z-index: 999;
     display: flex;
     flex-direction: column;
-    align-items: center;
     padding-top: clamp(80px, 15vw, 100px);
     overflow-y: auto;
+    box-shadow: var(--shadow-lg);
   }
 
   .mobile-menu.active {
@@ -417,7 +387,7 @@
   }
 
   .mobile-menu li a {
-    color: #000435;
+    color: var(--color-primary);
     font-size: clamp(1.2rem, 4vw, 1.5rem);
     font-weight: 600;
     text-decoration: none;
@@ -595,7 +565,7 @@
   }
 
   .footer {
-    background: var(--color-primary);
+    background: var(--gradient-primary);
     color: var(--color-white);
     padding: var(--spacing-2xl) 0 var(--spacing-xl);
     margin-top: var(--spacing-2xl);
@@ -644,18 +614,22 @@
     color: var(--color-white);
     transition: var(--transition-base);
     padding: var(--spacing-sm);
-    width: 50px;
-    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none !important;
+    border: none !important;
+    box-shadow: none !important;
   }
 
-  .footer-social a:hover .fa-instagram { color: #1877F2; }
+  .footer-social a:hover {
+    background: var(--color-white);
+  }
+
+  .footer-social a:hover .fa-instagram { color: #E4405F; }
   .footer-social a:hover .fa-facebook { color: #1877F2; }
-  .footer-social a:hover .fa-tiktok { color: #1877F2; }
-  .footer-social a:hover .fa-whatsapp { color: #1877F2; }
+  .footer-social a:hover .fa-tiktok { color: #000; }
+  .footer-social a:hover .fa-whatsapp { color: #25D366; }
 
   .fade-in {
     opacity: 0;
@@ -699,11 +673,19 @@
     .footer-social {
       justify-content: flex-end;
     }
+
+    .mobile-lang-switcher {
+      display: none;
+    }
   }
 
   @media (max-width: 767px) {
     .hamburger-menu {
       display: block !important;
+    }
+
+    .language-switcher {
+      display: none !important;
     }
   }
 
@@ -715,7 +697,7 @@
   }
   </style>
 </head>
-<body>
+<body class="lang-id">
   <div class="loading-screen" id="loading-screen">
     <div class="loader"></div>
   </div>
@@ -734,19 +716,19 @@
       
       <div class="nav-right">
         <ul class="desktop-menu">
-          <li><a href="Home.html">BERANDA</a></li>
-          <li><a href="AOI.html">TENTANG AOI</a></li>
+          <li><a href="Home.html" data-lang="id">BERANDA</a><a href="Home.html" data-lang="en">HOME</a></li>
+          <li><a href="AOI.html" data-lang="id">TENTANG AOI</a><a href="AOI.html" data-lang="en">ABOUT AOI</a></li>
           <li class="dropdown">
-            <a href="#">FILM AOI ▾</a>
+            <a href="#" data-lang="id">FILM AOI ▾</a><a href="#" data-lang="en">AOI FILMS ▾</a>
             <ul class="dropdown-menu">
               <li><a href="Introduction.html">Introduction</a></li>
               <li><a href="Sports.html">Sports Performance</a></li>
               <li><a href="Diet and Beauty.html">Diet and Beauty</a></li>
             </ul>
           </li>
-          <li><a href="Home.html#products">PRODUK KAMI</a></li>
-          <li><a href="Home.html#stores">BELI DI MANA</a></li>
-          <li><a href="#footer">HUBUNGI KAMI</a></li>
+          <li><a href="Home.html#products" data-lang="id">PRODUK KAMI</a><a href="Home.html#products" data-lang="en">OUR PRODUCTS</a></li>
+          <li><a href="Home.html#stores" data-lang="id">BELI DI MANA</a><a href="Home.html#stores" data-lang="en">WHERE TO BUY</a></li>
+          <li><a href="#footer" data-lang="id">HUBUNGI KAMI</a><a href="#footer" data-lang="en">CONTACT US</a></li>
         </ul>
 
         <div class="language-switcher">
@@ -760,26 +742,24 @@
       <button class="hamburger-menu" onclick="toggleMobileMenu()" aria-label="Toggle menu">
         <i class="fas fa-bars"></i>
       </button>
-
-      <div id="google_translate_element"></div>
     </div>
   </nav>
 
   <div class="mobile-menu" id="mobile-menu">
     <ul>
-      <li><a href="Home.html" onclick="toggleMobileMenu()">BERANDA</a></li>
-      <li><a href="AOI.html" onclick="toggleMobileMenu()">TENTANG AOI</a></li>
+      <li><a href="Home.html" onclick="toggleMobileMenu()" data-lang="id">BERANDA</a><a href="Home.html" onclick="toggleMobileMenu()" data-lang="en">HOME</a></li>
+      <li><a href="AOI.html" onclick="toggleMobileMenu()" data-lang="id">TENTANG AOI</a><a href="AOI.html" onclick="toggleMobileMenu()" data-lang="en">ABOUT AOI</a></li>
       <li class="dropdown">
-        <a href="#">FILM AOI ▾</a>
+        <a href="#" data-lang="id">FILM AOI ▾</a><a href="#" data-lang="en">AOI FILMS ▾</a>
         <ul class="dropdown-menu">
           <li><a href="Introduction.html" onclick="toggleMobileMenu()">Introduction</a></li>
           <li><a href="Sports.html" onclick="toggleMobileMenu()">Sports Performance</a></li>
           <li><a href="Diet and Beauty.html" onclick="toggleMobileMenu()">Diet and Beauty</a></li>
         </ul>
       </li>
-      <li><a href="Home.html#products" onclick="toggleMobileMenu()">PRODUK KAMI</a></li>
-      <li><a href="Home.html#stores" onclick="toggleMobileMenu()">BELI DI MANA</a></li>
-      <li><a href="#footer" onclick="toggleMobileMenu()">HUBUNGI KAMI</a></li>
+      <li><a href="Home.html#products" onclick="toggleMobileMenu()" data-lang="id">PRODUK KAMI</a><a href="Home.html#products" onclick="toggleMobileMenu()" data-lang="en">OUR PRODUCTS</a></li>
+      <li><a href="Home.html#stores" onclick="toggleMobileMenu()" data-lang="id">BELI DI MANA</a><a href="Home.html#stores" onclick="toggleMobileMenu()" data-lang="en">WHERE TO BUY</a></li>
+      <li><a href="#footer" onclick="toggleMobileMenu()" data-lang="id">HUBUNGI KAMI</a><a href="#footer" onclick="toggleMobileMenu()" data-lang="en">CONTACT US</a></li>
     </ul>
 
     <div class="mobile-lang-switcher">
@@ -795,7 +775,8 @@
   <section class="video-section">
     <div class="container">
       <div class="video-header fade-in">
-        <h2>AOI untuk Diet dan Kecantikan</h2>
+        <h2 data-lang="id">AOI untuk Diet dan Kecantikan</h2>
+        <h2 data-lang="en">AOI for Diet and Beauty</h2>
       </div>
       <div class="video-wrapper fade-in">
         <iframe 
@@ -810,16 +791,30 @@
   </section>
 
   <section class="summary container fade-in">
-    <h3>Bantu Program Diet Kamu</h3>
-    <p>
-      Hal ini disebabkan kluster air dengan ukuran kecil memiliki efek inframerah ultra-jauh, yang mampu meningkatkan kapasitas dari panas spesifik dan konduktivitas termal, yang menghasilkan metabolisme yang lebih tinggi ketika diserap ke dalam tubuh kita.
-    </p>
-    <p>
-      Metabolisme yang lebih baik inilah yang berfungsi untuk menjaga tubuh kita tetap langsing dan kulit pun memiliki proses daur ulang yang lebih baik.
-    </p>
-    <p>
-      AOI Nano Cluster Water juga lebih mudah menembus ke dalam sel-sel lemak dan memiliki efek inframerah-jauh. Dengan demikian, lemak semakin lembut / lunak dan akibatnya lemak pun lebih mudah meleleh / larut.
-    </p>
+    <div data-lang="id">
+      <h3>Bantu Program Diet Kamu</h3>
+      <p>
+        Hal ini disebabkan kluster air dengan ukuran kecil memiliki efek inframerah ultra-jauh, yang mampu meningkatkan kapasitas dari panas spesifik dan konduktivitas termal, yang menghasilkan metabolisme yang lebih tinggi ketika diserap ke dalam tubuh kita.
+      </p>
+      <p>
+        Metabolisme yang lebih baik inilah yang berfungsi untuk menjaga tubuh kita tetap langsing dan kulit pun memiliki proses daur ulang yang lebih baik.
+      </p>
+      <p>
+        AOI Nano Cluster Water juga lebih mudah menembus ke dalam sel-sel lemak dan memiliki efek inframerah-jauh. Dengan demikian, lemak semakin lembut / lunak dan akibatnya lemak pun lebih mudah meleleh / larut.
+      </p>
+    </div>
+    <div data-lang="en">
+      <h3>Support Your Diet Program</h3>
+      <p>
+        This is because small-sized water clusters have an ultra-far infrared effect, which can increase specific heat capacity and thermal conductivity, resulting in higher metabolism when absorbed into our bodies.
+      </p>
+      <p>
+        This better metabolism functions to keep our bodies slim and skin with better recycling processes.
+      </p>
+      <p>
+        AOI Nano Cluster Water also penetrates fat cells more easily and has a far-infrared effect. Thus, fat becomes softer and consequently easier to melt/dissolve.
+      </p>
+    </div>
   </section>
 
   <section class="profile container fade-in">
@@ -845,7 +840,8 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-left">
-          <h2>HUBUNGI KAMI</h2>
+          <h2 data-lang="id">HUBUNGI KAMI</h2>
+          <h2 data-lang="en">CONTACT US</h2>
           <p>
             PT Santini Logmax Indonesia<br>
             Jl. Komp. Kawasan, RT.10/RW.3, Semper Timur,<br>
@@ -853,7 +849,8 @@
             DKI Jakarta 14130
           </p>
           <p><strong>Tel:</strong> +62214400528</p>
-          <p><strong>Jam Operasional:</strong> 08.00 - 16.30</p>
+          <p data-lang="id"><strong>Jam Operasional:</strong> 08.00 - 16.30</p>
+          <p data-lang="en"><strong>Operating Hours:</strong> 08.00 - 16.30</p>
         </div>
 
         <div class="footer-social">
@@ -875,271 +872,136 @@
   </footer>
 
   <script>
-  // Wait for Google Translate to fully load
-  let translateLoaded = false;
-  let loadCheckInterval;
+    (function() {
+      'use strict';
 
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      document.getElementById('loading-screen')?.classList.add('hidden');
-    }, 500);
+      // =====================
+      // LOADING SCREEN
+      // =====================
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const loader = document.getElementById('loading-screen');
+          if (loader) loader.classList.add('hidden');
+        }, 500);
+      });
 
-    // Check if Google Translate is loaded
-    loadCheckInterval = setInterval(checkTranslateLoaded, 500);
-  });
+      // =====================
+      // MOBILE MENU
+      // =====================
+      window.toggleMobileMenu = function() {
+        const menu = document.getElementById('mobile-menu');
+        const icon = document.querySelector('.hamburger-menu i');
+        menu.classList.toggle('active');
+        icon.className = menu.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+        document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+      };
 
-  function checkTranslateLoaded() {
-    const select = document.querySelector('.goog-te-combo');
-    if (select) {
-      translateLoaded = true;
-      clearInterval(loadCheckInterval);
-      console.log('Google Translate loaded successfully');
-    }
-  }
-
-  function toggleMobileMenu() {
-    const menu = document.getElementById('mobile-menu');
-    const icon = document.querySelector('.hamburger-menu i');
-    menu.classList.toggle('active');
-    icon.className = menu.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
-    document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
-  }
-
-  document.addEventListener('click', (e) => {
-    const menu = document.getElementById('mobile-menu');
-    const hamburger = document.querySelector('.hamburger-menu');
-    if (menu.classList.contains('active') && !menu.contains(e.target) && !hamburger.contains(e.target)) {
-      toggleMobileMenu();
-    }
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && document.getElementById('mobile-menu')?.classList.contains('active')) {
-      toggleMobileMenu();
-    }
-  });
-
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const href = this.getAttribute('href');
-      if (href === '#') return;
-      e.preventDefault();
-      const target = document.querySelector(href);
-      if (target) {
-        const navbar = document.querySelector('nav');
-        window.scrollTo({
-          top: target.offsetTop - (navbar?.offsetHeight || 90) - 20,
-          behavior: 'smooth'
-        });
-        if (document.getElementById('mobile-menu')?.classList.contains('active')) {
+      document.addEventListener('click', (e) => {
+        const menu = document.getElementById('mobile-menu');
+        const hamburger = document.querySelector('.hamburger-menu');
+        if (menu && menu.classList.contains('active') && !menu.contains(e.target) && !hamburger.contains(e.target)) {
           toggleMobileMenu();
         }
-      }
-    });
-  });
+      });
 
-  const scrollBtn = document.getElementById('scroll-to-top');
-  if (scrollBtn) {
-    window.addEventListener('scroll', () => {
-      scrollBtn.classList.toggle('visible', window.pageYOffset > 300);
-    }, { passive: true });
+      document.addEventListener('keydown', (e) => {
+        const menu = document.getElementById('mobile-menu');
+        if (e.key === 'Escape' && menu && menu.classList.contains('active')) {
+          toggleMobileMenu();
+        }
+      });
 
-    scrollBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-  // IMPROVED Language switcher function
-  function changeLanguage(lang) {
-    console.log('Attempting to change language to:', lang);
-    
-    // Update active button state
-    document.querySelectorAll('.lang-btn, .mobile-lang-switcher button').forEach(btn => {
-      btn.classList.remove('active');
-    });
-    
-    if (window.event && window.event.target) {
-      window.event.target.classList.add('active');
-    }
-
-    // Function to trigger the translation
-    function triggerTranslation() {
-      const select = document.querySelector('.goog-te-combo');
-      if (select) {
-        console.log('Google Translate found, changing to:', lang);
-        select.value = lang;
-        select.dispatchEvent(new Event('change'));
-        return true;
-      }
-      return false;
-    }
-
-    // Try to trigger translation immediately
-    if (!triggerTranslation()) {
-      console.log('Google Translate not ready, waiting...');
-      // If not available, wait and retry
-      let retryCount = 0;
-      const maxRetries = 10;
-      
-      const retryInterval = setInterval(() => {
-        retryCount++;
-        if (triggerTranslation() || retryCount >= maxRetries) {
-          clearInterval(retryInterval);
-          if (retryCount >= maxRetries) {
-            console.error('Google Translate failed to load after multiple attempts');
-            alert('Translation service is loading. Please try again in a moment.');
+      // =====================
+      // SMOOTH SCROLLING
+      // =====================
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const href = this.getAttribute('href');
+          if (href === '#') return;
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            const navbar = document.querySelector('nav');
+            window.scrollTo({
+              top: target.offsetTop - (navbar ? navbar.offsetHeight : 90) - 20,
+              behavior: 'smooth'
+            });
+            const menu = document.getElementById('mobile-menu');
+            if (menu && menu.classList.contains('active')) {
+              toggleMobileMenu();
+            }
           }
-        }
-      }, 500);
-    }
-  }
+        });
+      });
 
-  // For pages with sliders (AOI.html)
-  if (typeof sliders !== 'undefined') {
-    function nextSlide(sectionId) {
-      const section = document.getElementById(sectionId);
-      if (!section) return;
-      
-      const slides = section.querySelectorAll('.slide');
-      const arrow = section.querySelector('.slider-arrow');
-      
-      slides[sliders[sectionId]].classList.remove('active');
-      
-      if (sliders[sectionId] === slides.length - 1) {
-        sliders[sectionId] = 0;
-        arrow.textContent = '→';
-      } else {
-        sliders[sectionId]++;
-        if (sliders[sectionId] === slides.length - 1) {
-          arrow.textContent = '↻';
-        }
-      }
-      
-      slides[sliders[sectionId]].classList.add('active');
-    }
+      // =====================
+      // SCROLL TO TOP BUTTON
+      // =====================
+      const scrollBtn = document.getElementById('scroll-to-top');
+      if (scrollBtn) {
+        window.addEventListener('scroll', () => {
+          scrollBtn.classList.toggle('visible', window.pageYOffset > 300);
+        }, { passive: true });
 
-    function scrollToSection(sectionId) {
-      const section = document.getElementById(sectionId);
-      if (section) {
-        const navbar = document.querySelector('nav');
-        window.scrollTo({
-          top: section.offsetTop - navbar.offsetHeight - 20,
-          behavior: 'smooth'
+        scrollBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       }
-    }
-  }
 
-  // For Home.html with navbar scroll effect
-  const navbar = document.getElementById('navbar');
-  const logoImg = document.getElementById('logo-img');
-  
-  if (navbar && logoImg) {
-    function handleScroll() {
-      const currentScroll = window.pageYOffset;
-      
-      if (currentScroll > 100) {
-        navbar.classList.add('scrolled');
-        logoImg.src = "Assets/AOI.png";
-      } else {
-        navbar.classList.remove('scrolled');
-        logoImg.src = "Assets/AOI(1).png";
+      // =====================
+      // INTERSECTION OBSERVER
+      // =====================
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      // =====================
+      // MANUAL LANGUAGE SWITCHER - NO GOOGLE TRANSLATE NEEDED!
+      // =====================
+      window.changeLanguage = function(lang) {
+        console.log('Changing language to:', lang);
+        
+        // Update body class
+        document.body.className = 'lang-' + lang;
+        
+        // Update button states
+        document.querySelectorAll('.lang-btn, .mobile-lang-switcher button').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        
+        // Set active state
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+          if (btn.textContent.trim() === lang.toUpperCase()) {
+            btn.classList.add('active');
+          }
+        });
+        
+        document.querySelectorAll('.mobile-lang-switcher button').forEach(btn => {
+          if ((lang === 'id' && btn.textContent.includes('Indonesian')) ||
+              (lang === 'en' && btn.textContent.includes('English'))) {
+            btn.classList.add('active');
+          }
+        });
+        
+        // Save preference
+        localStorage.setItem('preferredLanguage', lang);
+        
+        console.log('✓ Language changed successfully to:', lang);
+      };
+
+      // Load saved language preference
+      const savedLang = localStorage.getItem('preferredLanguage');
+      if (savedLang) {
+        changeLanguage(savedLang);
       }
-    }
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-  }
 
-  // For Home.html store slider
-  const sliderTrack = document.getElementById('slider-track');
-  if (sliderTrack) {
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const cards = document.querySelectorAll('.store-card');
-
-    let currentIndex = 0;
-    let startX = 0;
-    let isDragging = false;
-
-    function getCardsPerView() {
-      const width = window.innerWidth;
-      if (width < 480) return 2;
-      if (width < 768) return 3;
-      if (width < 1024) return 4;
-      return 5;
-    }
-
-    function updateSlider() {
-      const cardsPerView = getCardsPerView();
-      const cardWidth = cards[0].offsetWidth;
-      const gap = 16;
-      const offset = -(currentIndex * (cardWidth + gap));
-      
-      sliderTrack.style.transform = `translateX(${offset}px)`;
-
-      const maxIndex = Math.max(0, cards.length - cardsPerView);
-      prevBtn.disabled = currentIndex === 0;
-      nextBtn.disabled = currentIndex >= maxIndex;
-    }
-
-    nextBtn.addEventListener('click', () => {
-      const cardsPerView = getCardsPerView();
-      const maxIndex = Math.max(0, cards.length - cardsPerView);
-      if (currentIndex < maxIndex) {
-        currentIndex++;
-        updateSlider();
-      }
-    });
-
-    prevBtn.addEventListener('click', () => {
-      if (currentIndex > 0) {
-        currentIndex--;
-        updateSlider();
-      }
-    });
-
-    sliderTrack.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-      isDragging = true;
-    }, { passive: true });
-
-    sliderTrack.addEventListener('touchend', (e) => {
-      if (!isDragging) return;
-      isDragging = false;
-      
-      const endX = e.changedTouches[0].clientX;
-      const diffX = startX - endX;
-      
-      if (Math.abs(diffX) > 50) {
-        if (diffX > 0) {
-          nextBtn.click();
-        } else {
-          prevBtn.click();
-        }
-      }
-    });
-
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        currentIndex = 0;
-        updateSlider();
-      }, 150);
-    });
-
-    updateSlider();
-  }
-</script>
+    })();
+  </script>
 </body>
 </html>
