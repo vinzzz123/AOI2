@@ -17,7 +17,7 @@
     }, 'google_translate_element');
   }
   </script>
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   
   <style>
   /* ======================= */
@@ -183,7 +183,7 @@
     position: absolute;
     top: 100%;
     left: 0;
-    background: var(--color-white);
+    background: transparent;
     padding: var(--spacing-sm) 0;
     border-radius: 12px;
     box-shadow: var(--shadow-lg);
@@ -286,17 +286,18 @@
   .hamburger-menu {
     display: block;
     font-size: clamp(1.5rem, 4vw, 2rem);
-    color: var(--color-primary);
+    color: white;
     cursor: pointer;
     transition: var(--transition-base);
     z-index: 1001;
     padding: var(--spacing-xs);
-    background: white;
+    background: transparent;
     border: none;
   }
 
   nav.scrolled .hamburger-menu {
     color: var(--color-primary);
+    background: var(--color-white);
   }
 
   .mobile-menu {
@@ -306,7 +307,7 @@
     width: min(100%, 400px);
     height: 100vh;
     height: 100dvh;
-    background-color: var(--color-white);
+    background-color: var(--color-primary);
     transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 999;
     display: flex;
@@ -332,7 +333,7 @@
   }
 
   .mobile-menu li a {
-    color: var(--color-primary);
+    color: var(--color-white);
     font-size: var(--font-size-lg);
     font-weight: 600;
     text-decoration: none;
@@ -342,8 +343,8 @@
   }
 
   .mobile-menu li a:hover {
-    background-color: var(--color-gray-light);
-    color: var(--color-primary-light);
+    background-color: var(--color-primary-light);
+    color: var(--color-white);
   }
 
   .mobile-menu .dropdown-menu {
@@ -358,7 +359,7 @@
   .mobile-menu .dropdown-menu li a {
     font-size: var(--font-size-base);
     padding-left: var(--spacing-lg);
-    color: var(--color-gray);
+    color: var(--color-white);
   }
 
   .mobile-lang-switcher {
@@ -366,7 +367,7 @@
     justify-content: center;
     gap: 15px;
     padding: 20px;
-    border-top: 1px solid var(--color-gray-light);
+    border-top: 1px solid var(--color-white);
     margin-top: 20px;
   }
 
@@ -1144,7 +1145,6 @@
     let currentIndex = 0;
     let startX = 0;
     let isDragging = false;
-
     function getCardsPerView() {
       const width = window.innerWidth;
       if (width < 480) return 2;
@@ -1170,17 +1170,17 @@
       const cardsPerView = getCardsPerView();
       const maxIndex = Math.max(0, cards.length - cardsPerView);
       if (currentIndex < maxIndex) {
-        currentIndex++;
+        currentIndex = Math.min(currentIndex + cardsPerView, maxIndex);
         updateSlider();
       }
+    });
+    
+    prevBtn.addEventListener('click', () => {
+      const cardsPerView = getCardsPerView();
+      currentIndex = Math.max(0, currentIndex - cardsPerView);
+      updateSlider();
     });
 
-    prevBtn.addEventListener('click', () => {
-      if (currentIndex > 0) {
-        currentIndex--;
-        updateSlider();
-      }
-    });
 
     sliderTrack.addEventListener('touchstart', (e) => {
       startX = e.touches[0].clientX;
