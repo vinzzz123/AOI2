@@ -133,6 +133,37 @@
     text-decoration: underline;
   }
 
+  .translation-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  .translation-toggle i {
+    color: #333;
+  }
+
+  .translation-toggle .lang-btn {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .translation-toggle .lang-btn.active {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .translation-toggle .lang-divider {
+    color: #aaa;
+  }
+
+
+
   .mobile-lang-switcher {
     display: flex;
     flex-direction: column;
@@ -180,7 +211,7 @@
     left: 0;
     width: 100%;
     height: 100vh;
-    background: var(--gradient-primary);
+    background: var(--color-primary);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -253,6 +284,7 @@
     min-height: 70px;
   }
 
+
   .nav-container {
     display: flex;
     align-items: center;
@@ -260,7 +292,6 @@
     max-width: var(--container-max);
     margin: 0 auto;
     gap: var(--spacing-md);
-    position: relative;
   }
 
   .logo-container {
@@ -272,13 +303,9 @@
   }
 
   nav .logo img {
-    height: clamp(50px, 8vw, 75px);
+    height: clamp(45px, 7vw, 70px);
     width: auto;
-    transition: var(--transition-base);
-  }
-
-  nav .logo img:hover {
-    transform: scale(1.05);
+    object-fit: contain;
   }
 
   .nav-right {
@@ -290,7 +317,7 @@
   .desktop-menu {
     list-style: none;
     display: none;
-    gap: clamp(15px, 3vw, 35px);
+    gap: clamp(1rem, 2.5vw, 2.5rem);
     align-items: center;
     margin: 0;
   }
@@ -299,15 +326,18 @@
     text-decoration: none;
     color: var(--color-primary);
     font-weight: 600;
-    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-    transition: color 0.3s ease;
+    font-size: var(--font-size-sm);
+    transition: var(--transition-base);
     white-space: nowrap;
     padding: var(--spacing-xs);
-    position: relative;
+  }
+
+  nav.scrolled .desktop-menu li a {
+    color: var(--color-primary);
   }
 
   .desktop-menu li a:hover {
-    color: var(--color-primary-light);
+    color: var(--color-accent);
   }
 
   .desktop-menu li.dropdown {
@@ -321,13 +351,11 @@
     left: 0;
     background: var(--color-white);
     padding: var(--spacing-sm) 0;
-    border-radius: var(--radius-md);
+    border-radius: 12px;
     box-shadow: var(--shadow-lg);
     min-width: 220px;
     margin-top: var(--spacing-xs);
-    list-style-type: none;
-    padding-left: 0;
-    z-index: 1001;
+    list-style: none;
   }
 
   .desktop-menu li.dropdown:hover .dropdown-menu {
@@ -335,27 +363,73 @@
   }
 
   .desktop-menu li .dropdown-menu li {
-    list-style-type: none;
     list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .desktop-menu li .dropdown-menu li::before {
-    content: none;
-    display: none;
   }
 
   .desktop-menu li .dropdown-menu li a {
     display: block;
     padding: var(--spacing-sm) var(--spacing-md);
     color: var(--color-primary);
-    font-size: var(--font-size-sm);
-    text-decoration: none;
   }
 
   .desktop-menu li .dropdown-menu li a:hover {
     background: var(--color-gray-light);
+  }
+
+  .language-switcher {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: var(--transition-base);
+  }
+
+  nav.scrolled .language-switcher {
+    background: var(--color-gray-light);
+  }
+
+  .language-switcher i {
+    color: var(--color-white);
+    font-size: 16px;
+  }
+
+  nav.scrolled .language-switcher i {
+    color: var(--color-primary);
+  }
+
+  .lang-btn {
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+    transition: var(--transition-base);
+  }
+
+  nav.scrolled .lang-btn {
+    color: var(--color-primary);
+  }
+
+  .lang-btn:hover {
+    opacity: 0.7;
+  }
+
+  .lang-divider {
+    color: var(--color-white);
+    margin: 0 2px;
+  }
+
+  nav.scrolled .lang-divider {
+    color: var(--color-primary);
+  }
+
+  .lang-btn.active {
+    text-decoration: underline;
   }
 
   .hamburger-menu {
@@ -363,11 +437,14 @@
     font-size: clamp(1.5rem, 4vw, 2rem);
     color: var(--color-primary);
     cursor: pointer;
-    transition: var(--transition-base);
     z-index: 1001;
     padding: var(--spacing-xs);
-    background: none;
+    background: white;
     border: none;
+  }
+
+  nav.scrolled .hamburger-menu {
+    color: var(--color-primary);
   }
 
   .mobile-menu {
@@ -670,7 +747,7 @@
   }
 
   .footer {
-    background: var(--gradient-primary);
+    background: var(--color-primary);
     color: var(--color-white);
     padding: var(--spacing-2xl) 0 var(--spacing-xl);
     margin-top: var(--spacing-2xl);
@@ -833,7 +910,7 @@
           <img src="Assets/AOI.png" alt="AOI Logo">
         </a>
       </div>
-      
+
       <div class="nav-right">
         <ul class="desktop-menu">
           <li><a href="Home.html" data-lang="id">BERANDA</a><a href="Home.html" data-lang="en">HOME</a></li>
@@ -849,21 +926,23 @@
           <li><a href="Home.html#products" data-lang="id">PRODUK KAMI</a><a href="Home.html#products" data-lang="en">OUR PRODUCTS</a></li>
           <li><a href="Home.html#stores" data-lang="id">BELI DI MANA</a><a href="Home.html#stores" data-lang="en">WHERE TO BUY</a></li>
           <li><a href="#footer" data-lang="id">HUBUNGI KAMI</a><a href="#footer" data-lang="en">CONTACT US</a></li>
+
+          <!-- ✅ Translation toggle moved into the menu -->
+          <li class="translation-toggle">
+            <i class="fas fa-globe"></i>
+            <button class="lang-btn active" onclick="changeLanguage('id')">ID</button>
+            <span class="lang-divider">|</span>
+            <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+          </li>
         </ul>
 
-        <div class="language-switcher">
-          <i class="fas fa-globe"></i>
-          <button class="lang-btn active" onclick="changeLanguage('id')">ID</button>
-          <span class="lang-divider">|</span>
-          <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
-        </div>
+        <button class="hamburger-menu" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+          <i class="fas fa-bars"></i>
+        </button>
       </div>
-      
-      <button class="hamburger-menu" onclick="toggleMobileMenu()" aria-label="Toggle menu">
-        <i class="fas fa-bars"></i>
-      </button>
     </div>
   </nav>
+
 
   <div class="mobile-menu" id="mobile-menu">
     <ul>
@@ -1128,6 +1207,11 @@
         if (e.key === 'Escape' && menu && menu.classList.contains('active')) {
           toggleMobileMenu();
         }
+      });
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const toggle = document.getElementById("translation-toggle");
+        if (toggle) toggle.style.display = "flex";
       });
 
       // =====================
