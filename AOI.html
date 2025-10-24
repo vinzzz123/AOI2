@@ -7,6 +7,9 @@
   <meta name="description" content="Tentang AOI Nano Cluster Water - Manfaat dan teknologi air kesehatan dari Jepang">
   <title>Tentang AOI - Nano Cluster Water Indonesia</title>
   
+  <!-- Google Translate Script -->
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  
   <style>
   *, *::before, *::after {
     margin: 0;
@@ -69,13 +72,25 @@
     background-color: var(--color-white);
     line-height: 1.6;
     overflow-x: hidden;
-    padding-top: clamp(70px, 12vw, 90px);
+    padding-top: 70px;
   }
 
-  /* Language Switching */
-  [data-lang="en"] { display: none; }
-  body.lang-en [data-lang="id"] { display: none; }
-  body.lang-en [data-lang="en"] { display: block; }
+  /* Google Translate Styles */
+  .goog-te-banner-frame.skiptranslate {
+    display: none !important;
+  }
+
+  body {
+    top: 0 !important;
+  }
+
+  body > .skiptranslate {
+    display: none;
+  }
+
+  #google_translate_element {
+    display: none;
+  }
 
   .language-switcher {
     display: flex;
@@ -94,7 +109,7 @@
 
   .language-switcher i {
     color: var(--color-white);
-    font-size: 16px;
+    font-size: 14px;
   }
 
   nav.scrolled .language-switcher i {
@@ -106,7 +121,7 @@
     border: none;
     color: var(--color-white);
     font-weight: 600;
-    font-size: 14px;
+    font-size: 13px;
     cursor: pointer;
     padding: 0;
     transition: var(--transition-base);
@@ -132,37 +147,6 @@
   .lang-btn.active {
     text-decoration: underline;
   }
-
-  .translation-toggle {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.9rem;
-    cursor: pointer;
-  }
-
-  .translation-toggle i {
-    color: #333;
-  }
-
-  .translation-toggle .lang-btn {
-    background: none;
-    border: none;
-    color: inherit;
-    font: inherit;
-    cursor: pointer;
-  }
-
-  .translation-toggle .lang-btn.active {
-    font-weight: bold;
-    text-decoration: underline;
-  }
-
-  .translation-toggle .lang-divider {
-    color: #aaa;
-  }
-
-
 
   .mobile-lang-switcher {
     display: flex;
@@ -211,7 +195,7 @@
     left: 0;
     width: 100%;
     height: 100vh;
-    background: var(--color-primary);
+    background: var(--gradient-primary);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -280,10 +264,9 @@
     background: white;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     z-index: 1000;
-    padding: clamp(10px, 2vw, 15px) clamp(15px, 5vw, 50px);
-    min-height: 70px;
+    padding: 8px clamp(1rem, 5vw, 3rem);
+    min-height: 60px;
   }
-
 
   .nav-container {
     display: flex;
@@ -292,6 +275,7 @@
     max-width: var(--container-max);
     margin: 0 auto;
     gap: var(--spacing-md);
+    position: relative;
   }
 
   .logo-container {
@@ -303,9 +287,13 @@
   }
 
   nav .logo img {
-    height: clamp(45px, 7vw, 70px);
+    height: clamp(45px, 7vw, 60px);
     width: auto;
-    object-fit: contain;
+    transition: var(--transition-base);
+  }
+
+  nav .logo img:hover {
+    transform: scale(1.05);
   }
 
   .nav-right {
@@ -317,7 +305,7 @@
   .desktop-menu {
     list-style: none;
     display: none;
-    gap: clamp(1rem, 2.5vw, 2.5rem);
+    gap: clamp(15px, 3vw, 35px);
     align-items: center;
     margin: 0;
   }
@@ -326,18 +314,15 @@
     text-decoration: none;
     color: var(--color-primary);
     font-weight: 600;
-    font-size: var(--font-size-sm);
-    transition: var(--transition-base);
+    font-size: clamp(0.85rem, 1.4vw, 1rem);
+    transition: color 0.3s ease;
     white-space: nowrap;
     padding: var(--spacing-xs);
-  }
-
-  nav.scrolled .desktop-menu li a {
-    color: var(--color-primary);
+    position: relative;
   }
 
   .desktop-menu li a:hover {
-    color: var(--color-accent);
+    color: var(--color-primary-light);
   }
 
   .desktop-menu li.dropdown {
@@ -351,11 +336,13 @@
     left: 0;
     background: var(--color-white);
     padding: var(--spacing-sm) 0;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     box-shadow: var(--shadow-lg);
     min-width: 220px;
     margin-top: var(--spacing-xs);
-    list-style: none;
+    list-style-type: none;
+    padding-left: 0;
+    z-index: 1001;
   }
 
   .desktop-menu li.dropdown:hover .dropdown-menu {
@@ -363,88 +350,39 @@
   }
 
   .desktop-menu li .dropdown-menu li {
+    list-style-type: none;
     list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .desktop-menu li .dropdown-menu li::before {
+    content: none;
+    display: none;
   }
 
   .desktop-menu li .dropdown-menu li a {
     display: block;
     padding: var(--spacing-sm) var(--spacing-md);
     color: var(--color-primary);
+    font-size: var(--font-size-sm);
+    text-decoration: none;
   }
 
   .desktop-menu li .dropdown-menu li a:hover {
     background: var(--color-gray-light);
   }
 
-  .language-switcher {
-    display: none;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 6px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: var(--transition-base);
-  }
-
-  nav.scrolled .language-switcher {
-    background: var(--color-gray-light);
-  }
-
-  .language-switcher i {
-    color: var(--color-white);
-    font-size: 16px;
-  }
-
-  nav.scrolled .language-switcher i {
-    color: var(--color-primary);
-  }
-
-  .lang-btn {
-    background: none;
-    border: none;
-    color: var(--color-white);
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    padding: 0;
-    transition: var(--transition-base);
-  }
-
-  nav.scrolled .lang-btn {
-    color: var(--color-primary);
-  }
-
-  .lang-btn:hover {
-    opacity: 0.7;
-  }
-
-  .lang-divider {
-    color: var(--color-white);
-    margin: 0 2px;
-  }
-
-  nav.scrolled .lang-divider {
-    color: var(--color-primary);
-  }
-
-  .lang-btn.active {
-    text-decoration: underline;
-  }
-
   .hamburger-menu {
     display: block;
-    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-size: clamp(1.4rem, 3.5vw, 1.8rem);
     color: var(--color-primary);
     cursor: pointer;
+    transition: var(--transition-base);
     z-index: 1001;
     padding: var(--spacing-xs);
-    background: white;
+    background: none;
     border: none;
-  }
-
-  nav.scrolled .hamburger-menu {
-    color: var(--color-primary);
   }
 
   .mobile-menu {
@@ -747,7 +685,7 @@
   }
 
   .footer {
-    background: var(--color-primary);
+    background: var(--gradient-primary);
     color: var(--color-white);
     padding: var(--spacing-2xl) 0 var(--spacing-xl);
     margin-top: var(--spacing-2xl);
@@ -868,21 +806,11 @@
     .footer-social {
       justify-content: flex-end;
     }
-
-    .mobile-lang-switcher {
-      display: none;
-    }
   }
 
   @media (min-width: 992px) {
     .cards-grid {
       grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  @media (max-width: 767px) {
-    .language-switcher {
-      display: none !important;
     }
   }
 
@@ -894,7 +822,7 @@
   }
   </style>
 </head>
-<body class="lang-id">
+<body>
   <div class="loading-screen" id="loading-screen">
     <div class="loader"></div>
   </div>
@@ -910,55 +838,55 @@
           <img src="Assets/AOI.png" alt="AOI Logo">
         </a>
       </div>
-
+      
       <div class="nav-right">
         <ul class="desktop-menu">
-          <li><a href="Home.html" data-lang="id">BERANDA</a><a href="Home.html" data-lang="en">HOME</a></li>
-          <li><a href="AOI.html" data-lang="id">TENTANG AOI</a><a href="AOI.html" data-lang="en">ABOUT AOI</a></li>
+          <li><a href="Home.html">BERANDA</a></li>
+          <li><a href="AOI.html">TENTANG AOI</a></li>
           <li class="dropdown">
-            <a href="#" data-lang="id">FILM AOI ▾</a><a href="#" data-lang="en">AOI FILMS ▾</a>
+            <a href="#">FILM AOI</a>
             <ul class="dropdown-menu">
               <li><a href="Introduction.html">Introduction</a></li>
               <li><a href="Sports.html">Sports Performance</a></li>
               <li><a href="Diet and Beauty.html">Diet and Beauty</a></li>
             </ul>
           </li>
-          <li><a href="Home.html#products" data-lang="id">PRODUK KAMI</a><a href="Home.html#products" data-lang="en">OUR PRODUCTS</a></li>
-          <li><a href="Home.html#stores" data-lang="id">BELI DI MANA</a><a href="Home.html#stores" data-lang="en">WHERE TO BUY</a></li>
-          <li><a href="#footer" data-lang="id">HUBUNGI KAMI</a><a href="#footer" data-lang="en">CONTACT US</a></li>
-
-          <!-- ✅ Translation toggle moved into the menu -->
-          <li class="translation-toggle">
-            <i class="fas fa-globe"></i>
-            <button class="lang-btn active" onclick="changeLanguage('id')">ID</button>
-            <span class="lang-divider">|</span>
-            <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
-          </li>
+          <li><a href="Home.html#products">PRODUK KAMI</a></li>
+          <li><a href="Home.html#stores">BELI DI MANA</a></li>
+          <li><a href="#footer">HUBUNGI KAMI</a></li>
         </ul>
 
-        <button class="hamburger-menu" onclick="toggleMobileMenu()" aria-label="Toggle menu">
-          <i class="fas fa-bars"></i>
-        </button>
+        <div class="language-switcher">
+          <i class="fas fa-globe"></i>
+          <button class="lang-btn active" onclick="changeLanguage('id')">ID</button>
+          <span class="lang-divider">|</span>
+          <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+        </div>
       </div>
+      
+      <button class="hamburger-menu" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <div id="google_translate_element"></div>
     </div>
   </nav>
 
-
   <div class="mobile-menu" id="mobile-menu">
     <ul>
-      <li><a href="Home.html" onclick="toggleMobileMenu()" data-lang="id">BERANDA</a><a href="Home.html" onclick="toggleMobileMenu()" data-lang="en">HOME</a></li>
-      <li><a href="AOI.html" onclick="toggleMobileMenu()" data-lang="id">TENTANG AOI</a><a href="AOI.html" onclick="toggleMobileMenu()" data-lang="en">ABOUT AOI</a></li>
+      <li><a href="Home.html" onclick="toggleMobileMenu()">BERANDA</a></li>
+      <li><a href="AOI.html" onclick="toggleMobileMenu()">TENTANG AOI</a></li>
       <li class="dropdown">
-        <a href="#" data-lang="id">FILM AOI ▾</a><a href="#" data-lang="en">AOI FILMS ▾</a>
+        <a href="#">FILM AOI â–¾</a>
         <ul class="dropdown-menu">
           <li><a href="Introduction.html" onclick="toggleMobileMenu()">Introduction</a></li>
           <li><a href="Sports.html" onclick="toggleMobileMenu()">Sports Performance</a></li>
           <li><a href="Diet and Beauty.html" onclick="toggleMobileMenu()">Diet and Beauty</a></li>
         </ul>
       </li>
-      <li><a href="Home.html#products" onclick="toggleMobileMenu()" data-lang="id">PRODUK KAMI</a><a href="Home.html#products" onclick="toggleMobileMenu()" data-lang="en">OUR PRODUCTS</a></li>
-      <li><a href="Home.html#stores" onclick="toggleMobileMenu()" data-lang="id">BELI DI MANA</a><a href="Home.html#stores" onclick="toggleMobileMenu()" data-lang="en">WHERE TO BUY</a></li>
-      <li><a href="#footer" onclick="toggleMobileMenu()" data-lang="id">HUBUNGI KAMI</a><a href="#footer" onclick="toggleMobileMenu()" data-lang="en">CONTACT US</a></li>
+      <li><a href="Home.html#products" onclick="toggleMobileMenu()">PRODUK KAMI</a></li>
+      <li><a href="Home.html#stores" onclick="toggleMobileMenu()">BELI DI MANA</a></li>
+      <li><a href="#footer" onclick="toggleMobileMenu()">HUBUNGI KAMI</a></li>
     </ul>
 
     <div class="mobile-lang-switcher">
@@ -973,56 +901,46 @@
 
   <section class="hero">
     <div class="hero-content">
-      <h1 data-lang="id">AOI Nano Cluster Water</h1>
-      <h1 data-lang="en">AOI Nano Cluster Water</h1>
-      <h2 data-lang="id">adalah air dengan inovasi teknologi dari Jepang, diformulasikan agar dapat lebih mudah diserap oleh tubuh.</h2>
-      <h2 data-lang="en">is water with innovative technology from Japan, formulated to be more easily absorbed by the body.</h2>
-      <h2 data-lang="id">Sehingga, dapat meningkatkan distribusi oksigen ke seluruh tubuh</h2>
-      <h2 data-lang="en">Thus, it can improve oxygen distribution throughout the body</h2>
+      <h1>AOI Nano Cluster Water</h1>
+      <h2>adalah air dengan inovasi teknologi dari Jepang, diformulasikan agar dapat lebih mudah diserap oleh tubuh.</h2>
+      <h2>Sehingga, dapat meningkatkan distribusi oksigen ke seluruh tubuh</h2>
     </div>
   </section>
 
   <section class="cards-section" id="cards">
     <div class="container">
       <div class="section-header">
-        <h1 data-lang="id">Manfaat AOI</h1>
-        <h1 data-lang="en">AOI Benefits</h1>
+        <h1>Manfaat AOI</h1>
       </div>
 
       <div class="cards-grid">
-        <div class="card fade-in" onclick="scrollToSection('metabolism')">
-          <img src="Assets/Metabolism.png" alt="Metabolism">
-          <p data-lang="id"><strong>Mempercepat Metabolisme Tubuh</strong></p>
-          <p data-lang="en"><strong>Accelerate Body Metabolism</strong></p>
-        </div>
-
         <div class="card fade-in" onclick="scrollToSection('vo2max')">
           <img src="Assets/VO2Max.png" alt="VO2Max">
-          <p data-lang="id"><strong>Meningkatkan Performa VO2 Max hingga 13.26%</strong></p>
-          <p data-lang="en"><strong>Increase VO2 Max Performance up to 13.26%</strong></p>
+          <p><strong>Meningkatkan Performa VO2 Max hingga 13.26%</strong></p>
         </div>
 
         <div class="card fade-in" onclick="scrollToSection('health')">
           <img src="Assets/Health.png" alt="Health">
-          <p data-lang="id"><strong>Untuk Diet dan Kesehatan</strong></p>
-          <p data-lang="en"><strong>For Diet and Health</strong></p>
+          <p><strong>Untuk Diet dan Kesehatan</strong></p>
         </div>
+        <div class="card fade-in" onclick="scrollToSection('metabolism')">
+          <img src="Assets/Metabolism.png" alt="Metabolism">
+          <p><strong>Mempercepat Metabolisme Tubuh</strong></p>
+        </div>
+        
       </div>
     </div>
   </section>
 
   <section class="slider-section" id="metabolism">
     <div class="container">
-      <h1 class="slider-title" data-lang="id">Mempercepat Metabolisme</h1>
-      <h1 class="slider-title" data-lang="en">Accelerate Metabolism</h1>
+      <h1 class="slider-title">Mempercepat Metabolisme</h1>
       <div class="content-slider">
         <div class="slide active">
           <div class="slide-content">
             <div class="slide-text">
-              <h2 data-lang="id">Meningkatkan Permeabilitas dengan Cara Memotong Molekul Air</h2>
-              <h2 data-lang="en">Increase Permeability by Cutting Water Molecules</h2>
-              <h3 data-lang="id">Molekul air tidak bersifat independen sebagai satu-satunya molekul di lingkungan alaminya. Beberapa molekul selalu membentuk kelompok molekul yang disebut dengan "Kelompok atau kluster air". Kita bisa meningkatkan permeabilitas dan kemampuan tubuh menyerap air dengan cara memotong hubungan antara molekul air, kemudian molekul gugus air besar dipisahkan menjadi kluster air yang lebih kecil.</h3>
-              <h3 data-lang="en">Water molecules are not independent as the only molecules in their natural environment. Several molecules always form groups called "Water clusters". We can increase permeability and the body's ability to absorb water by cutting the connections between water molecules, then separating large water clusters into smaller water clusters.</h3>
+              <h2>Meningkatkan Permeabilitas dengan Cara Memotong Molekul Air</h2>
+              <h3>Molekul air tidak bersifat independen sebagai satu-satunya molekul di lingkungan alaminya. Beberapa molekul selalu membentuk kelompok molekul yang disebut dengan "Kelompok atau kluster air". Kita bisa meningkatkan permeabilitas dan kemampuan tubuh menyerap air dengan cara memotong hubungan antara molekul air, kemudian molekul gugus air besar dipisahkan menjadi kluster air yang lebih kecil.</h3>
             </div>
             <div class="slide-image">
               <img src="Assets/NanoCluster.png" alt="Nano Cluster">
@@ -1033,10 +951,8 @@
         <div class="slide">
           <div class="slide-content reverse">
             <div class="slide-text">
-              <h2 data-lang="id">Meningkatkan Kemampuan Tubuh Menyerap Air</h2>
-              <h2 data-lang="en">Increase Body's Ability to Absorb Water</h2>
-              <h3 data-lang="id">Kluster molekul air yang lebih kecil ini mampu menembus dengan lancar ke dalam pembuluh darah kapiler kita. Dengan meminum air yang mengandung lebih sedikit molekul, kita pun dapat menghidrasi tubuh lebih cepat dan efektif dan meningkatkan metabolisme tubuh sehari-hari untuk bekerja lebih baik</h3>
-              <h3 data-lang="en">These smaller water molecule clusters can smoothly penetrate into our capillary blood vessels. By drinking water containing fewer molecules, we can hydrate the body faster and more effectively and increase daily body metabolism to work better</h3>
+              <h2>Meningkatkan Kemampuan Tubuh Menyerap Air</h2>
+              <h3>Kluster molekul air yang lebih kecil ini mampu menembus dengan lancar ke dalam pembuluh darah kapiler kita. Dengan meminum air yang mengandung lebih sedikit molekul, kita pun dapat menghidrasi tubuh lebih cepat dan efektif dan meningkatkan metabolisme tubuh sehari-hari untuk bekerja lebih baik</h3>
             </div>
             <div class="slide-image">
               <img src="Assets/Absorption.png" alt="Absorption">
@@ -1051,16 +967,13 @@
 
   <section class="slider-section" id="vo2max">
     <div class="container">
-      <h1 class="slider-title" data-lang="id">Meningkatkan VO2 Max</h1>
-      <h1 class="slider-title" data-lang="en">Increase VO2 Max</h1>
+      <h1 class="slider-title">Meningkatkan VO2 Max</h1>
       <div class="content-slider">
         <div class="slide active">
           <div class="slide-content">
             <div class="slide-text">
-              <h2 data-lang="id">Apa Itu VO2 Max dan Perannya dalam Daya Tahan Tubuh</h2>
-              <h2 data-lang="en">What is VO2 Max and Its Role in Body Endurance</h2>
-              <h3 data-lang="id">VO2 max adalah tingkat maksimum konsumsi oksigen tubuh selama latihan intensitas tinggi, yang mencerminkan efisiensi tubuh dalam menggunakan oksigen untuk menghasilkan energi. Indikator ini menjadi ukuran utama daya tahan tubuh seseorang.</h3>
-              <h3 data-lang="en">VO2 max is the maximum level of oxygen consumption during high-intensity exercise, reflecting the body's efficiency in using oxygen to produce energy. This indicator is the main measure of a person's endurance.</h3>
+              <h2>Apa Itu VO2 Max dan Perannya dalam Daya Tahan Tubuh</h2>
+              <h3>VO2 max adalah tingkat maksimum konsumsi oksigen tubuh selama latihan intensitas tinggi, yang mencerminkan efisiensi tubuh dalam menggunakan oksigen untuk menghasilkan energi. Indikator ini menjadi ukuran utama daya tahan tubuh seseorang.</h3>
             </div>
             <div class="slide-image">
               <img src="Assets/VO2Max_1.png" alt="VO2Max 1">
@@ -1071,10 +984,8 @@
         <div class="slide">
           <div class="slide-content reverse">
             <div class="slide-text">
-              <h2 data-lang="id">Peningkatan Performa VO2 Max dengan AOI Nano Cluster Water</h2>
-              <h2 data-lang="en">VO2 Max Performance Improvement with AOI Nano Cluster Water</h2>
-              <h3 data-lang="id">AOI Nano Cluster Water membantu tubuh menyerap oksigen lebih optimal melalui kapiler paru-paru. Uji eksperimen menunjukkan peningkatan performa VO2 max rata-rata 13,26%, sehingga tubuh lebih efisien dalam mendukung kinerja fisik dan daya tahan.</h3>
-              <h3 data-lang="en">AOI Nano Cluster Water helps the body absorb oxygen more optimally through lung capillaries. Experimental tests show an average VO2 max performance increase of 13.26%, making the body more efficient in supporting physical performance and endurance.</h3>
+              <h2>Peningkatan Performa VO2 Max dengan AOI Nano Cluster Water</h2>
+              <h3>AOI Nano Cluster Water membantu tubuh menyerap oksigen lebih optimal melalui kapiler paru-paru. Uji eksperimen menunjukkan peningkatan performa VO2 max rata-rata 13,26%, sehingga tubuh lebih efisien dalam mendukung kinerja fisik dan daya tahan.</h3>
             </div>
             <div class="slide-image">
               <img src="Assets/VO2Max_2.png" alt="VO2Max 2">
@@ -1089,16 +1000,13 @@
 
   <section class="slider-section" id="health">
     <div class="container">
-      <h1 class="slider-title" data-lang="id">Diet & Kesehatan</h1>
-      <h1 class="slider-title" data-lang="en">Diet & Health</h1>
+      <h1 class="slider-title">Diet & Kesehatan</h1>
       <div class="content-slider">
         <div class="slide active">
           <div class="slide-content">
             <div class="slide-text">
-              <h2 data-lang="id">Metabolisme yang Tinggi untuk Kecantikan dan Diet</h2>
-              <h2 data-lang="en">High Metabolism for Beauty and Diet</h2>
-              <h3 data-lang="id">AOI Nano Cluster Water membantu meningkatkan metabolisme tubuh melalui efek inframerah ultra-jauh yang memperbaiki kapasitas panas dan konduktivitas termal. Peningkatan metabolisme ini mendukung tubuh tetap langsing serta mempercepat regenerasi kulit.</h3>
-              <h3 data-lang="en">AOI Nano Cluster Water helps increase body metabolism through ultra-far infrared effects that improve heat capacity and thermal conductivity. This metabolic increase supports a slim body and accelerates skin regeneration.</h3>
+              <h2>Metabolisme yang Tinggi untuk Kecantikan dan Diet</h2>
+              <h3>AOI Nano Cluster Water membantu meningkatkan metabolisme tubuh melalui efek inframerah ultra-jauh yang memperbaiki kapasitas panas dan konduktivitas termal. Peningkatan metabolisme ini mendukung tubuh tetap langsing serta mempercepat regenerasi kulit.</h3>
             </div>
             <div class="slide-image">
               <img src="Assets/Health_1.jpg" alt="Health 1">
@@ -1109,10 +1017,8 @@
         <div class="slide">
           <div class="slide-content reverse">
             <div class="slide-text">
-              <h2 data-lang="id">Pembakaran Lemak yang lebih Optimal</h2>
-              <h2 data-lang="en">More Optimal Fat Burning</h2>
-              <h3 data-lang="id">Penelitian menunjukkan AOI Nano Cluster Water dapat menurunkan Asam Lemak Peroksida hingga 17,9% dalam 7 jam, berbeda dengan air keran. Teknologi ini membuat lemak lebih mudah diurai dan meningkatkan efisiensi pembakaran lemak.</h3>
-              <h3 data-lang="en">Research shows AOI Nano Cluster Water can reduce Peroxide Fatty Acids by up to 17.9% in 7 hours, unlike tap water. This technology makes fat easier to break down and increases fat burning efficiency.</h3>
+              <h2>Pembakaran Lemak yang lebih Optimal</h2>
+              <h3>Penelitian menunjukkan AOI Nano Cluster Water dapat menurunkan Asam Lemak Peroksida hingga 17,9% dalam 7 jam, berbeda dengan air keran. Teknologi ini membuat lemak lebih mudah diurai dan meningkatkan efisiensi pembakaran lemak.</h3>
             </div>
             <div class="slide-image">
               <img src="Assets/Health_2.png" alt="Health 2">
@@ -1129,8 +1035,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-left">
-          <h2 data-lang="id">HUBUNGI KAMI</h2>
-          <h2 data-lang="en">CONTACT US</h2>
+          <h2>HUBUNGI KAMI</h2>
           <p>
             PT Santini Logmax Indonesia<br>
             Jl. Komp. Kawasan, RT.10/RW.3, Semper Timur,<br>
@@ -1138,8 +1043,7 @@
             DKI Jakarta 14130
           </p>
           <p><strong>Tel:</strong> +62214400528</p>
-          <p data-lang="id"><strong>Jam Operasional:</strong> 08.00 - 16.30</p>
-          <p data-lang="en"><strong>Operating Hours:</strong> 08.00 - 16.30</p>
+          <p><strong>Jam Operasional:</strong> 08.00 - 16.30</p>
         </div>
 
         <div class="footer-social">
@@ -1169,178 +1073,10 @@
     };
   </script>
 
-  <script>
-    (function() {
-      'use strict';
-
-      // =====================
-      // LOADING SCREEN
-      // =====================
-      window.addEventListener('load', () => {
-        setTimeout(() => {
-          const loader = document.getElementById('loading-screen');
-          if (loader) loader.classList.add('hidden');
-        }, 500);
-      });
-
-      // =====================
-      // MOBILE MENU
-      // =====================
-      window.toggleMobileMenu = function() {
-        const menu = document.getElementById('mobile-menu');
-        const icon = document.querySelector('.hamburger-menu i');
-        menu.classList.toggle('active');
-        icon.className = menu.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
-        document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
-      };
-
-      document.addEventListener('click', (e) => {
-        const menu = document.getElementById('mobile-menu');
-        const hamburger = document.querySelector('.hamburger-menu');
-        if (menu && menu.classList.contains('active') && !menu.contains(e.target) && !hamburger.contains(e.target)) {
-          toggleMobileMenu();
-        }
-      });
-
-      document.addEventListener('keydown', (e) => {
-        const menu = document.getElementById('mobile-menu');
-        if (e.key === 'Escape' && menu && menu.classList.contains('active')) {
-          toggleMobileMenu();
-        }
-      });
-
-      window.addEventListener("DOMContentLoaded", () => {
-        const toggle = document.getElementById("translation-toggle");
-        if (toggle) toggle.style.display = "flex";
-      });
-
-      // =====================
-      // SMOOTH SCROLLING
-      // =====================
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          const href = this.getAttribute('href');
-          if (href === '#') return;
-          e.preventDefault();
-          const target = document.querySelector(href);
-          if (target) {
-            const navbar = document.querySelector('nav');
-            window.scrollTo({
-              top: target.offsetTop - (navbar ? navbar.offsetHeight : 90) - 20,
-              behavior: 'smooth'
-            });
-            const menu = document.getElementById('mobile-menu');
-            if (menu && menu.classList.contains('active')) {
-              toggleMobileMenu();
-            }
-          }
-        });
-      });
-
-      // =====================
-      // SCROLL TO TOP BUTTON
-      // =====================
-      const scrollBtn = document.getElementById('scroll-to-top');
-      if (scrollBtn) {
-        window.addEventListener('scroll', () => {
-          scrollBtn.classList.toggle('visible', window.pageYOffset > 300);
-        }, { passive: true });
-
-        scrollBtn.addEventListener('click', () => {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-      }
-
-      // =====================
-      // INTERSECTION OBSERVER
-      // =====================
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-      // =====================
-      // CONTENT SLIDERS
-      // =====================
-      window.nextSlide = function(sectionId) {
-        const section = document.getElementById(sectionId);
-        if (!section) return;
-        
-        const slides = section.querySelectorAll('.slide');
-        const arrow = section.querySelector('.slider-arrow');
-        
-        slides[sliders[sectionId]].classList.remove('active');
-        
-        if (sliders[sectionId] === slides.length - 1) {
-          sliders[sectionId] = 0;
-          arrow.textContent = '→';
-        } else {
-          sliders[sectionId]++;
-          if (sliders[sectionId] === slides.length - 1) {
-            arrow.textContent = '↻';
-          }
-        }
-        
-        slides[sliders[sectionId]].classList.add('active');
-      };
-
-      window.scrollToSection = function(sectionId) {
-        const section = document.getElementById(sectionId);
-        if (section) {
-          const navbar = document.querySelector('nav');
-          window.scrollTo({
-            top: section.offsetTop - navbar.offsetHeight - 20,
-            behavior: 'smooth'
-          });
-        }
-      };
-
-      // =====================
-      // MANUAL LANGUAGE SWITCHER
-      // =====================
-      window.changeLanguage = function(lang) {
-        console.log('Changing language to:', lang);
-        
-        // Update body class
-        document.body.className = 'lang-' + lang;
-        
-        // Update button states
-        document.querySelectorAll('.lang-btn, .mobile-lang-switcher button').forEach(btn => {
-          btn.classList.remove('active');
-        });
-        
-        // Set active state
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-          if (btn.textContent.trim() === lang.toUpperCase()) {
-            btn.classList.add('active');
-          }
-        });
-        
-        document.querySelectorAll('.mobile-lang-switcher button').forEach(btn => {
-          if ((lang === 'id' && btn.textContent.includes('Indonesian')) ||
-              (lang === 'en' && btn.textContent.includes('English'))) {
-            btn.classList.add('active');
-          }
-        });
-        
-        // Save preference
-        localStorage.setItem('preferredLanguage', lang);
-        
-        console.log('✓ Language changed successfully to:', lang);
-      };
-
-      // Load saved language preference
-      const savedLang = localStorage.getItem('preferredLanguage');
-      if (savedLang) {
-        changeLanguage(savedLang);
-      }
-
-    })();
-  </script>
+  <!-- External JavaScript Files -->
+  <script src="language-switcher.js"></script>
+  <script src="main.js"></script>
 </body>
-</html>
+
+
+        <div class="card fade-in" onclick
